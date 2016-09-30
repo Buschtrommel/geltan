@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/MainView.qml</file>
+        <file>qml/Settings.qml</file>
+        <file>qml/PP/AuthenticationTest.qml</file>
+        <file>qml/PP/AcceptPaypalPayment.qml</file>
+        <file>qml/PP/Transaction.qml</file>
+        <file>qml/PP/Item.qml</file>
+        <file>qml/Web.qml</file>
+        <file>qml/PP/PaymentView.qml</file>
+        <file>qml/PP/Payment.qml</file>
+        <file>qml/PP/TransactionView.qml</file>
+        <file>qml/PP/PaymentAmountView.qml</file>
+        <file>qml/PP/DetailsView.qml</file>
+        <file>qml/PP/ShowPayment.qml</file>
+        <file>qml/PP/AddressView.qml</file>
+        <file>qml/PP/ShippingAddressView.qml</file>
+        <file>qml/PP/PayerView.qml</file>
+        <file>qml/PP/PayerInfoView.qml</file>
+        <file>qml/common/LabeledText.qml</file>
+        <file>qml/PP/PayeeView.qml</file>
+        <file>qml/PP/TransactionPage.qml</file>
+        <file>qml/PP/ItemDisplay.qml</file>
+        <file>qml/PP/PaymentAmount.qml</file>
+        <file>qml/common/LabeledTextField.qml</file>
+    </qresource>
+</RCC>
