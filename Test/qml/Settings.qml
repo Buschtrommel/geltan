@@ -9,6 +9,8 @@ ScrollView {
     width: parent.width
     height: parent.height
 
+    property string pageTitle: "Settings"
+
     Flickable {
         anchors.fill: parent
         contentHeight: mainCol.height
