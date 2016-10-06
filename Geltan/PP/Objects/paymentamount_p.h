@@ -26,6 +26,10 @@
 #include "ppobjectsbase_p.h"
 #include "details.h"
 
+#ifdef QT_DEBUG
+#include <QDebug>
+#endif
+
 namespace Geltan {
 namespace PP {
 
@@ -45,8 +49,15 @@ public:
     {
         bool _v = true;
 
+#ifdef QT_DEBUG
+        qDebug() << "Checking payment amount validity.";
+#endif
+
         if (total == 0.0f || currency.isEmpty()) {
             _v = false;
+#ifdef QT_DEBUG
+            qDebug() << "Total amount is zero or currency is empty!";
+#endif
         }
 
         if (details && _v) {
@@ -58,10 +69,17 @@ public:
             calcTotal += details->shippingDiscount();
             calcTotal += details->giftWrap();
 
-            if (total != calcTotal) {
+            if ((calcTotal > 0.0f) && (total != calcTotal)) {
                 _v = false;
+#ifdef QT_DEBUG
+                qDebug() << "Mismatch between total amount and detail values:" << total << "!=" << calcTotal << "!";
+#endif
             }
         }
+
+#ifdef QT_DEBUG
+        qDebug() << "Payment amount validity:" << _v;
+#endif
 
         if (valid != _v) {
             valid = _v;
