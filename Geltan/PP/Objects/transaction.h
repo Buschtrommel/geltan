@@ -348,7 +348,7 @@ public:
      * \brief Sets the amount of the transaction, with optional details.
      *
      * This will create a new PaymentAmount object as child of the Transaction object
-     * if no such object is already available. If details (suche as subtotal etc.) are used,
+     * if no such object is already available. If details (such as subtotal etc.) are used,
      * a Details object will be created as child of the PaymentAmount object, if not already present.
      */
     void setPaymentAmount(const QString &currency, float total, float subtotal = 0.0, float shipping = 0.0, float tax = 0.0, float handlingFee = 0.0, float shippingDiscount = 0.0, float insurance = 0.0, float giftWrap = 0.0);
