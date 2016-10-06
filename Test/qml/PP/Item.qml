@@ -120,42 +120,51 @@ ScrollView {
             }
 
             GroupBox {
-                title: "Price, Tax & Currency"
+                title: "Price, Tax and Currency"
                 Layout.fillWidth: true
 
-                ColumnLayout {
+                RowLayout {
                     anchors.fill: parent
 
-                    Text { text: "Price" }
+                    ColumnLayout {
 
-                    TextField {
-                        id: totalAmountField
-                        placeholderText: "Price"
-                        Layout.fillWidth: true
-                        text: item.price
-                        inputMethodHints: Qt.ImhFormattedNumbersOnly
-                        onTextChanged: if (text.length > 0) { item.price = parseFloat(text) } else { item.price = 0.0 }
+                        Text { text: "Price" }
+
+                        TextField {
+                            id: totalAmountField
+                            placeholderText: "Price"
+                            Layout.fillWidth: true
+                            text: item.price
+                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            onTextChanged: if (text.length > 0) { item.price = parseFloat(text) } else { item.price = 0.0 }
+                        }
                     }
 
-                    Text { text: "Tax" }
+                    ColumnLayout {
 
-                    TextField {
-                        id: taxField
-                        placeholderText: "Tax"
-                        Layout.fillWidth: true
-                        text: item.tax
-                        inputMethodHints: Qt.ImhFormattedNumbersOnly
-                        onTextChanged: if (text.length > 0) { item.tax = parseFloat(text) } else { item.tax = 0.0 }
+                        Text { text: "Tax" }
+
+                        TextField {
+                            id: taxField
+                            placeholderText: "Tax"
+                            Layout.fillWidth: true
+                            text: item.tax
+                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            onTextChanged: if (text.length > 0) { item.tax = parseFloat(text) } else { item.tax = 0.0 }
+                        }
                     }
 
-                    Text { text: "Currency" }
+                    ColumnLayout {
 
-                    TextField {
-                        id: totalAmountCurrency
-                        placeholderText: "Currency"
-                        Layout.fillWidth: true
-                        text: item.currency
-                        onTextChanged: item.currency = text
+                        Text { text: "Currency" }
+
+                        TextField {
+                            id: totalAmountCurrency
+                            placeholderText: "Currency"
+                            Layout.fillWidth: true
+                            text: item.currency
+                            onTextChanged: item.currency = text
+                        }
                     }
                 }
             }
