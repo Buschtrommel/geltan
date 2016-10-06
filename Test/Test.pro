@@ -2,7 +2,7 @@ TEMPLATE = app
 
 TARGET = geltanTest
 
-QT += network quick widgets qml webengine
+QT += network quick widgets qml webkit
 
 CONFIG += c++11
 

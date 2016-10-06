@@ -2,7 +2,8 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.1
-import QtWebEngine 1.2
+//import QtWebEngine 1.2
+import QtWebKit 3.0
 import Buschtrommel.Geltan.PayPal 1.0
 
 ScrollView {
@@ -62,7 +63,7 @@ ScrollView {
                 tokenType: config.payPalTokenType
                 onSucceeded: {
                     if (payment) {
-                        compLoader.setSource("PaymentView.qml", {"p": payment})
+                        compLoader.setSource("PaymentView.qml", {"py": payment})
                     }
                 }
             }
@@ -72,7 +73,8 @@ ScrollView {
             id: payButton
             text: "Pay with PayPal"
             anchors { top: compLoader.bottom; horizontalCenter: parent.horizontalCenter; margins: margin }
-            onClicked: ppCreatePayment.call()
+//            onClicked: ppCreatePayment.call()
+            onClicked: { payButton.visible = false; ppCreatePayment.call() }
             visible: compLoader.item !== null && compLoader.item.objectName === "paymentData"
         }
 
@@ -80,7 +82,8 @@ ScrollView {
         Component {
             id: authWeb
 
-            WebEngineView {
+//            WebEngineView {
+            WebView {
                 id: webViewEngine
                 anchors.fill: parent
                 visible: !execPayment.inOperation

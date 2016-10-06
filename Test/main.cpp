@@ -17,6 +17,7 @@
 #include <QApplication>
 #include <QtQml>
 #include <QQmlContext>
+//#include <QtWebEngine>
 
 #include "gtconfig.h"
 #include "PP/authenticationtest.h"
@@ -66,6 +67,8 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain(QStringLiteral("buschmann23.de"));
     app.setOrganizationName(QStringLiteral("Buschtrommel"));
     app.setApplicationVersion(QStringLiteral("0.0.1"));
+
+//    QtWebEngine::initialize();
 
     GeltanTest::GtConfig config;
 
