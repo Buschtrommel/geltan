@@ -12,6 +12,7 @@ ColumnLayout {
     LabeledText { label: "ID"; text: py.id }
     LabeledText { label: "State"; text: py.state }
     LabeledText { label: "Created"; text: Qt.formatDateTime(py.createTime, Qt.DefaultLocaleShortDate) }
+    LabeledText { label: "Updated"; text: Qt.formatDateTime(py.updateTime, Qt.DefaultLocaleShortDate) }
 
     Label { text: "Payer"; font.bold: true; font.underline: true }
 
