@@ -143,7 +143,7 @@ ScrollView {
                         id: taxField
                         placeholderText: "Tax"
                         Layout.fillWidth: true
-                        text: item.price
+                        text: item.tax
                         inputMethodHints: Qt.ImhFormattedNumbersOnly
                         onTextChanged: if (text.length > 0) { item.tax = parseFloat(text) } else { item.tax = 0.0 }
                     }
@@ -161,7 +161,7 @@ ScrollView {
             }
 
             GroupBox {
-                title: "URL"
+                title: "URL (optional)"
                 Layout.fillWidth: true
 
                 ColumnLayout {
@@ -171,7 +171,7 @@ ScrollView {
                         id: urlField
                         placeholderText: "Quantity"
                         Layout.fillWidth: true
-                        text: item.quantity
+                        text: item.url
                         inputMethodHints: Qt.ImhDigitsOnly
                         onTextChanged: item.url = text
                     }
