@@ -230,7 +230,8 @@ bool CreatePayment::checkInput()
                     ilTax += (it->tax() * it->quantity());
                 }
 
-                if (ilTotal != t->amount()->total()) {
+
+                if (!t->amount()->details() && ilTotal != t->amount()->total()) {
                     setError(new Error(Error::InputError, tr("The sum of all item prices in a transaction has to be the same as the total amount of the transaction."), Error::Critical, QString(), this));
                     return false;
                 }
