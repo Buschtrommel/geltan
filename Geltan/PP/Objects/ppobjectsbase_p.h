@@ -36,7 +36,7 @@ public:
     }
 
     void addFloatToVariantMap(QVariantMap *map, const QString &key, float value, int maxLength = 10, int maxDecPlaces = 2) {
-        if (!map || key.isEmpty()) {
+        if (!map || key.isEmpty() || value == 0.0f) {
             return;
         }
 
