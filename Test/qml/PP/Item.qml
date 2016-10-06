@@ -169,7 +169,7 @@ ScrollView {
 
                     TextField {
                         id: urlField
-                        placeholderText: "Quantity"
+                        placeholderText: "URL"
                         Layout.fillWidth: true
                         text: item.url
                         inputMethodHints: Qt.ImhDigitsOnly

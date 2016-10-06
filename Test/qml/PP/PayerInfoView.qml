@@ -33,20 +33,20 @@ Item {
 
         LabeledText { label: "Country Code"; text: pi ? pi.countryCode : "" }
 
-        Label { text: "Payer Shipping Address"; font.bold: true; visible: pi.shippingAddress }
+        Label { text: "Payer Shipping Address"; font.bold: true; visible: pi && pi.shippingAddress }
 
         ShippingAddressView {
             Layout.fillWidth: true
             a: pi.shippingAddress
-            visible: pi.shippingAddress
+            visible: pi && pi.shippingAddress
         }
 
-        Label { text: "Payer Billing Address"; font.bold: true; visible: pi.billingAddress }
+        Label { text: "Payer Billing Address"; font.bold: true; visible: pi && pi.billingAddress }
 
         AddressView {
             Layout.fillWidth: true
             a: pi.billingAddress
-            visible: pi.billingAddress
+            visible: pi && pi.billingAddress
         }
     }
 

@@ -15,7 +15,7 @@ Item {
         LabeledText { label: "Status"; text: p ? p.status : "" }
 
         PayerInfoView {
-            pi: p ? p.payerInfo : null
+            pi: p && p.payerInfo ? p.payerInfo : null
             Layout.fillWidth: true
         }
     }

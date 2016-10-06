@@ -23,7 +23,7 @@ ColumnLayout {
                 placeholderText: "Return URL"
                 Layout.fillWidth: true
                 inputMethodHints: Qt.ImhUrlCharactersOnly
-                text: p ? p.redirectUrls.returnUrl.toString() : ""
+                text: p && p.redirectUrls ? p.redirectUrls.returnUrl.toString() : ""
                 onTextChanged: if (p.redirectUrls) { p.redirectUrls.returnUrl = returnUrlField.text }
             }
 
@@ -32,7 +32,7 @@ ColumnLayout {
                 placeholderText: "Cancel URL"
                 Layout.fillWidth: true
                 inputMethodHints: Qt.ImhUrlCharactersOnly
-                text: p ? p.redirectUrls.cancelUrl.toString() : ""
+                text: p && p.redirectUrls ? p.redirectUrls.cancelUrl.toString() : ""
                 onTextChanged: if (p.redirectUrls) { p.redirectUrls.cancelUrl = cancelUrlField.text }
             }
         }
