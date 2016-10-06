@@ -56,7 +56,7 @@ class GELTANSHARED_EXPORT FMFDetails : public QObject
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>filterTypeChanged(FilterType filterType)</TD></TR></TABLE>
      */
-    Q_PROPERTY(FilterType filterType READ filterType NOTIFY filterTypeChanged)
+    Q_PROPERTY(Geltan::PP::FMFDetails::FilterType filterType READ filterType NOTIFY filterTypeChanged)
     /*!
      * \brief Filter identifier.
      *
@@ -67,7 +67,7 @@ class GELTANSHARED_EXPORT FMFDetails : public QObject
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>filterIdChanged(FilterIdentifier filterId)</TD></TR></TABLE>
      */
-    Q_PROPERTY(FilterIdentifier filterId READ filterId NOTIFY filterIdChanged)
+    Q_PROPERTY(Geltan::PP::FMFDetails::FilterIdentifier filterId READ filterId NOTIFY filterIdChanged)
     /*!
      * \brief Name of the filter.
      *
