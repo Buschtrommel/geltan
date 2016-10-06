@@ -93,13 +93,13 @@ HEADERS += geltan_global.h \
     PP/Objects/fundinginstrument_p.h \
     PP/Objects/payment.h \
     PP/Objects/payment_p.h \
-    PP/createpayment.h \
-    PP/createpayment_p.h \
+    PP/Payments/create.h \
+    PP/Payments/create_p.h \
     PP/ppenumsmap.h \
-    PP/executepayment.h \
-    PP/executepayment_p.h \
-    PP/showpayment.h \
-    PP/showpayment_p.h \
+    PP/Payments/execute.h \
+    PP/Payments/execute_p.h \
+    PP/Payments/show.h \
+    PP/Payments/show_p.h \
     PP/Objects/payee.h \
     PP/Objects/payee_p.h
 
@@ -136,8 +136,8 @@ SOURCES += \
     PP/Objects/redirecturls.cpp \
     PP/Objects/fundinginstrument.cpp \
     PP/Objects/payment.cpp \
-    PP/createpayment.cpp \
+    PP/Payments/create.cpp \
     PP/ppenumsmap.cpp \
-    PP/executepayment.cpp \
-    PP/showpayment.cpp \
+    PP/Payments/execute.cpp \
+    PP/Payments/show.cpp \
     PP/Objects/payee.cpp

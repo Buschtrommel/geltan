@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * executepayment.cpp
+ * Geltan/PP/Payments/execute.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,20 +19,21 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#include "executepayment_p.h"
+#include "execute_p.h"
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QUrl>
 #include <QUrlQuery>
-#include "Objects/paymentamount.h"
+#include <Geltan/PP/Objects/paymentamount.h>
 
 using namespace Geltan;
 using namespace PP;
+using namespace Payments;
 
-ExecutePayment::ExecutePayment(QObject *parent) : PPBase(*new ExecutePaymentPrivate, parent)
+Execute::Execute(QObject *parent) : PPBase(*new ExecutePrivate, parent)
 {
-    Q_D(ExecutePayment);
+    Q_D(Execute);
     d->payment = nullptr;
     setNetworkOperation(QNetworkAccessManager::PostOperation);
     setExpectedType(PPBase::Object);
@@ -40,21 +41,21 @@ ExecutePayment::ExecutePayment(QObject *parent) : PPBase(*new ExecutePaymentPriv
 }
 
 
-ExecutePayment::ExecutePayment(ExecutePaymentPrivate &dd, QObject *parent) : PPBase(dd, parent)
+Execute::Execute(ExecutePrivate &dd, QObject *parent) : PPBase(dd, parent)
 {
 
 }
 
 
 
-ExecutePayment::~ExecutePayment()
+Execute::~Execute()
 {
 
 }
 
 
 
-void ExecutePayment::call()
+void Execute::call()
 {
     if (payment()) {
         setPaymentId(payment()->id());
@@ -91,7 +92,7 @@ void ExecutePayment::call()
 
 
 
-void ExecutePayment::call(const QString &paymentId, const QString &payerId)
+void Execute::call(const QString &paymentId, const QString &payerId)
 {
     setPaymentId(paymentId);
     setPayerId(payerId);
@@ -100,7 +101,7 @@ void ExecutePayment::call(const QString &paymentId, const QString &payerId)
 }
 
 
-void ExecutePayment::call(const QUrl &returnUrl)
+void Execute::call(const QUrl &returnUrl)
 {
     if (!returnUrl.isValid() || !returnUrl.hasQuery()) {
         setError(new Error(Error::InputError, tr("Invalid return URL."), Error::Critical, returnUrl.toString(), this));
@@ -114,7 +115,7 @@ void ExecutePayment::call(const QUrl &returnUrl)
 
 
 
-void ExecutePayment::successCallBack()
+void Execute::successCallBack()
 {
     if (payment()) {
         payment()->loadFromJson(jsonResult());
@@ -128,7 +129,7 @@ void ExecutePayment::successCallBack()
 
 
 
-void ExecutePayment::errorCallBack()
+void Execute::errorCallBack()
 {
     setInOperation(false);
     Q_EMIT failed();
@@ -137,7 +138,7 @@ void ExecutePayment::errorCallBack()
 
 
 
-bool ExecutePayment::checkInput()
+bool Execute::checkInput()
 {
     if (paymentId().isEmpty()) {
         setError(new Error(Error::InputError, tr("You have to set a payment ID in order to execute a payment."), Error::Critical, QString(), this));
@@ -154,7 +155,7 @@ bool ExecutePayment::checkInput()
 
 
 
-bool ExecutePayment::checkOutput()
+bool Execute::checkOutput()
 {
     if (PPBase::checkOutput()) {
         return true;
@@ -165,11 +166,11 @@ bool ExecutePayment::checkOutput()
 
 
 
-Payment *ExecutePayment::payment() const { Q_D(const ExecutePayment); return d->payment; }
+Payment *Execute::payment() const { Q_D(const Execute); return d->payment; }
 
-void ExecutePayment::setPayment(Payment *nPayment)
+void Execute::setPayment(Payment *nPayment)
 {
-    Q_D(ExecutePayment);
+    Q_D(Execute);
     if (nPayment != d->payment) {
         d->payment = nPayment;
 #ifdef QT_DEBUG
@@ -182,11 +183,11 @@ void ExecutePayment::setPayment(Payment *nPayment)
 
 
 
-QString ExecutePayment::payerId() const { Q_D(const ExecutePayment); return d->payerId; }
+QString Execute::payerId() const { Q_D(const Execute); return d->payerId; }
 
-void ExecutePayment::setPayerId(const QString &nPayerId)
+void Execute::setPayerId(const QString &nPayerId)
 {
-    Q_D(ExecutePayment);
+    Q_D(Execute);
     if (nPayerId != d->payerId) {
         d->payerId = nPayerId;
 #ifdef QT_DEBUG
@@ -199,11 +200,11 @@ void ExecutePayment::setPayerId(const QString &nPayerId)
 
 
 
-QString ExecutePayment::paymentId() const { Q_D(const ExecutePayment); return d->paymentId; }
+QString Execute::paymentId() const { Q_D(const Execute); return d->paymentId; }
 
-void ExecutePayment::setPaymentId(const QString &nPaymentId)
+void Execute::setPaymentId(const QString &nPaymentId)
 {
-    Q_D(ExecutePayment);
+    Q_D(Execute);
     if (nPaymentId != d->paymentId) {
         d->paymentId = nPaymentId;
 #ifdef QT_DEBUG
@@ -216,11 +217,11 @@ void ExecutePayment::setPaymentId(const QString &nPaymentId)
 
 
 
-QList<Transaction*> ExecutePayment::transactions() const { Q_D(const ExecutePayment); return d->transactions; }
+QList<Transaction*> Execute::transactions() const { Q_D(const Execute); return d->transactions; }
 
-void ExecutePayment::setTransactions(const QList<Transaction*> &nTransactions)
+void Execute::setTransactions(const QList<Transaction*> &nTransactions)
 {
-    Q_D(ExecutePayment);
+    Q_D(Execute);
     if (nTransactions != d->transactions) {
         d->transactions = nTransactions;
 #ifdef QT_DEBUG

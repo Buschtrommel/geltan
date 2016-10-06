@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * createpayment.cpp
+ * Geltan/PP/Payments/create.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,9 +19,9 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#include "createpayment_p.h"
-#include "Objects/payer.h"
-#include "Objects/redirecturls.h"
+#include "create_p.h"
+#include <Geltan/PP/Objects/payer.h>
+#include <Geltan/PP/Objects/redirecturls.h>
 #include <Geltan/PP/Objects/transaction.h>
 #include <Geltan/PP/Objects/itemlist.h>
 #include <Geltan/PP/Objects/item.h>
@@ -32,10 +32,11 @@
 
 using namespace Geltan;
 using namespace PP;
+using namespace Payments;
 
-CreatePayment::CreatePayment(QObject *parent) : PPBase(*new CreatePaymentPrivate, parent)
+Create::Create(QObject *parent) : PPBase(*new CreatePrivate, parent)
 {
-    Q_D(CreatePayment);
+    Q_D(Create);
     d->payment = nullptr;
     setApiPath(QStringLiteral("/v1/payments/payment"));
     setNetworkOperation(QNetworkAccessManager::PostOperation);
@@ -44,21 +45,21 @@ CreatePayment::CreatePayment(QObject *parent) : PPBase(*new CreatePaymentPrivate
 }
 
 
-CreatePayment::CreatePayment(CreatePaymentPrivate &dd, QObject *parent) : PPBase(dd, parent)
+Create::Create(CreatePrivate &dd, QObject *parent) : PPBase(dd, parent)
 {
 
 }
 
 
 
-CreatePayment::~CreatePayment()
+Create::~Create()
 {
 
 }
 
 
 
-void CreatePayment::call()
+void Create::call()
 {
     if (!payment()) {
         setError(new Error(Error::InputError, tr("No valid payment data available."), Error::Critical, QString(), this));
@@ -76,7 +77,7 @@ void CreatePayment::call()
 
 
 
-void CreatePayment::successCallBack()
+void Create::successCallBack()
 {
     if (payment()) {
         payment()->loadFromJson(jsonResult());
@@ -90,7 +91,7 @@ void CreatePayment::successCallBack()
 
 
 
-void CreatePayment::errorCallBack()
+void Create::errorCallBack()
 {
     setInOperation(false);
     Q_EMIT failed();
@@ -98,9 +99,9 @@ void CreatePayment::errorCallBack()
 
 
 
-bool CreatePayment::checkInput()
+bool Create::checkInput()
 {
-    Q_D(CreatePayment);
+    Q_D(Create);
 
     if (!d->payment) {
         setError(new Error(Error::InputError, tr("No valid payment data available."), Error::Critical, QString(), this));
@@ -260,7 +261,7 @@ bool CreatePayment::checkInput()
 
 
 
-bool CreatePayment::checkOutput()
+bool Create::checkOutput()
 {
     if (PPBase::checkOutput()) {
 
@@ -290,11 +291,11 @@ bool CreatePayment::checkOutput()
 
 
 
-Payment *CreatePayment::payment() const { Q_D(const CreatePayment); return d->payment; }
+Payment *Create::payment() const { Q_D(const Create); return d->payment; }
 
-void CreatePayment::setPayment(Payment *nPayment)
+void Create::setPayment(Payment *nPayment)
 {
-    Q_D(CreatePayment);
+    Q_D(Create);
     if (nPayment != d->payment) {
         d->payment = nPayment;
 #ifdef QT_DEBUG
@@ -307,7 +308,7 @@ void CreatePayment::setPayment(Payment *nPayment)
 
 
 
-Payment *CreatePayment::newPayment()
+Payment *Create::newPayment()
 {
     Payment *curPayment = payment();
 

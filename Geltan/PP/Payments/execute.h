@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * executepayment.h
+ * Geltan/PP/Payments/execute.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,24 +31,27 @@ class QUrl;
 namespace Geltan {
 namespace PP {
 
-class ExecutePaymentPrivate;
 class Payment;
 class Transaction;
+
+namespace Payments {
+
+class ExecutePrivate;
 
 /*!
  * \brief Executes a PayPal payment.
  *
- * \headerfile "" <Geltan/PP/executepayment.h>
+ * \headerfile "" <Geltan/PP/Payments/execute.h>
  * \since 0.0.1
  * \version 0.0.1
  * \date 2016-09-27
  * \author Buschmann
  * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
-class GELTANSHARED_EXPORT ExecutePayment : public PPBase
+class GELTANSHARED_EXPORT Execute : public PPBase
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(ExecutePayment)
+    Q_DECLARE_PRIVATE(Execute)
     /*!
      * \brief Payment object to execute.
      *
@@ -87,14 +90,14 @@ class GELTANSHARED_EXPORT ExecutePayment : public PPBase
     Q_PROPERTY(QList<Geltan::PP::Transaction*> transactions READ transactions WRITE setTransactions NOTIFY transactionsChanged)
 public:
     /*!
-     * \brief Constructs a new ExecutePayment object.
+     * \brief Constructs a new Execute object.
      */
-    explicit ExecutePayment(QObject *parent = nullptr);
+    explicit Execute(QObject *parent = nullptr);
 
     /*!
-     * \brief Deconstructs the ExecutePayment object.
+     * \brief Deconstructs the Execute object.
      */
-    virtual ~ExecutePayment();
+    virtual ~Execute();
 
     /*!
      * \brief Invokes the API call.
@@ -147,12 +150,13 @@ protected:
     bool checkInput() Q_DECL_OVERRIDE;
     bool checkOutput() Q_DECL_OVERRIDE;
 
-    ExecutePayment(ExecutePaymentPrivate &dd, QObject *parent = nullptr);
+    Execute(ExecutePrivate &dd, QObject *parent = nullptr);
 
 private:
-    Q_DISABLE_COPY(ExecutePayment)
+    Q_DISABLE_COPY(Execute)
 };
 
+}
 }
 }
 

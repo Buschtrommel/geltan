@@ -53,9 +53,9 @@
 #include <Geltan/PP/Objects/transaction.h>
 #include <Geltan/PP/Objects/payee.h>
 
-#include <Geltan/PP/createpayment.h>
-#include <Geltan/PP/executepayment.h>
-#include <Geltan/PP/showpayment.h>
+#include <Geltan/PP/Payments/create.h>
+#include <Geltan/PP/Payments/execute.h>
+#include <Geltan/PP/Payments/show.h>
 
 #include <QDebug>
 
@@ -103,9 +103,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<Geltan::PP::Transaction>("Buschtrommel.Geltan.PayPal", 1, 0, "PPTransaction");
     qmlRegisterType<Geltan::PP::Payee>("Buschtrommel.Geltan.PayPal", 1, 0, "PPPayee");
 
-    qmlRegisterType<Geltan::PP::CreatePayment>("Buschtrommel.Geltan.PayPal", 1, 0, "PPCreatePayment");
-    qmlRegisterType<Geltan::PP::ExecutePayment>("Buschtrommel.Geltan.PayPal", 1, 0, "PPExecutePayment");
-    qmlRegisterType<Geltan::PP::ShowPayment>("Buschtrommel.Geltan.PayPal", 1, 0, "PPShowPayment");
+    qmlRegisterType<Geltan::PP::Payments::Create>("Buschtrommel.Geltan.PayPal", 1, 0, "PPCreatePayment");
+    qmlRegisterType<Geltan::PP::Payments::Execute>("Buschtrommel.Geltan.PayPal", 1, 0, "PPExecutePayment");
+    qmlRegisterType<Geltan::PP::Payments::Show>("Buschtrommel.Geltan.PayPal", 1, 0, "PPShowPayment");
 
     qmlRegisterType<GeltanTest::AuthenticationTest>("Buschtrommel.Geltan.PayPalTests", 1, 0, "PPAuthenticationTest");
 

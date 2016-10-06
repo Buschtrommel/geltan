@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * showpayment.cpp
+ * Geltan/PP/Payments/show.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,14 +19,15 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#include "showpayment_p.h"
+#include "show_p.h"
 
 using namespace Geltan;
 using namespace PP;
+using namespace Payments;
 
-ShowPayment::ShowPayment(QObject *parent) : PPBase(*new ShowPaymentPrivate, parent)
+Show::Show(QObject *parent) : PPBase(*new ShowPrivate, parent)
 {
-    Q_D(ShowPayment);
+    Q_D(Show);
     d->payment = nullptr;
     setNetworkOperation(QNetworkAccessManager::GetOperation);
     setExpectedType(PPBase::Object);
@@ -34,23 +35,23 @@ ShowPayment::ShowPayment(QObject *parent) : PPBase(*new ShowPaymentPrivate, pare
 }
 
 
-ShowPayment::ShowPayment(ShowPaymentPrivate &dd, QObject *parent) : PPBase(dd, parent)
+Show::Show(ShowPrivate &dd, QObject *parent) : PPBase(dd, parent)
 {
 
 }
 
 
 
-ShowPayment::~ShowPayment()
+Show::~Show()
 {
 
 }
 
 
 
-void ShowPayment::call()
+void Show::call()
 {
-    Q_D(ShowPayment);
+    Q_D(Show);
 
     setError(nullptr);
     setInOperation(true);
@@ -72,7 +73,7 @@ void ShowPayment::call()
 
 
 
-void ShowPayment::call(const QString &paymentId)
+void Show::call(const QString &paymentId)
 {
     setPaymentId(paymentId);
     call();
@@ -80,9 +81,9 @@ void ShowPayment::call(const QString &paymentId)
 
 
 
-void ShowPayment::successCallBack()
+void Show::successCallBack()
 {
-    Q_D(ShowPayment);
+    Q_D(Show);
 
     d->payment = new Payment(jsonResult(), this);
     Q_EMIT paymentChanged(payment());
@@ -93,7 +94,7 @@ void ShowPayment::successCallBack()
 
 
 
-void ShowPayment::errorCallBack()
+void Show::errorCallBack()
 {
     setInOperation(false);
     Q_EMIT failed();
@@ -101,7 +102,7 @@ void ShowPayment::errorCallBack()
 
 
 
-bool ShowPayment::checkInput()
+bool Show::checkInput()
 {
     if (paymentId().isEmpty()) {
         setError(new Error(Error::InputError, tr("You have to set a payment ID in order to request payment details."), Error::Critical, QString(), this));
@@ -113,7 +114,7 @@ bool ShowPayment::checkInput()
 
 
 
-bool ShowPayment::checkOutput()
+bool Show::checkOutput()
 {
     if (PPBase::checkOutput()) {
         return true;
@@ -123,11 +124,11 @@ bool ShowPayment::checkOutput()
 }
 
 
-QString ShowPayment::paymentId() const { Q_D(const ShowPayment); return d->paymentId; }
+QString Show::paymentId() const { Q_D(const Show); return d->paymentId; }
 
-void ShowPayment::setPaymentId(const QString &nPaymentId)
+void Show::setPaymentId(const QString &nPaymentId)
 {
-    Q_D(ShowPayment);
+    Q_D(Show);
     if (nPaymentId != d->paymentId) {
         d->paymentId = nPaymentId;
 #ifdef QT_DEBUG
@@ -138,4 +139,4 @@ void ShowPayment::setPaymentId(const QString &nPaymentId)
 }
 
 
-Payment *ShowPayment::payment() const { Q_D(const ShowPayment); return d->payment; }
+Payment *Show::payment() const { Q_D(const Show); return d->payment; }

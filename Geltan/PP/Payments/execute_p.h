@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * executepayment_p.h
+ * Geltan/PP/Payments/execute_p.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,15 +22,16 @@
 #ifndef EXECUTEPAYMENT_P_H
 #define EXECUTEPAYMENT_P_H
 
-#include "executepayment.h"
-#include "ppbase_p.h"
-#include "Objects/payment.h"
-#include "Objects/transaction.h"
+#include "execute.h"
+#include "../ppbase_p.h"
+#include "../Objects/payment.h"
+#include "../Objects/transaction.h"
 
 namespace Geltan {
 namespace PP {
+namespace Payments {
 
-class ExecutePaymentPrivate : public PPBasePrivate {
+class ExecutePrivate : public PPBasePrivate {
 public:
     Payment *payment;
     QString payerId;
@@ -38,6 +39,7 @@ public:
     QList<Transaction*> transactions;
 };
 
+}
 }
 }
 

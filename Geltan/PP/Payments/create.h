@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * createpayment.h
+ * Geltan/PP/Payments/create.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,26 +27,29 @@
 #include <Geltan/PP/ppbase.h>
 
 namespace Geltan {
-
 namespace PP {
 
-class CreatePaymentPrivate;
 class Payment;
+
+namespace Payments {
+
+class CreatePrivate;
+
 
 /*!
  * \brief Create new PayPal payment.
  *
- * \headerfile "" <Geltan/PP/createpayment.h>
+ * \headerfile "" <Geltan/PP/Payments/create.h>
  * \since 0.0.1
  * \version 0.0.1
  * \date 2016-09-08
  * \author Buschmann
  * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
-class GELTANSHARED_EXPORT CreatePayment : public PPBase
+class GELTANSHARED_EXPORT Create : public PPBase
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(CreatePayment)
+    Q_DECLARE_PRIVATE(Create)
     /*!
      * \brief The payment that should be created.
      *
@@ -60,14 +63,14 @@ class GELTANSHARED_EXPORT CreatePayment : public PPBase
     Q_PROPERTY(Geltan::PP::Payment *payment READ payment WRITE setPayment NOTIFY paymentChanged)
 public:
     /*!
-     * \brief Constructs a new CreatePayment object.
+     * \brief Constructs a new Create object.
      */
-    explicit CreatePayment(QObject *parent = nullptr);
+    explicit Create(QObject *parent = nullptr);
 
     /*!
-     * \brief Deconstructs the CreatePayment object.
+     * \brief Deconstructs the Create object.
      */
-    virtual ~CreatePayment();
+    virtual ~Create();
 
     /*!
      * \brief Invokes the API call.
@@ -80,8 +83,8 @@ public:
     /*!
      * \brief Creates a new empty/invalid Payment object and returns a pointer to it.
      *
-     * If there is already a payment set, it will be deleted if this CreatePayment object is the parent object.
-     * If a new payment is created, the CreatePayment object will be the parent object. Also a new Payer object
+     * If there is already a payment set, it will be deleted if this Create object is the parent object.
+     * If a new payment is created, the Create object will be the parent object. Also a new Payer object
      * will be created as child of the Payment object. The Payer object will be empty.
      */
     Q_INVOKABLE Geltan::PP::Payment *newPayment();
@@ -103,12 +106,13 @@ protected:
     bool checkInput() Q_DECL_OVERRIDE;
     bool checkOutput() Q_DECL_OVERRIDE;
 
-    CreatePayment(CreatePaymentPrivate &dd, QObject *parent = nullptr);
+    Create(CreatePrivate &dd, QObject *parent = nullptr);
 
 private:
-    Q_DISABLE_COPY(CreatePayment)
+    Q_DISABLE_COPY(Create)
 };
 
+}
 }
 }
 

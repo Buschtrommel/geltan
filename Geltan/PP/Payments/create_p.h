@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * createpayment_p.h
+ * Geltan/PP/Payments/create_p.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,18 +22,20 @@
 #ifndef CREATEPAYMENT_P_H
 #define CREATEPAYMENT_P_H
 
-#include "createpayment.h"
-#include "ppbase_p.h"
-#include "Objects/payment.h"
+#include "create.h"
+#include "../ppbase_p.h"
+#include "../Objects/payment.h"
 
 namespace Geltan {
 namespace PP {
+namespace Payments {
 
-class CreatePaymentPrivate : public PPBasePrivate {
+class CreatePrivate : public PPBasePrivate {
 public:
     Payment *payment;
 };
 
+}
 }
 }
 

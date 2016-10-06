@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * showpayment.h
+ * Geltan/PP/Payments/show.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,13 +29,26 @@
 namespace Geltan {
 namespace PP {
 
-class ShowPaymentPrivate;
 class Payment;
 
-class GELTANSHARED_EXPORT ShowPayment : public PPBase
+namespace Payments {
+
+class ShowPrivate;
+
+/*!
+ * \brief Requests information about a PayPal payment.
+ *
+ * \headerfile "" <Geltan/PP/Payments/show.h>
+ * \since 0.0.1
+ * \version 0.0.1
+ * \date 2016-09-08
+ * \author Buschmann
+ * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
+ */
+class GELTANSHARED_EXPORT Show : public PPBase
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(ShowPayment)
+    Q_DECLARE_PRIVATE(Show)
     /*!
      * \brief Will contain the requested Payment object.
      *
@@ -58,12 +71,12 @@ public:
     /*!
      * \brief Constructs a new ShowPayment object.
      */
-    explicit ShowPayment(QObject *parent = nullptr);
+    explicit Show(QObject *parent = nullptr);
 
     /*!
      * \brief Deconstructs the ShowPayment object.
      */
-    virtual ~ShowPayment();
+    virtual ~Show();
 
     /*!
      * \brief Invokes the API call.
@@ -104,12 +117,13 @@ protected:
     bool checkInput() Q_DECL_OVERRIDE;
     bool checkOutput() Q_DECL_OVERRIDE;
 
-    ShowPayment(ShowPaymentPrivate &dd, QObject *parent = nullptr);
+    Show(ShowPrivate &dd, QObject *parent = nullptr);
 
 private:
-    Q_DISABLE_COPY(ShowPayment)
+    Q_DISABLE_COPY(Show)
 };
 
+}
 }
 }
 
