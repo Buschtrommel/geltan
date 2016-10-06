@@ -44,7 +44,7 @@ Item {
             Layout.fillWidth: true
         }
 
-        Label { text: "Items"; font.bold: true; visible: t && t.itemList }
+        Label { text: "Items"; font.bold: true; visible: t && t.itemList; font.underline: true }
 
         Repeater {
             model: t ? t.itemList : null
@@ -58,6 +58,23 @@ Item {
                     i: model.item
                     Layout.fillWidth: true
                     labelMinWidth: 90 - noText.width - parent.spacing
+                }
+            }
+        }
+
+        Label { text: "Related"; font.bold: true; font.underline: true }
+
+        Repeater {
+
+            model: t
+
+            Loader {
+                id: relLoader
+                Layout.fillWidth: true
+                Component.onCompleted: {
+                    if (model.sale) {
+                        relLoader.setSource(Qt.resolvedUrl("SaleView.qml"), {"s": model.sale, "label": "Sale"})
+                    }
                 }
             }
         }

@@ -19,7 +19,7 @@ ScrollView {
     Flickable {
         id: ppTransactionPageFlick
         anchors.fill: parent
-        contentHeight: trView.height
+        contentHeight: trView.height + margin
 
         TransactionView {
             id: trView

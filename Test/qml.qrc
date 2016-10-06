@@ -24,5 +24,10 @@
         <file>qml/PP/ItemDisplay.qml</file>
         <file>qml/PP/PaymentAmount.qml</file>
         <file>qml/common/LabeledTextField.qml</file>
+        <file>qml/PP/SaleView.qml</file>
+        <file>qml/common/LabeledTextList.qml</file>
+        <file>qml/PP/CurrencyView.qml</file>
+        <file>qml/PP/FMFDetailsView.qml</file>
+        <file>qml/PP/ProcessorResponseView.qml</file>
     </qresource>
 </RCC>
