@@ -23,6 +23,7 @@
 #define PAYMENTLIST_H
 
 #include <QAbstractListModel>
+#include "payment.h"
 #include "../../geltan_global.h"
 
 class QJsonDocument;
@@ -31,7 +32,7 @@ class QJsonObject;
 namespace Geltan {
 namespace PP {
 
-class Payment;
+//class Payment;
 class PaymentListPrivate;
 
 /*!

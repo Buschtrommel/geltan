@@ -69,6 +69,8 @@ QHash<int, QByteArray> Payment::roleNames() const
 {
     QHash<int, QByteArray> roles = QAbstractItemModel::roleNames();
     roles.insert(Item, QByteArrayLiteral("item"));
+    roles.insert(Amount, QByteArrayLiteral("amount"));
+    roles.insert(Description, QByteArrayLiteral("description"));
     return roles;
 }
 
@@ -107,9 +109,16 @@ QVariant Payment::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (role == Item) {
-        return QVariant::fromValue<Transaction*>(d->transactions.at(index.row()));
-    } else {
+    Transaction *t = d->transactions.at(index.row());
+
+    switch (role) {
+    case Item:
+        return QVariant::fromValue<Transaction*>(t);
+    case Amount:
+        return QVariant::fromValue<PaymentAmount*>(t->amount());
+    case Description:
+        return QVariant::fromValue(t->description());
+    default:
         return QVariant();
     }
 }

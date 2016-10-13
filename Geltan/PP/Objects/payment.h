@@ -268,7 +268,9 @@ public:
      * To use the model data in QML, use the enumeration name starting lowercase.
      */
     enum Roles {
-        Item = Qt::UserRole + 1 /**< Returns the transaction item itself. */
+        Item = Qt::UserRole + 1,    /**< Returns the Transaction item itself. */
+        Amount,                     /**< Return a pointer to the PaymentAmount obejct of the Transaction. */
+        Description                 /**< Returns the description of the Transaction. */
     };
 
 
