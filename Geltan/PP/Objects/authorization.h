@@ -256,7 +256,7 @@ public:
     /*!
      * \brief Sets the kind of seller protection in force.
      */
-    void setProtectionEligibilityType(QList<PayPal::ProtectionEligibilityType> nProtectionEligibilityType);
+    void setProtectionEligibilityType(const QList<PayPal::ProtectionEligibilityType> &nProtectionEligibilityType);
     /*!
      * \brief Sets the details of Fraud Management Filter (FMF).
      */
@@ -321,7 +321,7 @@ Q_SIGNALS:
     void stateChanged(PayPal::StateType state);
     void reasonCodeChanged(PayPal::ReasonCode reasonCode);
     void protectionEligibilityChanged(PayPal::ProtectionEligibility protectionEligibility);
-    void protectionEligibilityTypeChanged(QList<PayPal::ProtectionEligibilityType> protectionEligibilityType);
+    void protectionEligibilityTypeChanged(const QList<PayPal::ProtectionEligibilityType> &protectionEligibilityType);
     void fmfDetailsChanged(FMFDetails *fmfDetails);
     void parentPaymentChanged(const QString &parentPayment);
     void validUntilChanged(const QDateTime &validUntil);

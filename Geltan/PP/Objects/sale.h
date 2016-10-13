@@ -357,7 +357,7 @@ public:
      *
      * It is returned only when protectionEligibility is \a ELIGIBLE or \a PARTIALLY_ELIGIBLE. Only supported when the \c payment_method is set to \c paypal.
      */
-    void setProtectionEligibilityType(QList<PayPal::ProtectionEligibilityType> nProtectionEligibilityType);
+    void setProtectionEligibilityType(const QList<PayPal::ProtectionEligibilityType> &nProtectionEligibilityType);
     /*!
      * \brief Sets the expected clearing time for eCheck Transactions.
      *
@@ -466,7 +466,7 @@ Q_SIGNALS:
     void stateChanged(PayPal::StateType state);
     void reasonCodeChanged(PayPal::ReasonCode reasonCode);
     void protectionEligibilityChanged(PayPal::ProtectionEligibility protectionEligibility);
-    void protectionEligibilityTypeChanged(QList<PayPal::ProtectionEligibilityType> protectionEligibilityType);
+    void protectionEligibilityTypeChanged(const QList<PayPal::ProtectionEligibilityType> &protectionEligibilityType);
     void clearingTimeChanged(const QDateTime &clearingTime);
     void paymentHoldStatusChanged(PaymentHoldStatus paymentHoldStatus);
     void paymentHoldReasonsChanged(const QStringList &paymentHoldReasons);

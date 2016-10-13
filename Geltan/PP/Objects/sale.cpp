@@ -184,7 +184,7 @@ void Sale::setProtectionEligibility(PayPal::ProtectionEligibility nProtectionEli
 
 QList<PayPal::ProtectionEligibilityType> Sale::protectionEligibilityType() const { Q_D(const Sale); return d->protectionEligibilityType; }
 
-void Sale::setProtectionEligibilityType(QList<PayPal::ProtectionEligibilityType> nProtectionEligibilityType)
+void Sale::setProtectionEligibilityType(const QList<PayPal::ProtectionEligibilityType> &nProtectionEligibilityType)
 {
     Q_D(Sale); 
     if (nProtectionEligibilityType != d->protectionEligibilityType) {
@@ -516,6 +516,7 @@ void Sale::loadFromJson(const QJsonObject &json)
     if (!pets.isEmpty()) {
         QList<Geltan::PP::PayPal::ProtectionEligibilityType> petList;
         const QStringList petsList = pets.split(QChar(','));
+        petList.reserve(petsList.size());
         for (const QString &pet : petsList) {
             petList.append(em->protectionEligibilityTypeTokenToEnum(pet));
         }
