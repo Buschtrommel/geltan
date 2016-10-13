@@ -67,7 +67,7 @@ ScrollView {
                 visible: !ppListPayments.paymentList
             }
 
-            Label { text: "End Time"; }
+            Label { text: "End Time"; visible: !ppListPayments.paymentList }
 
             Calendar {
                 Layout.fillWidth: true
@@ -106,12 +106,60 @@ ScrollView {
 
             Repeater {
                 model: ppListPayments.paymentList
-                Item {
-                    width: parent.width
-                    height: itemCol.height + 5
+                Rectangle {
+                    Layout.fillWidth: true
+                    height: itemCol.height + 10
+                    color: "transparent"
+                    border.width: lima.containsMouse ? 1 : 0
+                    border.color: "black"
+
+                    MouseArea {
+                        id: lima // list item mouse area
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: stack.push(Qt.resolvedUrl("../PaymentPage.qml"), {payment: model.item})
+                    }
 
                     ColumnLayout {
                         id: itemCol
+                        width: parent.width
+
+                        Label { text: model.id; Layout.fillWidth: true }
+
+                        RowLayout {
+                            Text {
+                                text: model.item.state === PPPayment.Created ? "Created" : model.item.state === PPPayment.Approved ? "Approved" : "Failed"
+                            }
+                            Text {
+                                text: model.item.intent === PPPayment.Sale ? "Sale" : model.item.intent === PPPayment.Authorize ? "Authorization" : "Order"
+                            }
+                            Text {
+                                Layout.fillWidth: true
+                                text: model.createTime
+                                horizontalAlignment: Text.AlignRight
+                            }
+                        }
+
+                        Repeater {
+                            model: item
+
+                            RowLayout {
+                                Text {
+                                    visible: amount
+                                    text: amount ? amount.currency : ""
+                                }
+
+                                Text {
+                                    visible: amount
+                                    text: amount ? amount.total : ""
+                                }
+
+                                Text {
+                                    visible: description
+                                    text: description
+                                }
+                            }
+                        }
                     }
                 }
             }
