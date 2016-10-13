@@ -11,6 +11,8 @@ ScrollView {
     width: parent.width
     height: parent.height
 
+    property string pageTitle: "Request PayPal Token"
+
     BusyIndicator {
         anchors.centerIn: parent
         running: ppAuthTest.inOperation
