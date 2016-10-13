@@ -111,21 +111,23 @@ void PaymentAmount::setDetails(Details *nDetails)
 
         Details *old = d->details;
         if (old) {
-            disconnect(old, &Details::subtotalChanged, this, &PaymentAmount::subtotalChanged);
-            disconnect(old, &Details::shippingChanged, this, &PaymentAmount::shippingChanged);
-            disconnect(old, &Details::taxChanged, this, &PaymentAmount::taxChanged);
-            disconnect(old, &Details::handlingFeeChanged, this, &PaymentAmount::handlingFeeChanged);
-            disconnect(old, &Details::shippingDiscountChanged, this, &PaymentAmount::shippingDiscountChanged);
-            disconnect(old, &Details::insuranceChanged, this, &PaymentAmount::insuranceChanged);
-            disconnect(old, &Details::giftWrapChanged, this, &PaymentAmount::giftWrapChanged);
+//            disconnect(old, &Details::subtotalChanged, this, &PaymentAmount::subtotalChanged);
+//            disconnect(old, &Details::shippingChanged, this, &PaymentAmount::shippingChanged);
+//            disconnect(old, &Details::taxChanged, this, &PaymentAmount::taxChanged);
+//            disconnect(old, &Details::handlingFeeChanged, this, &PaymentAmount::handlingFeeChanged);
+//            disconnect(old, &Details::shippingDiscountChanged, this, &PaymentAmount::shippingDiscountChanged);
+//            disconnect(old, &Details::insuranceChanged, this, &PaymentAmount::insuranceChanged);
+//            disconnect(old, &Details::giftWrapChanged, this, &PaymentAmount::giftWrapChanged);
 
-            disconnect(old, &Details::subtotalChanged, this, &PaymentAmount::checkValidity);
-            disconnect(old, &Details::shippingChanged, this, &PaymentAmount::checkValidity);
-            disconnect(old, &Details::taxChanged, this, &PaymentAmount::checkValidity);
-            disconnect(old, &Details::handlingFeeChanged, this, &PaymentAmount::checkValidity);
-            disconnect(old, &Details::shippingDiscountChanged, this, &PaymentAmount::checkValidity);
-            disconnect(old, &Details::insuranceChanged, this, &PaymentAmount::checkValidity);
-            disconnect(old, &Details::giftWrapChanged, this, &PaymentAmount::checkValidity);
+//            disconnect(old, &Details::subtotalChanged, this, &PaymentAmount::checkValidity);
+//            disconnect(old, &Details::shippingChanged, this, &PaymentAmount::checkValidity);
+//            disconnect(old, &Details::taxChanged, this, &PaymentAmount::checkValidity);
+//            disconnect(old, &Details::handlingFeeChanged, this, &PaymentAmount::checkValidity);
+//            disconnect(old, &Details::shippingDiscountChanged, this, &PaymentAmount::checkValidity);
+//            disconnect(old, &Details::insuranceChanged, this, &PaymentAmount::checkValidity);
+//            disconnect(old, &Details::giftWrapChanged, this, &PaymentAmount::checkValidity);
+
+            old->disconnect();
         }
 
         d->details = nDetails;
@@ -139,13 +141,13 @@ void PaymentAmount::setDetails(Details *nDetails)
             connect(d->details, &Details::insuranceChanged, this, &PaymentAmount::insuranceChanged);
             connect(d->details, &Details::giftWrapChanged, this, &PaymentAmount::giftWrapChanged);
 
-            connect(d->details, &Details::subtotalChanged, this, &PaymentAmount::checkValidity);
-            connect(d->details, &Details::shippingChanged, this, &PaymentAmount::checkValidity);
-            connect(d->details, &Details::taxChanged, this, &PaymentAmount::checkValidity);
-            connect(d->details, &Details::handlingFeeChanged, this, &PaymentAmount::checkValidity);
-            connect(d->details, &Details::shippingDiscountChanged, this, &PaymentAmount::checkValidity);
-            connect(d->details, &Details::insuranceChanged, this, &PaymentAmount::checkValidity);
-            connect(d->details, &Details::giftWrapChanged, this, &PaymentAmount::checkValidity);
+            connect(d->details, &Details::subtotalChanged, [=] () {d->checkValidity();});
+            connect(d->details, &Details::shippingChanged, [=] () {d->checkValidity();});
+            connect(d->details, &Details::taxChanged, [=] () {d->checkValidity();});
+            connect(d->details, &Details::handlingFeeChanged, [=] () {d->checkValidity();});
+            connect(d->details, &Details::shippingDiscountChanged, [=] () {d->checkValidity();});
+            connect(d->details, &Details::insuranceChanged, [=] () {d->checkValidity();});
+            connect(d->details, &Details::giftWrapChanged, [=] () {d->checkValidity();});
         }
 #ifdef QT_DEBUG
         qDebug() << "Changed details to" << d->details;
@@ -328,32 +330,6 @@ void PaymentAmount::setGiftWrap(float nGiftWrap)
 
 bool PaymentAmount::valid() const { Q_D(const PaymentAmount); return d->valid; }
 
-//bool PaymentAmount::isValid() const
-//{
-//    Q_D(const PaymentAmount);
-
-//    if (d->total == 0.0f || d->currency.isEmpty()) {
-//        return false;
-//    }
-
-//    if (d->details) {
-//        float calcTotal = d->details->subtotal();
-//        calcTotal += d->details->tax();
-//        calcTotal += d->details->shipping();
-//        calcTotal += d->details->insurance();
-//        calcTotal += d->details->handlingFee();
-//        calcTotal += d->details->shippingDiscount();
-//        calcTotal += d->details->giftWrap();
-
-//        if (d->total != calcTotal) {
-//            return false;
-//        }
-//    }
-
-//    return true;
-//}
-
-
 
 
 QVariantMap PaymentAmount::toVariant()
@@ -411,12 +387,4 @@ void PaymentAmount::loadFromJson(const QJsonObject &json)
         setDetails(nullptr);
         delete oldDeo;
     }
-}
-
-
-
-void PaymentAmount::checkValidity()
-{
-    Q_D(PaymentAmount);
-    d->checkValidity();
 }

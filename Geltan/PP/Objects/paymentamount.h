@@ -76,7 +76,7 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
      * For easier access, the properties of the Details object are mapped to corresponding properties
      * in the PaymentAmount object. When setting a new Details object, the signals will be connected to the
      * corresponding signals of the PaymentAmount object. When there was a Details object before, the connections of that
-     * object will be released. The object will not be destroyed automatically.
+     * object will be released. The old Details object will not be destroyed automatically.
      *
      * \ppApiName{details}
      *
@@ -240,14 +240,6 @@ public:
     void setInsurance(float nInsurance);
     void setGiftWrap(float nGiftWrap);
 
-//    /*!
-//     * \brief Returns true if the PaymentAmount object contains valid data.
-//     *
-//     * This will check if the stored values fit together and if mandatory values
-//     * are available.
-//     */
-//    Q_INVOKABLE bool isValid() const;
-
 
     /*!
      * \brief Returns a QVariantMap containing the object's data members.
@@ -290,9 +282,6 @@ Q_SIGNALS:
 
 protected:
     const QScopedPointer<PaymentAmountPrivate> d_ptr;
-
-private Q_SLOTS:
-    void checkValidity();
 
 private:
     Q_DISABLE_COPY(PaymentAmount)
