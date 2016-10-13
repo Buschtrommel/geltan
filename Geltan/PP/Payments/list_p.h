@@ -38,7 +38,7 @@ public:
     int startIndex;
     QDateTime startTime;
     QDateTime endTime;
-    QString sortBy;
+    List::SortBy sortBy;
     Qt::SortOrder sortOrder;
     PaymentList *paymentList;
     bool append;

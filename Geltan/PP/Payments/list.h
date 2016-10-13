@@ -107,23 +107,23 @@ class GELTANSHARED_EXPORT List : public PPBase
     /*!
      * \brief The value the results should be sorted by.
      *
-     * Possible values \c update_time and \c create_time. Default: \c update_time
+     * Possible values \c update_time and \c create_time. Default: \c UpdateTime
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>sortBy() const</TD></TR><TR><TD>void</TD><TD>setSortBy(const QString &nSortBy)</TD></TR></TABLE>
+     * <TABLE><TR><TD>SortBy</TD><TD>sortBy() const</TD></TR><TR><TD>void</TD><TD>setSortBy(SortBy nSortBy)</TD></TR></TABLE>
      * \par Notifier signal:
-     * <TABLE><TR><TD>void</TD><TD>sortByChanged(const QString &sortBy)</TD></TR></TABLE>
+     * <TABLE><TR><TD>void</TD><TD>sortByChanged(SortBy sortBy)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString sortBy READ sortBy WRITE setSortBy NOTIFY sortByChanged)
+    Q_PROPERTY(SortBy sortBy READ sortBy WRITE setSortBy NOTIFY sortByChanged)
     /*!
      * \brief The way the results are sorted.
      *
      * Default: Qt::AscendingOrder
      *
      * \par Access functions:
-     * <TABLE><TR><TD>Qt::SortOrder</TD><TD>sortOrder() const</TD></TR><TR><TD>void</TD><TD>setSortOrder(const Qt::SortOrder &nSortOrder)</TD></TR></TABLE>
+     * <TABLE><TR><TD>Qt::SortOrder</TD><TD>sortOrder() const</TD></TR><TR><TD>void</TD><TD>setSortOrder(Qt::SortOrder nSortOrder)</TD></TR></TABLE>
      * \par Notifier signal:
-     * <TABLE><TR><TD>void</TD><TD>sortOrderChanged(const Qt::SortOrder &sortOrder)</TD></TR></TABLE>
+     * <TABLE><TR><TD>void</TD><TD>sortOrderChanged(Qt::SortOrder sortOrder)</TD></TR></TABLE>
      */
     Q_PROPERTY(Qt::SortOrder sortOrder READ sortOrder WRITE setSortOrder NOTIFY sortOrderChanged)
     /*!
@@ -148,6 +148,20 @@ class GELTANSHARED_EXPORT List : public PPBase
     Q_PROPERTY(bool append READ append WRITE setAppend NOTIFY appendChanged)
 public:
     /*!
+     * \brief The state of the payment.
+     */
+    enum SortBy {
+        UpdateTime  = 0,    /**< No state defined. */
+        CreateTime  = 1     /**< The payment has been created. */
+    };
+#if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
+    Q_ENUM(SortBy)
+#else
+    Q_ENUMS(SortBy)
+#endif
+
+
+    /*!
      * \brief Constructs a new List object.
      */
     List(QObject *parent = nullptr);
@@ -161,7 +175,7 @@ public:
      * \brief Invokes the API call.
      * \overload
      */
-    Q_INVOKABLE void call(int count, const QString &startId, int startIndex, const QDateTime &startTime, const QDateTime &endTime, const QString &sortBy, Qt::SortOrder sortOrder);
+    Q_INVOKABLE void call(int count, const QString &startId, int startIndex, const QDateTime &startTime, const QDateTime &endTime, SortBy sortBy, Qt::SortOrder sortOrder);
 
 
     int count() const;
@@ -169,7 +183,7 @@ public:
     int startIndex() const;
     QDateTime startTime() const;
     QDateTime endTime() const;
-    QString sortBy() const;
+    SortBy sortBy() const;
     Qt::SortOrder sortOrder() const;
     PaymentList *paymentList() const;
     bool append() const;
@@ -179,8 +193,8 @@ public:
     void setStartIndex(int nStartIndex);
     void setStartTime(const QDateTime &nStartTime);
     void setEndTime(const QDateTime &nEndTime);
-    void setSortBy(const QString &nSortBy);
-    void setSortOrder(const Qt::SortOrder &nSortOrder);
+    void setSortBy(SortBy nSortBy);
+    void setSortOrder(Qt::SortOrder nSortOrder);
     void setAppend(bool nAppend);
 
 Q_SIGNALS:
@@ -199,8 +213,8 @@ Q_SIGNALS:
     void startIndexChanged(int startIndex);
     void startTimeChanged(const QDateTime &startTime);
     void endTimeChanged(const QDateTime &endTime);
-    void sortByChanged(const QString &sortBy);
-    void sortOrderChanged(const Qt::SortOrder &sortOrder);
+    void sortByChanged(SortBy sortBy);
+    void sortOrderChanged(Qt::SortOrder sortOrder);
     void paymentListChanged(PaymentList *paymentList);
     void appendChanged(bool append);
 
@@ -220,5 +234,8 @@ private:
 }
 }
 }
+#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
+Q_DECLARE_METATYPE(Geltan::PP::Payments::List::SortBy)
+#endif
 
 #endif // LISTPAYMENTS_H

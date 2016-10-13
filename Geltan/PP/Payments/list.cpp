@@ -31,7 +31,7 @@ List::List(QObject *parent) : PPBase(*new ListPrivate, parent)
     Q_D(List);
     d->count = 0;
     d->startIndex = 0;
-    d->sortBy = QStringLiteral("update_time");
+    d->sortBy = UpdateTime;
     d->sortOrder = Qt::AscendingOrder;
     d->paymentList = nullptr;
     d->append = false;
@@ -79,14 +79,16 @@ void List::call()
         uq.addQueryItem(QStringLiteral("end_time"), endTime().toUTC().toString(Qt::ISODate));
     }
 
-    if (!sortBy().isEmpty()) {
-        uq.addQueryItem(QStringLiteral("sort_by"), sortBy());
+    if (sortBy() == UpdateTime) {
+        uq.addQueryItem(QStringLiteral("sort_by"), QStringLiteral("update_time"));
+    } else {
+        uq.addQueryItem(QStringLiteral("sort_by"), QStringLiteral("create_time"));
+    }
 
-        if (sortOrder() == Qt::AscendingOrder) {
-            uq.addQueryItem(QStringLiteral("sort_order"), QStringLiteral("asc"));
-        } else {
-            uq.addQueryItem(QStringLiteral("sort_order"), QStringLiteral("desc"));
-        }
+    if (sortOrder() == Qt::AscendingOrder) {
+        uq.addQueryItem(QStringLiteral("sort_order"), QStringLiteral("asc"));
+    } else {
+        uq.addQueryItem(QStringLiteral("sort_order"), QStringLiteral("desc"));
     }
 
     setUrlQuery(uq);
@@ -97,7 +99,7 @@ void List::call()
 
 
 
-void List::call(int count, const QString &startId, int startIndex, const QDateTime &startTime, const QDateTime &endTime, const QString &sortBy, Qt::SortOrder sortOrder)
+void List::call(int count, const QString &startId, int startIndex, const QDateTime &startTime, const QDateTime &endTime, SortBy sortBy, Qt::SortOrder sortOrder)
 {
     setCount(count);
     setStartId(startId);
@@ -248,9 +250,9 @@ void List::setEndTime(const QDateTime &nEndTime)
 
 
 
-QString List::sortBy() const { Q_D(const List); return d->sortBy; }
+Geltan::PP::Payments::List::SortBy List::sortBy() const { Q_D(const List); return d->sortBy; }
 
-void List::setSortBy(const QString &nSortBy)
+void List::setSortBy(Geltan::PP::Payments::List::SortBy nSortBy)
 {
     Q_D(List);
     if (nSortBy != d->sortBy) {
@@ -267,7 +269,7 @@ void List::setSortBy(const QString &nSortBy)
 
 Qt::SortOrder List::sortOrder() const { Q_D(const List); return d->sortOrder; }
 
-void List::setSortOrder(const Qt::SortOrder &nSortOrder)
+void List::setSortOrder(Qt::SortOrder nSortOrder)
 {
     Q_D(List);
     if (nSortOrder != d->sortOrder) {
