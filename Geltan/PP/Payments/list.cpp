@@ -120,6 +120,7 @@ void List::successCallBack()
         d->paymentList->loadFromJson(jsonResult());
     } else {
         d->paymentList = new PaymentList(jsonResult(), this);
+        Q_EMIT paymentListChanged(d->paymentList);
     }
 
     setInOperation(false);

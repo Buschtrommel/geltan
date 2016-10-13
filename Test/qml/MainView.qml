@@ -42,6 +42,14 @@ ScrollView {
                 enabled: config.payPalTokenValid
                 onClicked: stack.push({item: Qt.resolvedUrl("PP/ShowPayment.qml")})
             }
+
+            Button {
+                text: "List PayPal Payments"
+                Layout.alignment: Qt.AlignHCenter
+                Layout.topMargin: 10
+                enabled: config.payPalTokenValid
+                onClicked: stack.push({item: Qt.resolvedUrl("PP/Payments/List.qml")})
+            }
         }
     }
 }

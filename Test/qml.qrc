@@ -29,5 +29,6 @@
         <file>qml/PP/CurrencyView.qml</file>
         <file>qml/PP/FMFDetailsView.qml</file>
         <file>qml/PP/ProcessorResponseView.qml</file>
+        <file>qml/PP/Payments/List.qml</file>
     </qresource>
 </RCC>

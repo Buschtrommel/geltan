@@ -52,10 +52,12 @@
 #include <Geltan/PP/Objects/tokenizedcreditcard.h>
 #include <Geltan/PP/Objects/transaction.h>
 #include <Geltan/PP/Objects/payee.h>
+#include <Geltan/PP/Objects/paymentlist.h>
 
 #include <Geltan/PP/Payments/create.h>
 #include <Geltan/PP/Payments/execute.h>
 #include <Geltan/PP/Payments/show.h>
+#include <Geltan/PP/Payments/list.h>
 
 #include <QDebug>
 
@@ -102,10 +104,12 @@ int main(int argc, char *argv[])
     qmlRegisterType<Geltan::PP::TokenizedCreditCard>("Buschtrommel.Geltan.PayPal", 1, 0, "PPTokenizedCreditCard");
     qmlRegisterType<Geltan::PP::Transaction>("Buschtrommel.Geltan.PayPal", 1, 0, "PPTransaction");
     qmlRegisterType<Geltan::PP::Payee>("Buschtrommel.Geltan.PayPal", 1, 0, "PPPayee");
+    qmlRegisterUncreatableType<Geltan::PP::PaymentList>("Buschtrommel.Geltan.PayPal", 1, 0, "PPPaymentList", QStringLiteral("You can not create PaymentList"));
 
     qmlRegisterType<Geltan::PP::Payments::Create>("Buschtrommel.Geltan.PayPal", 1, 0, "PPCreatePayment");
     qmlRegisterType<Geltan::PP::Payments::Execute>("Buschtrommel.Geltan.PayPal", 1, 0, "PPExecutePayment");
     qmlRegisterType<Geltan::PP::Payments::Show>("Buschtrommel.Geltan.PayPal", 1, 0, "PPShowPayment");
+    qmlRegisterType<Geltan::PP::Payments::List>("Buschtrommel.Geltan.PayPal", 1, 0, "PPListPayments");
 
     qmlRegisterType<GeltanTest::AuthenticationTest>("Buschtrommel.Geltan.PayPalTests", 1, 0, "PPAuthenticationTest");
 
