@@ -17,6 +17,5 @@ ColumnLayout {
         id: f
         placeholderText: l.text
         Layout.fillWidth: true
-        text: pa ? pa.total : 0
     }
 }
