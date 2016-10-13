@@ -22,6 +22,7 @@ ScrollView {
             id: ppListPayments
             token: config.payPalToken
             tokenType: config.payPalTokenType
+            append: true
         }
 
         BusyIndicator {
@@ -75,11 +76,17 @@ ScrollView {
                 visible: !ppListPayments.paymentList
             }
 
-            LabeledTextField {
-                id: sortByField
-                label: "Sort By"
-                text: ppListPayments.sortBy
-                onTextChanged: ppListPayments.sortBy = text
+            Label { text: "Sort By"; visible: !ppListPayments.paymentList }
+
+            ComboBox {
+                Layout.fillWidth: true
+                textRole: "text"
+                model: ListModel {
+                    id: sortByModel
+                    ListElement { text: "Update Time"; value: PPListPayments.UpdateTime }
+                    ListElement { text: "Create Time"; value: PPListPayments.CreateTime }
+                }
+                onCurrentIndexChanged: ppListPayments.sortBy = sortByModel.get(currentIndex).value
                 visible: !ppListPayments.paymentList
             }
 
@@ -162,6 +169,13 @@ ScrollView {
                         }
                     }
                 }
+            }
+
+            Button {
+                text: "Load more"
+                visible: !ppListPayments.inOperation && ppListPayments.paymentList && ppListPayments.paymentList.nextId !== ""
+                onClicked: { ppListPayments.startId = ppListPayments.paymentList.nextId; ppListPayments.call() }
+                Layout.alignment: Qt.AlignHCenter
             }
         }
     }

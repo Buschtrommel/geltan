@@ -19,6 +19,7 @@ ScrollView {
 
         PaymentView {
             id: pv
+            anchors { left: parent.left; right: parent.right; top: parent.top; margins: margin }
         }
     }
 }
