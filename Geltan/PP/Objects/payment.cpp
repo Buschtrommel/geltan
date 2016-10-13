@@ -699,11 +699,15 @@ void Payment::loadFromJson(const QJsonObject &json)
     const QString sCreateTime = json.value(QStringLiteral("create_time")).toString();
     if (!sCreateTime.isEmpty()) {
         setCreateTime(QDateTime::fromString(sCreateTime, Qt::ISODate));
+    } else {
+        setCreateTime(QDateTime());
     }
 
     const QString sUpdateTime = json.value(QStringLiteral("update_time")).toString();
     if (!sUpdateTime.isEmpty()) {
         setUpdateTime(QDateTime::fromString(sUpdateTime, Qt::ISODate));
+    } else {
+        setUpdateTime(QDateTime());
     }
 
     const QJsonArray la = json.value(QStringLiteral("links")).toArray();
