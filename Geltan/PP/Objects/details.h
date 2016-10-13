@@ -169,16 +169,18 @@ public:
     /*!
      * \brief Returns a QVariantMap containing the object's data members.
      *
+     * You have to specify the used currency, because some currency do not support decial values in PayPal.
      * The names of the keys will be the name used by the PayPal API.
      */
-    QVariantMap toVariant();
+    QVariantMap toVariant(const QString &currency);
 
     /*!
      * \brief Returns a QJsonObject containing the object's data members.
      *
+     * You have to specify the used currency, because some currency do not support decial values in PayPal.
      * The names of the keys will be the name used by the PayPal API.
      */
-    QJsonObject toJsonObject();
+    QJsonObject toJsonObject(const QString &currency);
 
     /*!
      * \brief Loads data from a QJsonDocument into the Details object.

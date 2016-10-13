@@ -65,6 +65,15 @@ public:
         }
     }
 
+    void addIntToVariantMap(QVariantMap *map, const QString &key, int value, int omitValue = 0)
+    {
+        if (!map || key.isEmpty() || value == omitValue) {
+            return;
+        }
+
+        map->insert(key, value);
+    }
+
     void addMapToVariantMap(QVariantMap *map, const QString &key, const QVariantMap &vMap) {
         if (!map || key.isEmpty() || vMap.isEmpty()) {
             return;

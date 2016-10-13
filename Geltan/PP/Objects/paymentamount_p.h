@@ -49,15 +49,8 @@ public:
     {
         bool _v = true;
 
-#ifdef QT_DEBUG
-        qDebug() << "Checking payment amount validity.";
-#endif
-
-        if (total == 0.0f || currency.isEmpty()) {
+        if (total == 0.0f || currency.length() != 3) {
             _v = false;
-#ifdef QT_DEBUG
-            qDebug() << "Total amount is zero or currency is empty!";
-#endif
         }
 
         if (details && _v) {
@@ -71,20 +64,41 @@ public:
 
             if ((calcTotal > 0.0f) && (total != calcTotal)) {
                 _v = false;
-#ifdef QT_DEBUG
-                qDebug() << "Mismatch between total amount and detail values:" << total << "!=" << calcTotal << "!";
-#endif
             }
         }
-
-#ifdef QT_DEBUG
-        qDebug() << "Payment amount validity:" << _v;
-#endif
 
         if (valid != _v) {
             valid = _v;
             Q_Q(PaymentAmount);
             Q_EMIT q->validChanged(valid);
+        }
+    }
+
+    void updateTotal()
+    {
+        if (details) {
+            Q_Q(PaymentAmount);
+
+            float calcTotal = details->subtotal();
+            calcTotal += details->tax();
+            calcTotal += details->shipping();
+            calcTotal += details->insurance();
+            calcTotal += details->handlingFee();
+            calcTotal += details->shippingDiscount();
+            calcTotal += details->giftWrap();
+
+            if (total != calcTotal) {
+                total = calcTotal;
+                Q_EMIT q->totalChanged(total);
+            }
+
+            if (total == 0.0f || currency.length() != 3) {
+                bool _v = false;
+                if (valid != _v) {
+                    valid = _v;
+                    Q_EMIT q->validChanged(valid);
+                }
+            }
         }
     }
 

@@ -34,7 +34,19 @@ class PaymentAmountPrivate;
 class Details;
 
 /*!
- * \brief Containes information about a payment amount.
+ * \brief Contains information about a payment amount.
+ *
+ * A payment amount is defined by the total amount itself and the <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> code of the used currency.
+ * The PaymentAmount object itself only contains the currency and the total amount directly. All other values are provided by a Details object. For convenience
+ * the properties of the Details object are accessible directly through the PaymentAmount object. When setting these properties the first time on a PaymentAmount
+ * object that has no Details object defined, a new Details object will be created as child of the PaymentAmount object.
+ *
+ * When setting a Details object, its change signals will be forwarded to the corresponding signals of the PaymentAmount. Also, if the values of the Details object
+ * are changed, the total amount will be updated accordingly. If updating the total amount, nothing in the Details object will be changed.
+ *
+ * Internally created Details objects are automatically children of the PaymentAmount object. Externally assigned Details objects are not automaticall set as
+ * children of the PaymentAmount object, so they are not deleted automatically if the PaymentAmount object gets destroyed. If a new Details object is set and there
+ * is already a Details object, the old object will not be deleted automatically.
  *
  * \ppPaymentsApi{payment_amount}
  *
@@ -49,7 +61,7 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
 {
     Q_OBJECT
     /*!
-     * \brief 3-letter currency code. PayPal does not support all currencies.
+     * \brief 3-letter ISO 4217 currency code. PayPal does not support all currencies.
      *
      * \ppApiName{currency}
      *
@@ -78,10 +90,13 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
      * corresponding signals of the PaymentAmount object. When there was a Details object before, the connections of that
      * object will be released. The old Details object will not be destroyed automatically.
      *
+     * When setting a Details object, every change on its properties will invoke a recalculation of the total amount of the
+     * PaymentAmount object.
+     *
      * \ppApiName{details}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>Details*</TD><TD>details() const</TD></TR><TR><TD>void</TD><TD>setDetails(Details *nDetails)</TD></TR></TABLE>
+     * <TABLE><TR><TD>Geltan::PP::Details*</TD><TD>details() const</TD></TR><TR><TD>void</TD><TD>setDetails(Details *nDetails)</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>detailsChanged(Details *details)</TD></TR></TABLE>
      */
@@ -102,7 +117,8 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
     /*!
      * \brief Amount charged for shipping.
      *
-     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object.
+     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object
+     * the first time you set this property.
      *
      * \ppApiName{shipping}
      *
@@ -115,7 +131,8 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
     /*!
      * \brief Amount charged for tax.
      *
-     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object.
+     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object
+     * the first time you set this property.
      *
      * \ppApiName{tax}
      *
@@ -128,7 +145,8 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
     /*!
      * \brief Amount being charged for the handling fee.
      *
-     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object.
+     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object
+     * the first time you set this property.
      *
      * \ppApiName{handling_fee}
      *
@@ -141,7 +159,8 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
     /*!
      * \brief Amount being discounted for the shipping fee.
      *
-     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object.
+     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object
+     * the first time you set this property.
      *
      * \ppApiName{shipping_discount}
      *
@@ -154,7 +173,8 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
     /*!
      * \brief Amount being charged for the insurance fee.
      *
-     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object.
+     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object
+     * the first time you set this property.
      *
      * \ppApiName{insurance}
      *
@@ -167,7 +187,8 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
     /*!
      * \brief Amount being charged as gift wrap fee.
      *
-     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object.
+     * This is part of the Details object. If no Details object is available, a new one will be created as child of the PaymentAmount object
+     * the first time you set this property.
      *
      * \ppApiName{gift_wrap}
      *
@@ -178,13 +199,13 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
      */
     Q_PROPERTY(float giftWrap READ giftWrap WRITE setGiftWrap NOTIFY giftWrapChanged)
     /*!
-     * \brief Returns true if the available data is valid.
+     * \brief True if the available data is valid.
      *
-     * This will make a rough check of data consistency. Checks if the currency is set and if a Details object
-     * is available, it will check if the sum of the detail valus is the same as the total amount.
+     * This will perform a rough check of data consistency. Checks if the currency strings has a size of three characters and if the total amount
+     * is greater zero. If a Details object is available, it will check if the sum of the detail values is the same as the total amount.
      *
      * \par Access functions:
-     * <TABLE><TR><TD>bool</TD><TD>valid() const</TD></TR><TR><TD>void</TD><TD>setValid(bool nValid)</TD></TR></TABLE>
+     * <TABLE><TR><TD>bool</TD><TD>valid() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>validChanged(bool valid)</TD></TR></TABLE>
      */

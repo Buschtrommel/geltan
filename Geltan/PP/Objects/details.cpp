@@ -21,6 +21,7 @@
 
 #include "details_p.h"
 #include <QJsonDocument>
+#include <QtMath>
 #ifdef QT_DEBUG
 #include <QtDebug>
 #endif
@@ -188,27 +189,37 @@ void Details::setGiftWrap(float nGiftWrap)
 
 
 
-QVariantMap Details::toVariant()
+QVariantMap Details::toVariant(const QString &currency)
 {
     Q_D(Details);
 
     QVariantMap map;
 
-    d->addFloatToVariantMap(&map, QStringLiteral("subtotal"), subtotal());
-    d->addFloatToVariantMap(&map, QStringLiteral("shipping"), shipping());
-    d->addFloatToVariantMap(&map, QStringLiteral("tax"), tax());
-    d->addFloatToVariantMap(&map, QStringLiteral("handling_fee"), handlingFee());
-    d->addFloatToVariantMap(&map, QStringLiteral("shipping_discount"), shippingDiscount());
-    d->addFloatToVariantMap(&map, QStringLiteral("insurance"), insurance());
-    d->addFloatToVariantMap(&map, QStringLiteral("gift_wrap"), giftWrap());
+    if (QStringList({QStringLiteral("HUF"), QStringLiteral("JPY"), QStringLiteral("TWD")}).contains(currency)) {
+        d->addIntToVariantMap(&map, QStringLiteral("subtotal"), qFloor(subtotal()));
+        d->addIntToVariantMap(&map, QStringLiteral("shipping"), qFloor(shipping()));
+        d->addIntToVariantMap(&map, QStringLiteral("tax"), qFloor(tax()));
+        d->addIntToVariantMap(&map, QStringLiteral("handling_fee"), qFloor(handlingFee()));
+        d->addIntToVariantMap(&map, QStringLiteral("shipping_discount"), qFloor(shippingDiscount()));
+        d->addIntToVariantMap(&map, QStringLiteral("insurance"), qFloor(insurance()));
+        d->addIntToVariantMap(&map, QStringLiteral("gift_wrap"), qFloor(giftWrap()));
+    } else {
+        d->addFloatToVariantMap(&map, QStringLiteral("subtotal"), subtotal());
+        d->addFloatToVariantMap(&map, QStringLiteral("shipping"), shipping());
+        d->addFloatToVariantMap(&map, QStringLiteral("tax"), tax());
+        d->addFloatToVariantMap(&map, QStringLiteral("handling_fee"), handlingFee());
+        d->addFloatToVariantMap(&map, QStringLiteral("shipping_discount"), shippingDiscount());
+        d->addFloatToVariantMap(&map, QStringLiteral("insurance"), insurance());
+        d->addFloatToVariantMap(&map, QStringLiteral("gift_wrap"), giftWrap());
+    }
 
     return map;
 }
 
 
-QJsonObject Details::toJsonObject()
+QJsonObject Details::toJsonObject(const QString &currency)
 {
-    return QJsonObject::fromVariantMap(this->toVariant());
+    return QJsonObject::fromVariantMap(this->toVariant(currency));
 }
 
 

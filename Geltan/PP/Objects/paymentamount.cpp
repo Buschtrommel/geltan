@@ -20,6 +20,7 @@
  */
 
 #include "paymentamount_p.h"
+#include <QtMath>
 #include <QJsonDocument>
 #ifdef QT_DEBUG
 #include <QtDebug>
@@ -111,22 +112,6 @@ void PaymentAmount::setDetails(Details *nDetails)
 
         Details *old = d->details;
         if (old) {
-//            disconnect(old, &Details::subtotalChanged, this, &PaymentAmount::subtotalChanged);
-//            disconnect(old, &Details::shippingChanged, this, &PaymentAmount::shippingChanged);
-//            disconnect(old, &Details::taxChanged, this, &PaymentAmount::taxChanged);
-//            disconnect(old, &Details::handlingFeeChanged, this, &PaymentAmount::handlingFeeChanged);
-//            disconnect(old, &Details::shippingDiscountChanged, this, &PaymentAmount::shippingDiscountChanged);
-//            disconnect(old, &Details::insuranceChanged, this, &PaymentAmount::insuranceChanged);
-//            disconnect(old, &Details::giftWrapChanged, this, &PaymentAmount::giftWrapChanged);
-
-//            disconnect(old, &Details::subtotalChanged, this, &PaymentAmount::checkValidity);
-//            disconnect(old, &Details::shippingChanged, this, &PaymentAmount::checkValidity);
-//            disconnect(old, &Details::taxChanged, this, &PaymentAmount::checkValidity);
-//            disconnect(old, &Details::handlingFeeChanged, this, &PaymentAmount::checkValidity);
-//            disconnect(old, &Details::shippingDiscountChanged, this, &PaymentAmount::checkValidity);
-//            disconnect(old, &Details::insuranceChanged, this, &PaymentAmount::checkValidity);
-//            disconnect(old, &Details::giftWrapChanged, this, &PaymentAmount::checkValidity);
-
             old->disconnect();
         }
 
@@ -141,13 +126,13 @@ void PaymentAmount::setDetails(Details *nDetails)
             connect(d->details, &Details::insuranceChanged, this, &PaymentAmount::insuranceChanged);
             connect(d->details, &Details::giftWrapChanged, this, &PaymentAmount::giftWrapChanged);
 
-            connect(d->details, &Details::subtotalChanged, [=] () {d->checkValidity();});
-            connect(d->details, &Details::shippingChanged, [=] () {d->checkValidity();});
-            connect(d->details, &Details::taxChanged, [=] () {d->checkValidity();});
-            connect(d->details, &Details::handlingFeeChanged, [=] () {d->checkValidity();});
-            connect(d->details, &Details::shippingDiscountChanged, [=] () {d->checkValidity();});
-            connect(d->details, &Details::insuranceChanged, [=] () {d->checkValidity();});
-            connect(d->details, &Details::giftWrapChanged, [=] () {d->checkValidity();});
+            connect(d->details, &Details::subtotalChanged, [=] () {d->updateTotal();});
+            connect(d->details, &Details::shippingChanged, [=] () {d->updateTotal();});
+            connect(d->details, &Details::taxChanged, [=] () {d->updateTotal();});
+            connect(d->details, &Details::handlingFeeChanged, [=] () {d->updateTotal();});
+            connect(d->details, &Details::shippingDiscountChanged, [=] () {d->updateTotal();});
+            connect(d->details, &Details::insuranceChanged, [=] () {d->updateTotal();});
+            connect(d->details, &Details::giftWrapChanged, [=] () {d->updateTotal();});
         }
 #ifdef QT_DEBUG
         qDebug() << "Changed details to" << d->details;
@@ -339,10 +324,14 @@ QVariantMap PaymentAmount::toVariant()
     QVariantMap map;
 
     d->addStringToVariantMap(&map, QStringLiteral("currency"), currency(), 3);
-    d->addFloatToVariantMap(&map, QStringLiteral("total"), total());
+    if (QStringList({QStringLiteral("HUF"), QStringLiteral("JPY"), QStringLiteral("TWD")}).contains(currency())) {
+        d->addIntToVariantMap(&map, QStringLiteral("total"), qFloor(total()));
+    } else {
+        d->addFloatToVariantMap(&map, QStringLiteral("total"), total());
+    }
 
     if (details()) {
-        d->addMapToVariantMap(&map, QStringLiteral("details"), details()->toVariant());
+        d->addMapToVariantMap(&map, QStringLiteral("details"), details()->toVariant(currency()));
     }
 
     return map;
