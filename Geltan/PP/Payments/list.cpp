@@ -34,6 +34,7 @@ List::List(QObject *parent) : PPBase(*new ListPrivate, parent)
     d->sortBy = QStringLiteral("update_time");
     d->sortOrder = Qt::AscendingOrder;
     d->paymentList = nullptr;
+    d->append = false;
     setApiPath(QStringLiteral("/v1/payments/payment"));
     setNetworkOperation(QNetworkAccessManager::GetOperation);
     setExpectedType(PPBase::Object);
@@ -117,7 +118,7 @@ void List::successCallBack()
     Q_D(List);
 
     if (d->paymentList) {
-        d->paymentList->loadFromJson(jsonResult());
+        d->paymentList->loadFromJson(jsonResult(), append());
     } else {
         d->paymentList = new PaymentList(jsonResult(), this);
         Q_EMIT paymentListChanged(d->paymentList);
@@ -281,3 +282,19 @@ void List::setSortOrder(const Qt::SortOrder &nSortOrder)
 
 
 PaymentList *List::paymentList() const { Q_D(const List); return d->paymentList; }
+
+
+bool List::append() const { Q_D(const List); return d->append; }
+
+void List::setAppend(bool nAppend)
+{
+    Q_D(List);
+    if (nAppend != d->append) {
+        d->append = nAppend;
+#ifdef QT_DEBUG
+        qDebug() << "Changed append to" << d->append;
+#endif
+        Q_EMIT appendChanged(append());
+    }
+}
+

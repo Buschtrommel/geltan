@@ -52,7 +52,7 @@ class GELTANSHARED_EXPORT List : public PPBase
     Q_OBJECT
     Q_DECLARE_PRIVATE(List)
     /*!
-     * \brief The number of items to list in the response.
+     * \brief The number of items to list in the response. The default is \a 10.
      *
      * \par Access functions:
      * <TABLE><TR><TD>int</TD><TD>count() const</TD></TR><TR><TD>void</TD><TD>setCount(int nCount)</TD></TR></TABLE>
@@ -135,6 +135,17 @@ class GELTANSHARED_EXPORT List : public PPBase
      * <TABLE><TR><TD>void</TD><TD>paymentListChanged(PaymentList *paymentList)</TD></TR></TABLE>
      */
     Q_PROPERTY(Geltan::PP::PaymentList *paymentList READ paymentList NOTIFY paymentListChanged)
+    /*!
+     * \brief If set to true, new Payment items will be appended to the paymentList.
+     *
+     * If set to false, the content of the model will be replaced by the new entries. The default is \a false.
+     *
+     * \par Access functions:
+     * <TABLE><TR><TD>bool</TD><TD>append() const</TD></TR><TR><TD>void</TD><TD>setAppend(bool nAppend)</TD></TR></TABLE>
+     * \par Notifier signal:
+     * <TABLE><TR><TD>void</TD><TD>appendChanged(bool append)</TD></TR></TABLE>
+     */
+    Q_PROPERTY(bool append READ append WRITE setAppend NOTIFY appendChanged)
 public:
     /*!
      * \brief Constructs a new List object.
@@ -161,6 +172,7 @@ public:
     QString sortBy() const;
     Qt::SortOrder sortOrder() const;
     PaymentList *paymentList() const;
+    bool append() const;
 
     void setCount(int nCount);
     void setStartId(const QString &nStartId);
@@ -169,7 +181,7 @@ public:
     void setEndTime(const QDateTime &nEndTime);
     void setSortBy(const QString &nSortBy);
     void setSortOrder(const Qt::SortOrder &nSortOrder);
-
+    void setAppend(bool nAppend);
 
 Q_SIGNALS:
     /*!
@@ -190,6 +202,7 @@ Q_SIGNALS:
     void sortByChanged(const QString &sortBy);
     void sortOrderChanged(const Qt::SortOrder &sortOrder);
     void paymentListChanged(PaymentList *paymentList);
+    void appendChanged(bool append);
 
 
 protected:

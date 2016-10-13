@@ -183,20 +183,24 @@ void PaymentList::setNextId(const QString &nNextId)
 
 
 
-void PaymentList::loadFromJson(const QJsonDocument &json)
+void PaymentList::loadFromJson(const QJsonDocument &json, bool append)
 {
-    loadFromJson(json.object());
+    loadFromJson(json.object(), append);
 }
 
 
 
-void PaymentList::loadFromJson(const QJsonObject &json)
+void PaymentList::loadFromJson(const QJsonObject &json, bool append)
 {
     Q_D(PaymentList);
 
-    d->clear();
+    if (!append) {
+        d->clear();
+    }
 
     if (json.isEmpty()) {
+        setCount(0);
+        setNextId(QString());
         return;
     }
 
@@ -204,7 +208,7 @@ void PaymentList::loadFromJson(const QJsonObject &json)
 
     if (!ps.isEmpty()) {
 
-        beginInsertRows(QModelIndex(), 0, ps.count() - 1);
+        beginInsertRows(QModelIndex(), rowCount(), ps.count() - 1);
 
         for (const QJsonValue &p : ps) {
             d->payments.append(new Payment(p.toObject(), this));

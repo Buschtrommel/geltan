@@ -140,13 +140,19 @@ public:
 
     /*!
      * \brief Loads data from a QJsonDocument into the Transaction object.
+     *
+     * If \c append is set to true, the loaded Payment items will be appended
+     * to the model list, otherwise the current content will be replaced.
      */
-    void loadFromJson(const QJsonDocument &json);
+    void loadFromJson(const QJsonDocument &json, bool append = false);
 
     /*!
      * \brief Loads data from a QJsonArray into the Transaction object.
+     *
+     * If \c append is set to true, the loaded Payment items will be appended
+     * to the model list, otherwise the current content will be replaced.
      */
-    void loadFromJson(const QJsonObject &json);
+    void loadFromJson(const QJsonObject &json, bool append = false);
 
 Q_SIGNALS:
     void paymentsChanged(const QList<Payment*> &payments);

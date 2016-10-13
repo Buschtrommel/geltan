@@ -41,6 +41,7 @@ public:
     QString sortBy;
     Qt::SortOrder sortOrder;
     PaymentList *paymentList;
+    bool append;
 };
 
 }
