@@ -67,12 +67,12 @@ public:
     /*!
      * \brief Constructs a new PPBase object.
      */
-    explicit PPBase(QObject *parent = nullptr);
+    PPBase(QObject *parent = nullptr);
 
-    /*!
-     * \brief Deconstructs the PPBase object.
-     */
-    ~PPBase();
+//    /*!
+//     * \brief Deconstructs the PPBase object.
+//     */
+//    ~PPBase();
 
     /*!
      * \brief The ExpectedJSONType enum

@@ -104,7 +104,7 @@ public:
     /*!
      * \brief Constructs a new Component
      */
-    explicit Component(QObject *parent = nullptr);
+    Component(QObject *parent = nullptr);
 
     /*!
      * \brief Deconstructs the Component

@@ -65,12 +65,12 @@ public:
     /*!
      * \brief Constructs a new Create object.
      */
-    explicit Create(QObject *parent = nullptr);
+    Create(QObject *parent = nullptr);
 
-    /*!
-     * \brief Deconstructs the Create object.
-     */
-    virtual ~Create();
+//    /*!
+//     * \brief Deconstructs the Create object.
+//     */
+//    virtual ~Create();
 
     /*!
      * \brief Invokes the API call.

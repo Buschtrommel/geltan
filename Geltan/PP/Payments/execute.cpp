@@ -48,10 +48,10 @@ Execute::Execute(ExecutePrivate &dd, QObject *parent) : PPBase(dd, parent)
 
 
 
-Execute::~Execute()
-{
+//Execute::~Execute()
+//{
 
-}
+//}
 
 
 

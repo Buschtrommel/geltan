@@ -92,12 +92,12 @@ public:
     /*!
      * \brief Constructs a new Execute object.
      */
-    explicit Execute(QObject *parent = nullptr);
+    Execute(QObject *parent = nullptr);
 
-    /*!
-     * \brief Deconstructs the Execute object.
-     */
-    virtual ~Execute();
+//    /*!
+//     * \brief Deconstructs the Execute object.
+//     */
+//    virtual ~Execute();
 
     /*!
      * \brief Invokes the API call.

@@ -42,10 +42,10 @@ Show::Show(ShowPrivate &dd, QObject *parent) : PPBase(dd, parent)
 
 
 
-Show::~Show()
-{
+//Show::~Show()
+//{
 
-}
+//}
 
 
 

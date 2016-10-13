@@ -71,12 +71,12 @@ public:
     /*!
      * \brief Constructs a new ShowPayment object.
      */
-    explicit Show(QObject *parent = nullptr);
+    Show(QObject *parent = nullptr);
 
-    /*!
-     * \brief Deconstructs the ShowPayment object.
-     */
-    virtual ~Show();
+//    /*!
+//     * \brief Deconstructs the ShowPayment object.
+//     */
+//    virtual ~Show();
 
     /*!
      * \brief Invokes the API call.

@@ -52,10 +52,10 @@ PPBase::PPBase(PPBasePrivate &dd, QObject *parent)
 }
 
 
-PPBase::~PPBase()
-{
+//PPBase::~PPBase()
+//{
 
-}
+//}
 
 
 
