@@ -21,6 +21,7 @@
 
 #include "item_p.h"
 #include <QJsonDocument>
+#include <QtMath>
 #ifdef QT_DEBUG
 #include <QtDebug>
 #endif
@@ -208,7 +209,11 @@ QVariantMap Item::toVariant()
     d->addStringToVariantMap(&map, QStringLiteral("name"), name(), 127);
     d->addStringToVariantMap(&map, QStringLiteral("description"), description(), 127);
     d->addStringToVariantMap(&map, QStringLiteral("quantity"), QString::number(quantity()));
-    d->addStringToVariantMap(&map, QStringLiteral("price"), QString::number(price(), 'f', 2), 10);
+    if (QStringList({QStringLiteral("HUF"), QStringLiteral("JPY"), QStringLiteral("TWD")}).contains(currency())) {
+        d->addStringToVariantMap(&map, QStringLiteral("price"), QString::number(qFloor(price())), 10);
+    } else {
+        d->addStringToVariantMap(&map, QStringLiteral("price"), QString::number(price(), 'f', 2), 10);
+    }
     d->addStringToVariantMap(&map, QStringLiteral("currency"), currency(), 3);
     d->addStringToVariantMap(&map, QStringLiteral("tax"), QString::number(tax(), 'f', 2));
     d->addStringToVariantMap(&map, QStringLiteral("url"), url().toString());
