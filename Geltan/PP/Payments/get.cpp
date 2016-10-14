@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * Geltan/PP/Payments/show.cpp
+ * Geltan/PP/Payments/get.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,15 +19,15 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#include "show_p.h"
+#include "get_p.h"
 
 using namespace Geltan;
 using namespace PP;
 using namespace Payments;
 
-Show::Show(QObject *parent) : PPBase(*new ShowPrivate, parent)
+Get::Get(QObject *parent) : PPBase(*new GetPrivate, parent)
 {
-    Q_D(Show);
+    Q_D(Get);
     d->payment = nullptr;
     setNetworkOperation(QNetworkAccessManager::GetOperation);
     setExpectedType(PPBase::Object);
@@ -35,16 +35,16 @@ Show::Show(QObject *parent) : PPBase(*new ShowPrivate, parent)
 }
 
 
-Show::Show(ShowPrivate &dd, QObject *parent) : PPBase(dd, parent)
+Get::Get(GetPrivate &dd, QObject *parent) : PPBase(dd, parent)
 {
 
 }
 
 
 
-void Show::call()
+void Get::call()
 {
-    Q_D(Show);
+    Q_D(Get);
 
     setError(nullptr);
     setInOperation(true);
@@ -66,7 +66,7 @@ void Show::call()
 
 
 
-void Show::call(const QString &paymentId)
+void Get::call(const QString &paymentId)
 {
     setPaymentId(paymentId);
     call();
@@ -74,9 +74,9 @@ void Show::call(const QString &paymentId)
 
 
 
-void Show::successCallBack()
+void Get::successCallBack()
 {
-    Q_D(Show);
+    Q_D(Get);
 
     d->payment = new Payment(jsonResult(), this);
     Q_EMIT paymentChanged(payment());
@@ -87,7 +87,7 @@ void Show::successCallBack()
 
 
 
-void Show::errorCallBack()
+void Get::errorCallBack()
 {
     setInOperation(false);
     Q_EMIT failed();
@@ -95,7 +95,7 @@ void Show::errorCallBack()
 
 
 
-bool Show::checkInput()
+bool Get::checkInput()
 {
     if (paymentId().isEmpty()) {
         setError(new Error(Error::InputError, tr("You have to set a payment ID in order to request payment details."), Error::Critical, QString(), this));
@@ -107,7 +107,7 @@ bool Show::checkInput()
 
 
 
-bool Show::checkOutput()
+bool Get::checkOutput()
 {
     if (PPBase::checkOutput()) {
         return true;
@@ -117,11 +117,11 @@ bool Show::checkOutput()
 }
 
 
-QString Show::paymentId() const { Q_D(const Show); return d->paymentId; }
+QString Get::paymentId() const { Q_D(const Get); return d->paymentId; }
 
-void Show::setPaymentId(const QString &nPaymentId)
+void Get::setPaymentId(const QString &nPaymentId)
 {
-    Q_D(Show);
+    Q_D(Get);
     if (nPaymentId != d->paymentId) {
         d->paymentId = nPaymentId;
 #ifdef QT_DEBUG
@@ -132,4 +132,4 @@ void Show::setPaymentId(const QString &nPaymentId)
 }
 
 
-Payment *Show::payment() const { Q_D(const Show); return d->payment; }
+Payment *Get::payment() const { Q_D(const Get); return d->payment; }

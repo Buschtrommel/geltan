@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * Geltan/PP/Payments/show_p.h
+ * Geltan/PP/Payments/get_p.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,10 +19,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SHOWPAYMENT_P_H
-#define SHOWPAYMENT_P_H
+#ifndef GETPAYMENT_P_H
+#define GETPAYMENT_P_H
 
-#include "show.h"
+#include "get.h"
 #include "../ppbase_p.h"
 #include "../Objects/payment.h"
 
@@ -30,7 +30,7 @@ namespace Geltan {
 namespace PP {
 namespace Payments {
 
-class ShowPrivate : public PPBasePrivate {
+class GetPrivate : public PPBasePrivate {
 public:
     Payment *payment;
     QString paymentId;
@@ -40,4 +40,4 @@ public:
 }
 }
 
-#endif // SHOWPAYMENT_P_H
+#endif // GETPAYMENT_P_H

@@ -39,7 +39,7 @@ ScrollView {
         anchors.fill: parent
         contentHeight: compLoader.status != Loader.Null ? compLoader.height : parent.height
 
-        PPShowPayment {
+        GetPayment {
             id: ppShowPayment
             token: config.payPalToken
             tokenType: config.payPalTokenType

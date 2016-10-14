@@ -98,8 +98,6 @@ HEADERS += geltan_global.h \
     PP/ppenumsmap.h \
     PP/Payments/execute.h \
     PP/Payments/execute_p.h \
-    PP/Payments/show.h \
-    PP/Payments/show_p.h \
     PP/Objects/payee.h \
     PP/Objects/payee_p.h \
     PP/Payments/list.h \
@@ -107,7 +105,9 @@ HEADERS += geltan_global.h \
     PP/Objects/paymentlist.h \
     PP/Objects/paymentlist_p.h \
     PP/pplistbase.h \
-    PP/pplistbase_p.h
+    PP/pplistbase_p.h \
+    PP/Payments/get.h \
+    PP/Payments/get_p.h
 
 SOURCES += \
     component.cpp \
@@ -145,8 +145,8 @@ SOURCES += \
     PP/Payments/create.cpp \
     PP/ppenumsmap.cpp \
     PP/Payments/execute.cpp \
-    PP/Payments/show.cpp \
     PP/Objects/payee.cpp \
     PP/Payments/list.cpp \
     PP/Objects/paymentlist.cpp \
-    PP/pplistbase.cpp
+    PP/pplistbase.cpp \
+    PP/Payments/get.cpp
