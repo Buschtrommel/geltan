@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * itemlist.h
+ * Geltan/PP/Objects/itemlist.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,23 +40,22 @@ class Item;
 /*!
  * \brief Provides a list of items together with some additional information.
  *
+ * The items itself are accessible through the model's functions.
+ *
  * \ppPaymentsApi{item_list}
  *
  * \headerfile "" <Geltan/PP/Objects/itemlist.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT ItemList : public QAbstractListModel
 {
     Q_OBJECT
     /*!
-     * \brief Item details.
+     * \brief List of Item details.
      *
      * Setting a new list of Item objects will reset the current model data and will delete all
-     * Item objects currently available in the model.
+     * Item objects currently available in the model. If setting a new list of items, the items will not
+     * be automatically children of the ItemList object. So they will not get destroyed automatically when
+     * the ItemList object gets destroyed.
      *
      * \ppApiName{items}
      *
@@ -68,6 +67,9 @@ class GELTANSHARED_EXPORT ItemList : public QAbstractListModel
     Q_PROPERTY(QList<Item*> items READ items WRITE setItems NOTIFY itemsChanged)
     /*!
      * \brief Extended Address object used as shipping address in a payment.
+     *
+     * Contains a pointer to a ShippingAddress object, if any, otherwise contains a nullptr. If created internally the ShippingAddress object will
+     * be a child of the ItemList object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{shipping_address}
      *

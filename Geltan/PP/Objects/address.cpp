@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * address.cpp
+ * Geltan/PP/Objects/address.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,21 +30,21 @@ using namespace PP;
 
 
 Address::Address(QObject *parent) :
-    QObject(parent), d_ptr(new AddressPrivate)
+    QObject(parent), d_ptr(new AddressPrivate(this))
 {
 }
 
 
 
 Address::Address(const QJsonDocument &json, QObject *parent) :
-    QObject(parent), d_ptr(new AddressPrivate)
+    QObject(parent), d_ptr(new AddressPrivate(this))
 {
     loadFromJson(json);
 }
 
 
 Address::Address(const QJsonObject &json, QObject *parent) :
-    QObject(parent), d_ptr(new AddressPrivate)
+    QObject(parent), d_ptr(new AddressPrivate(this))
 {
     loadFromJson(json);
 }
@@ -177,18 +177,6 @@ void Address::setPhone(const QString &nPhone)
 
 Address::NormalizationStatus Address::normalizationStatus() const { Q_D(const Address); return d->normalizationStatus; }
 
-void Address::setNormalizationStatus(NormalizationStatus nNormalizationStatus)
-{
-    Q_D(Address); 
-    if (nNormalizationStatus != d->normalizationStatus) {
-        d->normalizationStatus = nNormalizationStatus;
-#ifdef QT_DEBUG
-        qDebug() << "Changed normalizationStatus to" << d->normalizationStatus;
-#endif
-        Q_EMIT normalizationStatusChanged(normalizationStatus());
-    }
-}
-
 
 
 
@@ -245,10 +233,10 @@ QVariantMap Address::toVariant()
 
     d->addPhoneNumberToVariantMap(&map, QStringLiteral("phone"), phone());
 
-    if (status() == Confirmed) {
+    if (status() == CONFIRMED) {
         d->addStringToVariantMap(&map, QStringLiteral("status"), QStringLiteral("CONFIRMED"));
-    } else  if (status() == Unconfirmed) {
-        d->addStringToVariantMap(&map, QStringLiteral("status"), QStringLiteral("UNCONFIRMED"));
+    } else  if (status() == CONFIRMED) {
+        d->addStringToVariantMap(&map, QStringLiteral("status"), QStringLiteral("CONFIRMED"));
     }
 
     d->addStringToVariantMap(&map, QStringLiteral("type"), type().simplified());
@@ -277,6 +265,8 @@ void Address::loadFromJson(const QJsonObject &json)
         return;
     }
 
+    Q_D(Address);
+
     setLine1(json.value(QStringLiteral("line1")).toString());
 
     setLine2(json.value(QStringLiteral("line2")).toString());
@@ -298,22 +288,22 @@ void Address::loadFromJson(const QJsonObject &json)
 
     const QString ns = json.value(QStringLiteral("normalization_status")).toString();
     if (ns == QLatin1String("UNNORMALIZED_USER_PREFERRED")) {
-        setNormalizationStatus(UnnormalizedUserPreferred);
+        d->setNormalizationStatus(UNNORMALIZED_USER_PREFERRED);
     } else if (ns == QLatin1String("NORMALIZED")) {
-        setNormalizationStatus(Normalized);
+        d->setNormalizationStatus(NORMALIZED);
     } else if (ns == QLatin1String("UNNORMALIZED")) {
-        setNormalizationStatus(Unnormalized);
+        d->setNormalizationStatus(UNNORMALIZED);
     } else {
-        setNormalizationStatus(Unknown);
+        d->setNormalizationStatus(UNKNOWN);
     }
 
     const QString ss = json.value(QStringLiteral("status")).toString();
     if (ss == QLatin1String("CONFIRMED")) {
-        setStatus(Confirmed);
+        setStatus(CONFIRMED);
     } else if (ss == QLatin1String("UNCONFIRMED")) {
-        setStatus(Unconfirmed);
+        setStatus(UNCONFIRMED);
     } else {
-        setStatus(NoStatus);
+        setStatus(NO_STATUS);
     }
 
     setType(json.value(QStringLiteral("type")).toString());

@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * processorresponse.h
+ * Geltan/PP/Objects/processorresponse.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,11 +38,6 @@ class ProcessorResponsePrivate;
  * \ppPaymentsApi{processor_response}
  *
  * \headerfile "" <Geltan/PP/Objects/processorresponse.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT ProcessorResponse : public QObject
 {
@@ -53,11 +48,11 @@ class GELTANSHARED_EXPORT ProcessorResponse : public QObject
      * \ppApiName{response_code}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>responseCode() const</TD></TR><TR><TD>void</TD><TD>setResponseCode(const QString &nResponseCode)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>responseCode() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>responseCodeChanged(const QString &responseCode)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString responseCode READ responseCode WRITE setResponseCode NOTIFY responseCodeChanged)
+    Q_PROPERTY(QString responseCode READ responseCode NOTIFY responseCodeChanged)
     /*!
      * \brief Address Verification System response code.
      *
@@ -66,11 +61,11 @@ class GELTANSHARED_EXPORT ProcessorResponse : public QObject
      * \ppApiName{avs_code}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>avsCode() const</TD></TR><TR><TD>void</TD><TD>setAvsCode(const QString &nAvsCode)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>avsCode() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>avsCodeChanged(const QString &avsCode)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString avsCode READ avsCode WRITE setAvsCode NOTIFY avsCodeChanged)
+    Q_PROPERTY(QString avsCode READ avsCode NOTIFY avsCodeChanged)
     /*!
      * \brief CVV System response code.
      *
@@ -79,44 +74,44 @@ class GELTANSHARED_EXPORT ProcessorResponse : public QObject
      * \ppApiName{cvv_code}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>cvvCode() const</TD></TR><TR><TD>void</TD><TD>setCvvCode(const QString &nCvvCode)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>cvvCode() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>cvvCodeChanged(const QString &cvvCode)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString cvvCode READ cvvCode WRITE setCvvCode NOTIFY cvvCodeChanged)
+    Q_PROPERTY(QString cvvCode READ cvvCode NOTIFY cvvCodeChanged)
     /*!
      * \brief Provides merchant advice on how to handle declines related to recurring payments.
      *
      * \ppApiName{advice_code}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>AdviceCode</TD><TD>adviceCode() const</TD></TR><TR><TD>void</TD><TD>setAdviceCode(AdviceCode nAdviceCode)</TD></TR></TABLE>
+     * <TABLE><TR><TD>AdviceCode</TD><TD>adviceCode() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>adviceCodeChanged(AdviceCode adviceCode)</TD></TR></TABLE>
      */
-    Q_PROPERTY(AdviceCode adviceCode READ adviceCode WRITE setAdviceCode NOTIFY adviceCodeChanged)
+    Q_PROPERTY(AdviceCode adviceCode READ adviceCode NOTIFY adviceCodeChanged)
     /*!
      * \brief Response back from the authorization. Provided by the processor.
      *
      * \ppApiName{eci_submitted}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>eciSubmitted() const</TD></TR><TR><TD>void</TD><TD>setEciSubmitted(const QString &nEciSubmitted)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>eciSubmitted() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>eciSubmittedChanged(const QString &eciSubmitted)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString eciSubmitted READ eciSubmitted WRITE setEciSubmitted NOTIFY eciSubmittedChanged)
+    Q_PROPERTY(QString eciSubmitted READ eciSubmitted NOTIFY eciSubmittedChanged)
     /*!
      * \brief Visa Payer Authentication Service status. Will be return from processor.
      *
      * \ppApiName{vpas}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>vpas() const</TD></TR><TR><TD>void</TD><TD>setVpas(const QString &nVpas)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>vpas() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>vpasChanged(const QString &vpas)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString vpas READ vpas WRITE setVpas NOTIFY vpasChanged)
+    Q_PROPERTY(QString vpas READ vpas NOTIFY vpasChanged)
 public:
     /*!
      * \brief Constructs a new empty ProcessorResponse object.
@@ -164,13 +159,6 @@ public:
     AdviceCode adviceCode() const;
     QString eciSubmitted() const;
     QString vpas() const;
-
-    void setResponseCode(const QString &nResponseCode);
-    void setAvsCode(const QString &nAvsCode);
-    void setCvvCode(const QString &nCvvCode);
-    void setAdviceCode(AdviceCode nAdviceCode);
-    void setEciSubmitted(const QString &nEciSubmitted);
-    void setVpas(const QString &nVpas);
 
 
     /*!

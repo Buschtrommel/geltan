@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * requestaccesstoken.h
+ * Geltan/PP/requestaccesstoken.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -37,11 +37,6 @@ class RequestAccessTokenPrivate;
  * \brief Class to request an access token from the PayPal API.
  *
  * \headerfile "" <Geltan/PP/requestaccesstoken.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT RequestAccessToken : public PPBase
 {

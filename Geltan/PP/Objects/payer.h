@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * payer.h
+ * Geltan/PP/Objects/payer.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -45,11 +45,6 @@ class FundingInstrument;
  * \ppPaymentsApi{payer}
  *
  * \headerfile "" <Geltan/PP/Objects/payer.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Payer : public QAbstractListModel
 {
@@ -80,8 +75,10 @@ class GELTANSHARED_EXPORT Payer : public QAbstractListModel
     /*!
      * \brief A resource representing a Payer's funding instrument.
      *
-     * An instance of this schema is valid if and only if it is valid against exactly one of these supported
-     * properties
+     * An instance of this schema is valid if and only if it is valid against exactly one of it's supported
+     * properties. Contains a list of pointers to FundingInstrument objects. If they are created internally, they will be
+     * children of the Payer object and will be destroyed if the parent get destroyed. They are accessible through the Payer
+     * model.
      *
      * \ppApiName{funding_instruments}
      *
@@ -103,7 +100,10 @@ class GELTANSHARED_EXPORT Payer : public QAbstractListModel
      */
     Q_PROPERTY(FundingInstrumentType externalSelectedFundingInstrumentType READ externalSelectedFundingInstrumentType WRITE setExternalSelectedFundingInstrumentType NOTIFY externalSelectedFundingInstrumentTypeChanged)
     /*!
-     * \brief A resource representing a information about Payer.
+     * \brief A resource representing more information about Payer.
+     *
+     * Contains a pointer to a PayerInfo object, if any, otherwise contains a nullptr. If created internally, the PayerInfo object will be a child
+     * of the Payer object and will be destroyed if the parent gets destroyed.
      *
      * \ppApiName{payer_info}
      *
@@ -231,14 +231,14 @@ public:
     /*!
      * \brief Returns a QVariantMap containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QVariantMap toVariant();
 
     /*!
      * \brief Returns a QJsonObject containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QJsonObject toJsonObject();
 

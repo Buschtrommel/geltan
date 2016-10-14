@@ -41,12 +41,9 @@ class ExecutePrivate;
 /*!
  * \brief Executes a PayPal payment.
  *
+ * \ppPaymentsApi{payment_execute}
+ *
  * \headerfile "" <Geltan/PP/Payments/execute.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-27
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Execute : public PPBase
 {
@@ -93,11 +90,6 @@ public:
      * \brief Constructs a new Execute object.
      */
     Execute(QObject *parent = nullptr);
-
-//    /*!
-//     * \brief Deconstructs the Execute object.
-//     */
-//    virtual ~Execute();
 
     /*!
      * \brief Invokes the API call.

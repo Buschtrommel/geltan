@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * address.h
+ * Geltan/PP/Objects/address.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -41,11 +41,6 @@ class AddressPrivate;
  * \ppPaymentsApi{address}
  *
  * \headerfile "address.h" <Geltan/PP/Objects/address.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Address : public QObject
 {
@@ -90,6 +85,8 @@ class GELTANSHARED_EXPORT Address : public QObject
     /*!
      * \brief 2-letter country code.
      *
+     * Has to be a <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a> country code.
+     *
      * \ppApiName{country_code}
      *
      * \par Access functions:
@@ -99,7 +96,7 @@ class GELTANSHARED_EXPORT Address : public QObject
      */
     Q_PROPERTY(QString countryCode READ countryCode WRITE setCountryCode NOTIFY countryCodeChanged)
     /*!
-     * \brief Zip code or equivalent.
+     * \brief Postal code.
      *
      * Usually required for countries that have them. 20 characters max. Required in certain countries.
      *
@@ -197,10 +194,10 @@ public:
      * \brief Address normalization status, returned only for payers from Brazil.
      */
     enum NormalizationStatus {
-        Unknown                     = 0,
-        UnnormalizedUserPreferred   = 1,
-        Normalized                  = 2,
-        Unnormalized                = 3
+        UNKNOWN                     = 0,
+        UNNORMALIZED_USER_PREFERRED = 1,
+        NORMALIZED                  = 2,
+        UNNORMALIZED                = 3
     };
 #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
     Q_ENUM(NormalizationStatus)
@@ -212,9 +209,9 @@ public:
      * \brief Address status.
      */
     enum Status {
-        NoStatus    = 0,
-        Confirmed   = 1,
-        Unconfirmed = 2
+        NO_STATUS   = 0,
+        CONFIRMED   = 1,
+        UNCONFIRMED = 2
     };
 #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
     Q_ENUM(Status)
@@ -240,10 +237,6 @@ public:
     void setPostalCode(const QString &nPostalCode);
     void setState(const QString &nState);
     void setPhone(const QString &nPhone);
-    /*!
-     * \brief Sets the address normalization status.
-     */
-    void setNormalizationStatus(NormalizationStatus nNormalizationStatus);
     void setStatus(Status nStatus);
     void setType(const QString &nType);
 
@@ -251,14 +244,14 @@ public:
     /*!
      * \brief Returns a QVariantMap containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QVariantMap toVariant();
 
     /*!
      * \brief Returns a QJsonObject containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QJsonObject toJsonObject();
 

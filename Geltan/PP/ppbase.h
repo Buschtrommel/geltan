@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * ppbase.h
+ * Geltan/PP/ppbase.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,11 +40,6 @@ class PPBasePrivate;
  * Provides basic functionalities to send requests to the PayPal API.
  *
  * \headerfile "" <Geltan/PP/ppbase.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT PPBase : public Component
 {
@@ -69,10 +64,7 @@ public:
      */
     PPBase(QObject *parent = nullptr);
 
-//    /*!
-//     * \brief Deconstructs the PPBase object.
-//     */
-//    ~PPBase();
+
 
     /*!
      * \brief The ExpectedJSONType enum

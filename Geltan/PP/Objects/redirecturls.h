@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * redirecturls.h
+ * Geltan/PP/Objects/redirecturls.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -39,17 +39,12 @@ class RedirectUrlsPrivate;
  * \ppPaymentsApi{redirect_urls}
  *
  * \headerfile "" <Geltan/PP/Objects/redirecturls.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-09
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT RedirectUrls : public QObject
 {
     Q_OBJECT
     /*!
-     * \brief Url where the payer would be redirected to after approving the payment.
+     * \brief URL where the payer would be redirected to after approving the payment.
      *
      * \ppApiName{return_url}
      *
@@ -60,7 +55,7 @@ class GELTANSHARED_EXPORT RedirectUrls : public QObject
      */
     Q_PROPERTY(QUrl returnUrl READ returnUrl WRITE setReturnUrl NOTIFY returnUrlChanged)
     /*!
-     * \brief Url where the payer would be redirected to after canceling the payment.
+     * \brief URL where the payer would be redirected to after canceling the payment.
      *
      * \ppApiName{cancel_url}
      *

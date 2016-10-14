@@ -36,14 +36,11 @@ namespace Payments {
 class ShowPrivate;
 
 /*!
- * \brief Requests information about a PayPal payment.
+ * \brief Requests information about a single PayPal payment.
+ *
+ * \ppPaymentsApi{payment_get}
  *
  * \headerfile "" <Geltan/PP/Payments/show.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Show : public PPBase
 {
@@ -72,11 +69,6 @@ public:
      * \brief Constructs a new ShowPayment object.
      */
     Show(QObject *parent = nullptr);
-
-//    /*!
-//     * \brief Deconstructs the ShowPayment object.
-//     */
-//    virtual ~Show();
 
     /*!
      * \brief Invokes the API call.

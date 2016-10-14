@@ -4,7 +4,7 @@
         <file>qml/MainView.qml</file>
         <file>qml/Settings.qml</file>
         <file>qml/PP/AuthenticationTest.qml</file>
-        <file>qml/PP/AcceptPaypalPayment.qml</file>
+        <file>qml/PP/Payments/AcceptPaypalPayment.qml</file>
         <file>qml/PP/Transaction.qml</file>
         <file>qml/PP/Item.qml</file>
         <file>qml/Web.qml</file>
@@ -13,7 +13,7 @@
         <file>qml/PP/TransactionView.qml</file>
         <file>qml/PP/PaymentAmountView.qml</file>
         <file>qml/PP/DetailsView.qml</file>
-        <file>qml/PP/ShowPayment.qml</file>
+        <file>qml/PP/Payments/Show.qml</file>
         <file>qml/PP/AddressView.qml</file>
         <file>qml/PP/ShippingAddressView.qml</file>
         <file>qml/PP/PayerView.qml</file>

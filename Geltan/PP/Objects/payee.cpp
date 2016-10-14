@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * payee.cpp
+ * Geltan/PP/Objects/payee.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,6 +32,15 @@ using namespace PP;
 Payee::Payee(QObject *parent) :
     QObject(parent), d_ptr(new PayeePrivate)
 {
+}
+
+
+Payee::Payee(const QString &email, const QString &merchantId, QObject *parent) :
+    QObject(parent), d_ptr(new PayeePrivate)
+{
+    Q_D(Payee);
+    d->email = email;
+    d->merchantId = merchantId;
 }
 
 

@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * payerinfo.cpp
+ * Geltan/PP/Objects/payerinfo.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -52,7 +52,7 @@ PayerInfo::PayerInfo(const QJsonObject &json, QObject *parent) :
 
 PayerInfo::~PayerInfo()
 {
-    delete d_ptr;
+
 }
 
 
@@ -326,24 +326,6 @@ void PayerInfo::setBillingAddress(Address *nBillingAddress)
 
 
 
-
-ShippingAddress *PayerInfo::shippingAddress() const { Q_D(const PayerInfo); return d->shippingAddress; }
-
-void PayerInfo::setShippingAddress(ShippingAddress *nShippingAddress)
-{
-    Q_D(PayerInfo);
-    if (nShippingAddress != d->shippingAddress) {
-        d->shippingAddress = nShippingAddress;
-#ifdef QT_DEBUG
-        qDebug() << "Changed shippingAddress to" << d->shippingAddress;
-#endif
-        Q_EMIT shippingAddressChanged(shippingAddress());
-    }
-}
-
-
-
-
 QVariantMap PayerInfo::toVariant()
 {
     Q_D(PayerInfo);
@@ -473,18 +455,5 @@ void PayerInfo::loadFromJson(const QJsonObject &json)
     } else {
         setBillingAddress(nullptr);
         delete oldBao;
-    }
-
-    const QJsonObject sao = json.value(QStringLiteral("shipping_address")).toObject();
-    ShippingAddress *oldSao = shippingAddress();
-    if (!sao.isEmpty()) {
-        if (oldSao) {
-            oldSao->loadFromJson(sao);
-        } else {
-            setShippingAddress(new ShippingAddress(sao, this));
-        }
-    } else {
-        setShippingAddress(nullptr);
-        delete oldSao;
     }
 }

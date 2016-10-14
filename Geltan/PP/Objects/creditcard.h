@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * creditcard.h
+ * Geltan/PP/Objects/creditcard.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -43,11 +43,6 @@ class CreditCardPrivate;
  * \ppPaymentsApi{credit_card}
  *
  * \headerfile "creditcard.h" <Geltan/PP/Objects/creditcard.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT CreditCard : public QObject
 {
@@ -55,8 +50,8 @@ class GELTANSHARED_EXPORT CreditCard : public QObject
     /*!
      * \brief Credit card number.
      *
-     * Numeric characters only with no spaces or punctuation. The string must conform with modulo and length 
-     * requiredby each credit card type.
+     * Numeric characters only, with no spaces or punctuation. The string must conform with modulo and length
+     * required by each credit card type.
      *
      * \ppApiName{number}
      *
@@ -133,7 +128,10 @@ class GELTANSHARED_EXPORT CreditCard : public QObject
      */
     Q_PROPERTY(QString lastName READ lastName WRITE setLastName NOTIFY lastNameChanged)
     /*!
-     * \brief Base address object used as billing address in payment or extended shipping address.
+     * \brief Billing Address associated with this card.
+     *
+     * Contains a pointer to an Address object, if any, otherwise contains a nullptr. If created internally, the Address object will be a child of
+     * the CreditCard object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{billing_address}
      *
@@ -180,9 +178,11 @@ class GELTANSHARED_EXPORT CreditCard : public QObject
      */
     Q_PROPERTY(QDateTime validUntil READ validUntil NOTIFY validUntilChanged)
     /*!
-     * \brief HATEOAS links related to this call.
+     * \brief List of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> Link related to this call.
      *
      * \ppApiName{links}
+     *
+     * \sa getLink(), getLinkURL()
      *
      * \par Access functions:
      * <TABLE><TR><TD>QList<Link*></TD><TD>links() const</TD></TR></TABLE>
@@ -263,14 +263,14 @@ public:
     void setLinks(const QList<Link*> &nLinks);
 
     /*!
-     * \brief Returns the URL of the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the URL of the Link in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, the returned URL will be invalid.
      */
     Q_INVOKABLE QUrl getLinkURL(const QString &rel) const;
 
     /*!
-     * \brief Returns the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the Link in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, a \c nullptr will be returned.
      */
@@ -280,14 +280,14 @@ public:
     /*!
      * \brief Returns a QVariantMap containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QVariantMap toVariant();
 
     /*!
      * \brief Returns a QJsonObject containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QJsonObject toJsonObject();
 

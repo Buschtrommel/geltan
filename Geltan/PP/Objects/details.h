@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * details.h
+ * Geltan/PP/Objects/details.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -35,14 +35,11 @@ class DetailsPrivate;
 /*!
  * \brief Contains details about a price / amount.
  *
+ * This might be used in the PaymentAmount object to give more details about the payment amount.
+ *
  * \ppPaymentsApi{details}
  *
  * \headerfile "details.h" <Geltan/PP/Objects/details.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Details : public QObject
 {

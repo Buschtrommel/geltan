@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * paymentamount.h
+ * Geltan/PP/Objects/paymentamount.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -51,17 +51,12 @@ class Details;
  * \ppPaymentsApi{payment_amount}
  *
  * \headerfile "" <Geltan/PP/Objects/paymentamount.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT PaymentAmount : public QObject
 {
     Q_OBJECT
     /*!
-     * \brief 3-letter ISO 4217 currency code. PayPal does not support all currencies.
+     * \brief 3-letter <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code. PayPal does not support all currencies.
      *
      * \ppApiName{currency}
      *
@@ -73,6 +68,8 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
     Q_PROPERTY(QString currency READ currency WRITE setCurrency NOTIFY currencyChanged)
     /*!
      * \brief Total amount charged from the payer to the payee.
+     *
+     * In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places.
      *
      * \ppApiName{total}
      *
@@ -88,7 +85,8 @@ class GELTANSHARED_EXPORT PaymentAmount : public QObject
      * For easier access, the properties of the Details object are mapped to corresponding properties
      * in the PaymentAmount object. When setting a new Details object, the signals will be connected to the
      * corresponding signals of the PaymentAmount object. When there was a Details object before, the connections of that
-     * object will be released. The old Details object will not be destroyed automatically.
+     * object will be released. The old Details object will only be destroyed automatically if it is a child of the PaymentAmount
+     * object. Internally created Details object will be children of the PaymentAmount object.
      *
      * When setting a Details object, every change on its properties will invoke a recalculation of the total amount of the
      * PaymentAmount object.

@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * item.h
+ * Geltan/PP/Objects/item.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,11 +40,6 @@ class ItemPrivate;
  * \ppPaymentsApi{item}
  *
  * \headerfile "" <Geltan/PP/Objects/item.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Item : public QObject
 {
@@ -78,7 +73,9 @@ class GELTANSHARED_EXPORT Item : public QObject
     /*!
      * \brief Description of the item.
      *
-     * Only supported when the \c payment_method is set to \c paypal.
+     * Only supported when the \c paymentMethod is set to \c PayPal::PayPalWallet.
+     *
+     * Maximum length: 127
      *
      * \ppApiName{description}
      *
@@ -111,7 +108,7 @@ class GELTANSHARED_EXPORT Item : public QObject
      */
     Q_PROPERTY(float price READ price WRITE setPrice NOTIFY priceChanged)
     /*!
-     * \brief 3-letter currency code.
+     * \brief 3-letter <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> currency code.
      *
      * \ppApiName{currency}
      *
@@ -124,7 +121,7 @@ class GELTANSHARED_EXPORT Item : public QObject
     /*!
      * \brief Tax of the item.
      *
-     * Only supported when the \c payment_method is set to \c paypal.
+     * Only supported when the \c paymentMethod is set to \c PayPal::PayPalWallet.
      *
      * \ppApiName{tax}
      *

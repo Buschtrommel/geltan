@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * processorresponse.cpp
+ * Geltan/PP/Objects/processorresponse.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,21 +31,21 @@ using namespace PP;
 
 
 ProcessorResponse::ProcessorResponse(QObject *parent) :
-    QObject(parent), d_ptr(new ProcessorResponsePrivate)
+    QObject(parent), d_ptr(new ProcessorResponsePrivate(this))
 {
 }
 
 
 
 ProcessorResponse::ProcessorResponse(const QJsonDocument &json, QObject *parent) :
-    QObject(parent), d_ptr(new ProcessorResponsePrivate)
+    QObject(parent), d_ptr(new ProcessorResponsePrivate(this))
 {
     loadFromJson(json);
 }
 
 
 ProcessorResponse::ProcessorResponse(const QJsonObject &json, QObject *parent) :
-    QObject(parent), d_ptr(new ProcessorResponsePrivate)
+    QObject(parent), d_ptr(new ProcessorResponsePrivate(this))
 {
     loadFromJson(json);
 }
@@ -58,104 +58,20 @@ ProcessorResponse::~ProcessorResponse()
 
 QString ProcessorResponse::responseCode() const { Q_D(const ProcessorResponse); return d->responseCode; }
 
-void ProcessorResponse::setResponseCode(const QString &nResponseCode)
-{
-    Q_D(ProcessorResponse); 
-    if (nResponseCode != d->responseCode) {
-        d->responseCode = nResponseCode;
-#ifdef QT_DEBUG
-        qDebug() << "Changed responseCode to" << d->responseCode;
-#endif
-        Q_EMIT responseCodeChanged(responseCode());
-    }
-}
-
-
-
 
 QString ProcessorResponse::avsCode() const { Q_D(const ProcessorResponse); return d->avsCode; }
-
-void ProcessorResponse::setAvsCode(const QString &nAvsCode)
-{
-    Q_D(ProcessorResponse); 
-    if (nAvsCode != d->avsCode) {
-        d->avsCode = nAvsCode;
-#ifdef QT_DEBUG
-        qDebug() << "Changed avsCode to" << d->avsCode;
-#endif
-        Q_EMIT avsCodeChanged(avsCode());
-    }
-}
-
-
 
 
 QString ProcessorResponse::cvvCode() const { Q_D(const ProcessorResponse); return d->cvvCode; }
 
-void ProcessorResponse::setCvvCode(const QString &nCvvCode)
-{
-    Q_D(ProcessorResponse); 
-    if (nCvvCode != d->cvvCode) {
-        d->cvvCode = nCvvCode;
-#ifdef QT_DEBUG
-        qDebug() << "Changed cvvCode to" << d->cvvCode;
-#endif
-        Q_EMIT cvvCodeChanged(cvvCode());
-    }
-}
-
-
-
 
 ProcessorResponse::AdviceCode ProcessorResponse::adviceCode() const { Q_D(const ProcessorResponse); return d->adviceCode; }
-
-void ProcessorResponse::setAdviceCode(AdviceCode nAdviceCode)
-{
-    Q_D(ProcessorResponse); 
-    if (nAdviceCode != d->adviceCode) {
-        d->adviceCode = nAdviceCode;
-#ifdef QT_DEBUG
-        qDebug() << "Changed adviceCode to" << d->adviceCode;
-#endif
-        Q_EMIT adviceCodeChanged(adviceCode());
-    }
-}
-
-
 
 
 QString ProcessorResponse::eciSubmitted() const { Q_D(const ProcessorResponse); return d->eciSubmitted; }
 
-void ProcessorResponse::setEciSubmitted(const QString &nEciSubmitted)
-{
-    Q_D(ProcessorResponse); 
-    if (nEciSubmitted != d->eciSubmitted) {
-        d->eciSubmitted = nEciSubmitted;
-#ifdef QT_DEBUG
-        qDebug() << "Changed eciSubmitted to" << d->eciSubmitted;
-#endif
-        Q_EMIT eciSubmittedChanged(eciSubmitted());
-    }
-}
-
-
-
 
 QString ProcessorResponse::vpas() const { Q_D(const ProcessorResponse); return d->vpas; }
-
-void ProcessorResponse::setVpas(const QString &nVpas)
-{
-    Q_D(ProcessorResponse); 
-    if (nVpas != d->vpas) {
-        d->vpas = nVpas;
-#ifdef QT_DEBUG
-        qDebug() << "Changed vpas to" << d->vpas;
-#endif
-        Q_EMIT vpasChanged(vpas());
-    }
-}
-
-
 
 
 void ProcessorResponse::loadFromJson(const QJsonDocument &json)
@@ -170,33 +86,18 @@ void ProcessorResponse::loadFromJson(const QJsonObject &json)
         return;
     }
 
-    setResponseCode(json.value(QStringLiteral("response_code")).toString());
+    Q_D(ProcessorResponse);
 
-    setAvsCode(json.value(QStringLiteral("avs_code")).toString());
+    d->setResponseCode(json.value(QStringLiteral("response_code")).toString());
 
-    setCvvCode(json.value(QStringLiteral("cvv_code")).toString());
+    d->setAvsCode(json.value(QStringLiteral("avs_code")).toString());
 
-    const QString ac = json.value(QStringLiteral("advice_code")).toString();
-    if (ac == QLatin1String("01_NEW_ACCOUNT_INFORMATION")) {
-        setAdviceCode(NewAccountInformation);
-    } else if (ac == QLatin1String("02_TRY_AGAIN_LATER")) {
-        setAdviceCode(TryAgainLater);
-    } else if (ac == QLatin1String("02_STOP_SPECIFIC_PAYMENT")) {
-        setAdviceCode(StopSpecificPayment);
-    } else if (ac == QLatin1String("03_DO_NOT_TRY_AGAIN")) {
-        setAdviceCode(DoNotTryAgain);
-    } else if (ac == QLatin1String("03_REVOKE_AUTHORIZATION_FOR_FUTURE_PAYMENT")) {
-        setAdviceCode(RevokeAuthorizationForFuturePayment);
-    } else if (ac == QLatin1String("21_DO_NOT_TRY_AGAIN_CARD_HOLDER_CANCELLED_RECURRRING_CHARGE")) {
-        setAdviceCode(DoNotTryAgainCardHolderCancelledRecurringCharge);
-    } else if (ac == QLatin1String("21_CANCEL_ALL_RECURRING_PAYMENTS")) {
-        setAdviceCode(CancelAllRecurringPayments);
-    } else {
-        setAdviceCode(NoAdviceCode);
-    }
+    d->setCvvCode(json.value(QStringLiteral("cvv_code")).toString());
 
-    setEciSubmitted(json.value(QStringLiteral("eci_submitted")).toString());
+    d->setAdviceCode(json.value(QStringLiteral("advice_code")).toString());
 
-    setVpas(json.value(QStringLiteral("vpas")).toString());
+    d->setEciSubmitted(json.value(QStringLiteral("eci_submitted")).toString());
+
+    d->setVpas(json.value(QStringLiteral("vpas")).toString());
 }
 

@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * billinginstrument.h
+ * Geltan/PP/Objects/billinginstrument.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -39,11 +39,6 @@ class BillingInstrumentPrivate;
  * \ppPaymentsApi{billing_instrument}
  *
  * \headerfile "billinginstrument.h" <Geltan/PP/Objects/billinginstrument.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT BillingInstrument : public QObject
 {
@@ -61,6 +56,10 @@ class GELTANSHARED_EXPORT BillingInstrument : public QObject
     Q_PROPERTY(QString billingAgreementId READ billingAgreementId WRITE setBillingAgreementId NOTIFY billingAgreementIdChanged)
     /*!
      * \brief A resource describing an installment.
+     *
+     * Contains a pointer to a InstallmentDescription object, if any, otherwise returns a nullptr.
+     * Setting a new InstallmentDescription object, a current one will not be destroyed. If the old one
+     * was a child of the BillingInstrument object, it will be destroyed on the parent's destruction.
      *
      * \ppApiName{selected_installment_option}
      *
@@ -130,7 +129,7 @@ Q_SIGNALS:
     void selectedInstallmentOptionChanged(InstallmentDescription *selectedInstallmentOption);
 
 protected:
-    BillingInstrumentPrivate * const d_ptr;
+    const QScopedPointer<BillingInstrumentPrivate> d_ptr;
 
 
 private:

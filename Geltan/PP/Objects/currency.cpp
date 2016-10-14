@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * currency.cpp
+ * Geltan/PP/Objects/currency.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -51,7 +51,7 @@ Currency::Currency(const QJsonObject &json, QObject *parent) :
 
 Currency::~Currency()
 {
-    delete d_ptr;
+
 }
 
 

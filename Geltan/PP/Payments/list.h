@@ -40,12 +40,9 @@ class ListPrivate;
  * Lists payments that were created by the Geltan::PP::Payments::Create call and are in any state.
  * The list shows the payments that are made to the merchant who makes the call.
  *
+ * \ppPaymentsApi{payment_list}
+ *
  * \headerfile "" <Geltan/PP/Payments/list.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-10-06
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT List : public PPBase
 {

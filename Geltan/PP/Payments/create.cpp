@@ -52,13 +52,6 @@ Create::Create(CreatePrivate &dd, QObject *parent) : PPBase(dd, parent)
 
 
 
-//Create::~Create()
-//{
-
-//}
-
-
-
 void Create::call()
 {
     if (!payment()) {

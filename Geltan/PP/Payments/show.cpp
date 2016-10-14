@@ -42,13 +42,6 @@ Show::Show(ShowPrivate &dd, QObject *parent) : PPBase(dd, parent)
 
 
 
-//Show::~Show()
-//{
-
-//}
-
-
-
 void Show::call()
 {
     Q_D(Show);

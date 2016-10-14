@@ -39,12 +39,9 @@ class CreatePrivate;
 /*!
  * \brief Create new PayPal payment.
  *
+ * \ppPaymentsApi{payment_create}
+ *
  * \headerfile "" <Geltan/PP/Payments/create.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Create : public PPBase
 {
@@ -66,11 +63,6 @@ public:
      * \brief Constructs a new Create object.
      */
     Create(QObject *parent = nullptr);
-
-//    /*!
-//     * \brief Deconstructs the Create object.
-//     */
-//    virtual ~Create();
 
     /*!
      * \brief Invokes the API call.

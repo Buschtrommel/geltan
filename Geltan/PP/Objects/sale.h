@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * sale.h
+ * Geltan/PP/Objects/sale.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -42,14 +42,9 @@ class Link;
 /*!
  * \brief Contains details about a sale transaction
  *
- * \link https://developer.paypal.com/docs/api/payments/#definition-sale PayPal API \endlink
+ * \ppPaymentsApi{sale}
  *
  * \headerfile "" <Geltan/PP/Objects/sale.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Sale : public QObject
 {
@@ -62,7 +57,7 @@ class GELTANSHARED_EXPORT Sale : public QObject
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>idChanged(const QString &id)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QString id READ id NOTIFY idChanged)
     /*!
      * \brief Identifier of the purchased unit associated with this object.
      *
@@ -286,8 +281,8 @@ public:
      * \brief Status of the Recipient Fund.
      */
     enum PaymentHoldStatus {
-        NoPaymentHoldStatus = 0,
-        Held                = 1
+        NO_PAYMENT_HOLD_STATUS  = 0,
+        HELD                    = 1
     };
 #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
     Q_ENUM(PaymentHoldStatus)
@@ -318,120 +313,6 @@ public:
     QDateTime updateTime() const;
     QList<Link*> links() const;
 
-    /*!
-     * \brief Sets the identifier for the sale transaction.
-     */
-    void setId(const QString &nId);
-    /*!
-     * \brief Sets the identiefier to the purchase or transaction unit corresponding to this sale transaction.
-     */
-    void setPurchaseUnitReferenceId(const QString &nPurchaseUnitReferenceId);
-    /*!
-     * \brief Sets the payment amount with break-ups.
-     */
-    void setAmount(PaymentAmount *nAmount);
-    /*!
-     * \brief Specifies payment mode of the transaction.
-     *
-     * Only supported if the \c payment_method is set to \c paypal.
-     */
-    void setPaymentMode(PayPal::PaymentModeType nPaymentMode);
-    /*!
-     * \brief Sets the state of the transaction.
-     */
-    void setState(PayPal::StateType nState);
-    /*!
-     * \brief Sets the reason code for the transaction if the state is Pending or Reserved.
-     *
-     * Only supported if the \c payment_method is set to \c paypal.
-     */
-    void setReasonCode(PayPal::ReasonCode nReasonCode);
-    /*!
-     * \brief Sets the level  of seller protection in force for the transaction.
-     *
-     * Only supported if the \c payment_method is set to \c paypal.
-     */
-    void setProtectionEligibility(PayPal::ProtectionEligibility nProtectionEligibility);
-    /*!
-     * \brief Sets the kind of seller protection in force for the transaction.
-     *
-     * It is returned only when protectionEligibility is \a ELIGIBLE or \a PARTIALLY_ELIGIBLE. Only supported when the \c payment_method is set to \c paypal.
-     */
-    void setProtectionEligibilityType(const QList<PayPal::ProtectionEligibilityType> &nProtectionEligibilityType);
-    /*!
-     * \brief Sets the expected clearing time for eCheck Transactions.
-     *
-     * Returned when payment is made with eCheck. Only supported when the \c payment_method is set to \c paypal.
-     */
-    void setClearingTime(const QDateTime &nClearingTime);
-    /*!
-     * \brief Sets the status of the Recipient Fund.
-     *
-     * For now, it will be returned only when fund status is held
-     */
-    void setPaymentHoldStatus(PaymentHoldStatus nPaymentHoldStatus);
-    /*!
-     * \brief Sets reasons for PayPal holding recipient fund.
-     *
-     * It is set only if payment hold status is held.
-     */
-    void setPaymentHoldReasons(const QStringList &nPaymentHoldReasons);
-    /*!
-     * \brief Sets the transaction fee charged by PayPal for this transaction.
-     */
-    void setTransactionFee(Currency *nTransactionFee);
-    /*!
-     * \brief Sets the net amount the merchant receives for this transaction in their receivable currency.
-     *
-     * Returned only in cross-currency use cases where a merchant bills a buyer in a non-primary currency for that buyer.
-     */
-    void setReceivableAmount(Currency *nReceivableAmount);
-    /*!
-     * \brief Sets the exchange rate applied for this transaction.
-     *
-     * Returned only in cross-currency use cases where a merchant bills a buyer in a non-primary currency for that buyer.
-     */
-    void setExchangeRate(float nExchangeRate);
-    /*!
-     * \brief Sets the Fraud Management Filter (FMF) details applied for the payment that could result in accept, deny, or pending action.
-     *
-     * Returned in a payment response only if the merchant has enabled FMF in the profile settings and one
-     * of the fraud filters was triggered based on those settings.
-     * See \link https://paypal.github.io/docs/classic/fmf/integration-guide/FMFSummary/ Fraud Management Filters Summary \endlink for more information.
-     */
-    void setFmfDetails(FMFDetails *nFmfDetails);
-    /*!
-     * \brief Sets the receipt id.
-     *
-     * Receipt id is a payment identification number returned for guest users to identify the payment.
-     */
-    void setReceiptId(const QString &nReceiptId);
-    /*!
-     * \brief Sets the ID of the payment resource on which this transaction is based.
-     */
-    void setParentPayment(const QString &nParentPayment);
-    /*!
-     * \brief Sets the response codes returned by the processor concerning the submitted payment.
-     *
-     * Only supported when the \c payment_method is set to \c credit_card.
-     */
-    void setProcessorResponse(ProcessorResponse *nProcessorResponse);
-    /*!
-     * \brief Sets the ID of the billing agreement used as reference to execute this transaction.
-     */
-    void setBillingAgreementId(const QString &nBillingAgreementId);
-    /*!
-     * \brief Sets the time of sale.
-     */
-    void setCreateTime(const QDateTime &nCreateTime);
-    /*!
-     * \brief Sets the time the resource was last updated.
-     */
-    void setUpdateTime(const QDateTime &nUpdateTime);
-    /*!
-     * \brief Sets the HATEOAS links related to this call.
-     */
-    void setLinks(const QList<Link*> &nLinks);
 
     /*!
      * \brief Returns the URL of the Link in the list of HATEOAS links defined by \a rel.

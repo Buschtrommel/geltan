@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * paymentoptions.h
+ * Geltan/PP/Objects/paymentoptions.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,11 +38,6 @@ class PaymentOptionsPrivate;
  * \ppPaymentsApi{payment_options}
  *
  * \headerfile "" <Geltan/PP/Objects/paymentoptions.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-12
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT PaymentOptions : public QObject
 {

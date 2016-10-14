@@ -38,11 +38,6 @@ class ErrorPrivate;
  * \brief Contains information about occured errors.
  *
  * \headerfile "" <Geltan/error.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Error : public QObject
 {

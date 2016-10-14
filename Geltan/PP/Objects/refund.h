@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * refund.h
+ * Geltan/PP/Objects/refund.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -43,11 +43,6 @@ class Link;
  * \ppPaymentsApi{refund}
  *
  * \headerfile "" <Geltan/PP/Objects/refund.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Refund : public QObject
 {
@@ -65,6 +60,9 @@ class GELTANSHARED_EXPORT Refund : public QObject
     Q_PROPERTY(QString id READ id NOTIFY idChanged)
     /*!
      * \brief Details including both refunded amount (to payer) and refunded fee (to payee).
+     *
+     * Contains a pointer to a PaymentAmount object, if any, otherwise contains a nullptr. If created internally, the PaymentAmount object will be
+     * a child of the Refund object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{amount}
      *
@@ -96,6 +94,17 @@ class GELTANSHARED_EXPORT Refund : public QObject
      * <TABLE><TR><TD>void</TD><TD>reasonChanged(const QString &reason)</TD></TR></TABLE>
      */
     Q_PROPERTY(QString reason READ reason WRITE setReason NOTIFY reasonChanged)
+    /*!
+     * \brief Your own invoice or tracking ID number.
+     *
+     * Character length and limitations: 127 single-byte alphanumeric characters.
+     *
+     * \par Access functions:
+     * <TABLE><TR><TD>QString</TD><TD>invoiceNumber() const</TD></TR><TR><TD>void</TD><TD>setInvoiceNumber(const QString &nInvoiceNumber)</TD></TR></TABLE>
+     * \par Notifier signal:
+     * <TABLE><TR><TD>void</TD><TD>invoiceNumberChanged(const QString &invoiceNumber)</TD></TR></TABLE>
+     */
+    Q_PROPERTY(QString invoiceNumber READ invoiceNumber WRITE setInvoiceNumber NOTIFY invoiceNumberChanged)
     /*!
      * \brief ID of the Sale transaction being refunded.
      *
@@ -174,9 +183,11 @@ class GELTANSHARED_EXPORT Refund : public QObject
      */
     Q_PROPERTY(Geltan::PP::PayPal::ReasonCode reasonCode READ reasonCode NOTIFY reasonCodeChanged)
     /*!
-     * \brief HATEOAS links related to this call.
+     * \brief List of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> Link objects related to this call.
      *
      * \ppApiName{links}
+     *
+     * \sa getLink(), getLinkURL()
      *
      * \par Access functions:
      * <TABLE><TR><TD>QList<Link*></TD><TD>links() const</TD></TR></TABLE>
@@ -209,6 +220,7 @@ public:
     PaymentAmount *amount() const;
     PayPal::StateType state() const;
     QString reason() const;
+    QString invoiceNumber() const;
     QString saleId() const;
     QString captureId() const;
     QString parentPayment() const;
@@ -219,57 +231,21 @@ public:
     QList<Link*> links() const;
 
 
-    /*!
-     * \brief Sets the ID of the refund transaction.
-     *
-     * 17 charactes max.
-     */
-    void setId(const QString &nId);
     void setAmount(PaymentAmount *nAmount);
-    /*!
-     * \brief Sets the state of the refund.
-     */
-    void setState(PayPal::StateType nState);
     void setReason(const QString &nReason);
-    /*!
-     * \brief Sets the ID of the Sale transaction being refunded.
-     */
-    void setSaleId(const QString &nSaleId);
-    /*!
-     * \brief Sets the ID of the Capture transaction being refunded.
-     */
-    void setCaptureId(const QString &nCaptureId);
-    /*!
-     * \brief Sets the ID of the payment resource on which this transaction is based.
-     */
-    void setParentPayment(const QString &nParentPayment);
+    void setInvoiceNumber(const QString &nInvoiceNumber);
     void setDescription(const QString &nDescription);
-    /*!
-     * \brief Sets date and time the refund was created.
-     */
-    void setCreateTime(const QDateTime &nCreateTime);
-    /*!
-     * \brief Sets date and time the refund was updated.
-     */
-    void setUpdateTime(const QDateTime &nUpdateTime);
-    /*!
-     * \brief Sets the reason code if the state is pending.
-     */
-    void setReasonCode(PayPal::ReasonCode nReasonCode);
-    /*!
-     * \brief Sets the list of HATEOAS links related to this call.
-     */
-    void setLinks(const QList<Link*> &nLinks);
+
 
     /*!
-     * \brief Returns the URL of the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the URL of the Link in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, the returned URL will be invalid.
      */
     Q_INVOKABLE QUrl getLinkURL(const QString &rel) const;
 
     /*!
-     * \brief Returns the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the Link in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, a \c nullptr will be returned.
      */
@@ -279,14 +255,14 @@ public:
     /*!
      * \brief Returns a QVariantMap containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QVariantMap toVariant();
 
     /*!
      * \brief Returns a QJsonObject containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QJsonObject toJsonObject();
 
@@ -306,6 +282,7 @@ Q_SIGNALS:
     void amountChanged(PaymentAmount *amount);
     void stateChanged(PayPal::StateType state);
     void reasonChanged(const QString &reason);
+    void invoiceNumberChanged(const QString &invoiceNumber);
     void saleIdChanged(const QString &saleId);
     void captureIdChanged(const QString &captureId);
     void parentPaymentChanged(const QString &parentPayment);

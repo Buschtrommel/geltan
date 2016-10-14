@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * related.h
+ * Geltan/PP/Objects/related.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -45,11 +45,6 @@ class Refund;
  * \ppPaymentsApi{related}
  *
  * \headerfile "" <Geltan/PP/Objects/related.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-09
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Related : public QObject
 {

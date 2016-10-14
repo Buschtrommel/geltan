@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * shippingaddress_p.h
+ * Geltan/PP/Objects/shippingaddress_p.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,15 +23,18 @@
 #define SHIPPINGADDRESS_P_H
 
 #include "shippingaddress.h"
-#include "ppobjectsbase_p.h"
+//#include "ppobjectsbase_p.h"
+#include "address_p.h"
 
 namespace Geltan {
 namespace PP {
 
-class ShippingAddressPrivate : public PPObjectsBasePrivate
+class ShippingAddressPrivate : public AddressPrivate
 {
 public:
-    ShippingAddressPrivate() {}
+    ShippingAddressPrivate(ShippingAddress *parent) :
+        AddressPrivate(parent)
+    {}
 
     ~ShippingAddressPrivate() {}
 

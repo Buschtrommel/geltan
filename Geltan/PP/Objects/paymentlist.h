@@ -32,24 +32,20 @@ class QJsonObject;
 namespace Geltan {
 namespace PP {
 
-//class Payment;
 class PaymentListPrivate;
 
 /*!
  * \brief Model containing a list of Payment objects.
  *
  * \headerfile "" <Geltan/PP/Objects/paymentlist.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-10-07
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT PaymentList : public QAbstractListModel
 {
     Q_OBJECT
     /*!
-     * \brief Contains a list of payments.
+     * \brief Contains a list of Payment objects.
+     *
+     * The single Payment objects are also accessible by the methods of the QAbstractListModel.
      *
      * \par Access functions:
      * <TABLE><TR><TD>QList<Payment*></TD><TD>payments() const</TD></TR><TR><TD>void</TD><TD>setPayments(const QList<Payment*> &nPayments)</TD></TR></TABLE>

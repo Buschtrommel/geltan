@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * tokenizedcreditcard.h
+ * Geltan/PP/Objects/tokenizedcreditcard.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -41,11 +41,6 @@ class TokenizedCreditCardPrivate;
  * \ppPaymentsApi{tokenized_credit_card}
  *
  * \headerfile "" <Geltan/PP/Objects/tokenizedcreditcard.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT TokenizedCreditCard : public QObject
 {
@@ -82,44 +77,44 @@ class GELTANSHARED_EXPORT TokenizedCreditCard : public QObject
      * \ppApiName{last4}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>last4() const</TD></TR><TR><TD>void</TD><TD>setLast4(const QString &nLast4)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>last4() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>last4Changed(const QString &last4)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString last4 READ last4 WRITE setLast4 NOTIFY last4Changed)
+    Q_PROPERTY(QString last4 READ last4 NOTIFY last4Changed)
     /*!
      * \brief Credit card type.
      *
      * \ppApiName{type}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>PayPal::CreditCardType</TD><TD>type() const</TD></TR><TR><TD>void</TD><TD>setType(PayPal::CreditCardType nType)</TD></TR></TABLE>
+     * <TABLE><TR><TD>PayPal::CreditCardType</TD><TD>type() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>typeChanged(PayPal::CreditCardType type)</TD></TR></TABLE>
      */
-    Q_PROPERTY(Geltan::PP::PayPal::CreditCardType type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(Geltan::PP::PayPal::CreditCardType type READ type NOTIFY typeChanged)
     /*!
      * \brief Expiration month with no leading zero.
      *
      * \ppApiName{expire_month}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>quint8</TD><TD>expireMonth() const</TD></TR><TR><TD>void</TD><TD>setExpireMonth(quint8 nExpireMonth)</TD></TR></TABLE>
+     * <TABLE><TR><TD>quint8</TD><TD>expireMonth() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>expireMonthChanged(quint8 expireMonth)</TD></TR></TABLE>
      */
-    Q_PROPERTY(quint8 expireMonth READ expireMonth WRITE setExpireMonth NOTIFY expireMonthChanged)
+    Q_PROPERTY(quint8 expireMonth READ expireMonth NOTIFY expireMonthChanged)
     /*!
      * \brief 4-digit expiration year.
      *
      * \ppApiName{expire_year}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>quint16</TD><TD>expireYear() const</TD></TR><TR><TD>void</TD><TD>setExpireYear(quint16 nExpireYear)</TD></TR></TABLE>
+     * <TABLE><TR><TD>quint16</TD><TD>expireYear() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>expireYearChanged(quint16 expireYear)</TD></TR></TABLE>
      */
-    Q_PROPERTY(quint16 expireYear READ expireYear WRITE setExpireYear NOTIFY expireYearChanged)
+    Q_PROPERTY(quint16 expireYear READ expireYear NOTIFY expireYearChanged)
 public:
     /*!
      * \brief Constructs a new empty TokenizedCreditCard object.
@@ -152,23 +147,19 @@ public:
 
     void setCreditCardId(const QString &nCreditCardId);
     void setPayerId(const QString &nPayerId);
-    void setLast4(const QString &nLast4);
-    void setType(PayPal::CreditCardType nType);
-    void setExpireMonth(quint8 nExpireMonth);
-    void setExpireYear(quint16 nExpireYear);
 
 
     /*!
      * \brief Returns a QVariantMap containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QVariantMap toVariant();
 
     /*!
      * \brief Returns a QJsonObject containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QJsonObject toJsonObject();
 
@@ -192,8 +183,7 @@ Q_SIGNALS:
     void expireYearChanged(quint16 expireYear);
 
 protected:
-    TokenizedCreditCardPrivate * const d_ptr;
-
+    const QScopedPointer<TokenizedCreditCardPrivate> d_ptr;
 
 private:
     Q_DISABLE_COPY(TokenizedCreditCard)

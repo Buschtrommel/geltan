@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * currency.h
+ * Geltan/PP/Objects/currency.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,22 +33,17 @@ namespace PP {
 class CurrencyPrivate;
 
 /*!
- * \brief Contains information about a currency.
+ * \brief Base object for all financial value related fields (balance, payment due, etc.)
  *
  * \ppPaymentsApi{currency}
  *
  * \headerfile "currency.h" <Geltan/PP/Objects/currency.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Currency : public QObject
 {
     Q_OBJECT
     /*!
-     * \brief 3 letter currency code as defined by ISO 4217.
+     * \brief 3 letter currency code as defined by <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>.
      *
      * \ppApiName{currency}
      *
@@ -59,7 +54,7 @@ class GELTANSHARED_EXPORT Currency : public QObject
      */
     Q_PROPERTY(QString currency READ currency WRITE setCurrency NOTIFY currencyChanged)
     /*!
-     * \brief Amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code.
+     * \brief Amount up to N digit after the decimals separator as defined in <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a> for the appropriate currency code.
      *
      * \ppApiName{value}
      *
@@ -129,8 +124,7 @@ Q_SIGNALS:
 
 
 protected:
-    CurrencyPrivate * const d_ptr;
-
+    const QScopedPointer<CurrencyPrivate> d_ptr;
 
 private:
     Q_DISABLE_COPY(Currency)

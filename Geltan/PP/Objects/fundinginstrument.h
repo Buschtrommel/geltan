@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * payer.h
+ * Geltan/PP/Objects/payer.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -43,17 +43,15 @@ class BillingInstrument;
  * \ppPaymentsApi{funding_instrument}
  *
  * \headerfile "fundinginstrument.h" <Geltan/PP/Objects/fundinginstrument.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-12
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT FundingInstrument : public QObject
 {
     Q_OBJECT
     /*!
      * \brief Represents a credit card to fund a payment.
+     *
+     * Contains a pointer to a CreditCard object, if any, otherwise contains a nullptr. If created internally, the CreditCard object
+     * will be a child of the FundingInstrument object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{credit_card}
      *
@@ -66,6 +64,9 @@ class GELTANSHARED_EXPORT FundingInstrument : public QObject
     /*!
      * \brief A resource representing a credit card that can be used to fund a payment.
      *
+     * Contains a pointer to a TokenizedCreditCard object, if any, otherwise contains a nullptr. If created internally, the TokenizedCreditCard object
+     * will be a child of the FundingInstrument object and will be destroyed on the parent's destruction.
+     *
      * \ppApiName{credit_card_token}
      *
      * \par Access functions:
@@ -76,6 +77,9 @@ class GELTANSHARED_EXPORT FundingInstrument : public QObject
     Q_PROPERTY(Geltan::PP::TokenizedCreditCard *creditCardToken READ creditCardToken WRITE setCreditCardToken NOTIFY creditCardTokenChanged)
     /*!
      * \brief Billing instrument used to charge the payer.
+     *
+     * Contains a pointer to a BillingInstrument object, if any, otherwise contains a nullptr. If created internally, the BillingInstrument object
+     * will be a child of the FundingInstrument object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{billing}
      *

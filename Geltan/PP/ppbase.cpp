@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * ppbase.cpp
+ * Geltan/PP/ppbase.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -50,13 +50,6 @@ PPBase::PPBase(PPBasePrivate &dd, QObject *parent)
     setApiUrl(QUrl(QStringLiteral("https://api.paypal.com")));
 #endif
 }
-
-
-//PPBase::~PPBase()
-//{
-
-//}
-
 
 
 

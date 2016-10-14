@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * installmentdescription.h
+ * Geltan/PP/Objects/installmentdescription.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -39,11 +39,6 @@ class Currency;
  * \ppPaymentsApi{installment_description}
  *
  * \headerfile "" <Geltan/PP/Objects/installmentdescription.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT InstallmentDescription : public QObject
 {
@@ -60,7 +55,10 @@ class GELTANSHARED_EXPORT InstallmentDescription : public QObject
      */
     Q_PROPERTY(int term READ term WRITE setTerm NOTIFY termChanged)
     /*!
-     * \brief Base object for all financial value related fields (balance, payment due, etc.)
+     * \brief The monthly payment.
+     *
+     * Contains a pointer to a Currency object, if any, otherwise contains a nullptr. If created internally, the Currency object will be a child
+     * of the InstallmentDescription object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{monthly_payment}
      *
@@ -71,7 +69,10 @@ class GELTANSHARED_EXPORT InstallmentDescription : public QObject
      */
     Q_PROPERTY(Currency *monthlyPayment READ monthlyPayment WRITE setMonthlyPayment NOTIFY monthlyPaymentChanged)
     /*!
-     * \brief Base object for all financial value related fields (balance, payment due, etc.)
+     * \brief Discount amount applied to the payment, if any.
+     *
+     * Contains a pointer to a Currency object, if any, otherwise contains a nullptr. If created internally, the Currency object will be a child
+     * of the InstallmentDescription object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{discount_amount}
      *
@@ -82,7 +83,7 @@ class GELTANSHARED_EXPORT InstallmentDescription : public QObject
      */
     Q_PROPERTY(Currency *discountAmount READ discountAmount WRITE setDiscountAmount NOTIFY discountAmountChanged)
     /*!
-     * \brief Schema to represent percentages as fixed-point, signed decimal values.
+     * \brief Discount percentage applied to the payment, if any.
      *
      * \ppApiName{discount_percentage}
      *

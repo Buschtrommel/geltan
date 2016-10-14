@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * transaction.cpp
+ * Geltan/PP/Objects/transaction.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -323,21 +323,6 @@ void Transaction::setOrderUrl(const QUrl &nOrderUrl)
 
 QList<Related*> Transaction::relatedResources() const { Q_D(const Transaction); return d->relatedResources; }
 
-void Transaction::setRelatedResources(const QList<Related*> &nRelatedResources)
-{
-    Q_D(Transaction); 
-    if (nRelatedResources != d->relatedResources) {
-
-        d->clear();
-        d->relatedResources = nRelatedResources;
-
-#ifdef QT_DEBUG
-        qDebug() << "Changed relatedResources to" << d->relatedResources;
-#endif
-
-        Q_EMIT relatedResourcesChanged(relatedResources());
-    }
-}
 
 
 Payee *Transaction::payee() const { Q_D(const Transaction); return d->payee; }
@@ -385,81 +370,6 @@ Geltan::PP::Item *Transaction::addNewItem()
 }
 
 
-
-
-bool Transaction::addRelatedResource(Related *resource)
-{
-    Q_D(Transaction);
-
-    if (resource) {
-
-        if (resource->thread() != this->thread()) {
-            resource->moveToThread(this->thread());
-            if (resource->thread() != this->thread()) {
-                qCritical("Failed to move resource to the model's thread.");
-                return false;
-            }
-        }
-
-        resource->setParent(this);
-
-        beginInsertRows(QModelIndex(), rowCount(), rowCount());
-
-        d->relatedResources.append(resource);
-
-        endInsertRows();
-
-        return true;
-
-    } else {
-        return false;
-    }
-}
-
-
-void Transaction::removeRelatedResource(int idx)
-{
-    Q_D(Transaction);
-
-    if (!d->relatedResources.isEmpty() && idx > -1 && idx < rowCount()) {
-
-        delete d->relatedResources.takeAt(idx);
-
-    }
-}
-
-
-
-void Transaction::removeRelatedResource(Related *resource)
-{
-    Q_D(const Transaction);
-
-    removeRelatedResource(d->relatedResources.indexOf(resource));
-}
-
-
-
-Related *Transaction::takeRelatedResource(int idx)
-{
-    Q_D(Transaction);
-
-    if (d->relatedResources.isEmpty() || idx < 0 || idx >= rowCount()) {
-        return nullptr;
-    }
-
-    Related *r = d->relatedResources.takeAt(idx);
-    r->setParent(nullptr);
-
-    return r;
-}
-
-
-Related *Transaction::takeRelatedResource(Related *resource)
-{
-    Q_D(const Transaction);
-
-    return takeRelatedResource(d->relatedResources.indexOf(resource));
-}
 
 
 
@@ -610,6 +520,7 @@ void Transaction::loadFromJson(const QJsonObject &json)
         }
         endInsertRows();
     }
+    Q_EMIT relatedResourcesChanged(relatedResources());
 
     const QJsonObject pyo = json.value(QStringLiteral("payee")).toObject();
     Payee *oldPyo = payee();

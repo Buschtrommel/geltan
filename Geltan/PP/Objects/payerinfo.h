@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * payerinfo.h
+ * Geltan/PP/Objects/payerinfo.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -41,11 +41,6 @@ class ShippingAddress;
  * \ppPaymentsApi{payer_info}
  *
  * \headerfile "" <Geltan/PP/Objects/payerinfo.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT PayerInfo : public QObject
 {
@@ -91,66 +86,66 @@ class GELTANSHARED_EXPORT PayerInfo : public QObject
      * \ppApiName{salutation}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>salutation() const</TD></TR><TR><TD>void</TD><TD>setSalutation(const QString &nSalutation)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>salutation() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>salutationChanged(const QString &salutation)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString salutation READ salutation WRITE setSalutation NOTIFY salutationChanged)
+    Q_PROPERTY(QString salutation READ salutation NOTIFY salutationChanged)
     /*!
      * \brief First name of the payer.
      *
      * \ppApiName{first_name}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>firstName() const</TD></TR><TR><TD>void</TD><TD>setFirstName(const QString &nFirstName)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>firstName() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>firstNameChanged(const QString &firstName)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString firstName READ firstName WRITE setFirstName NOTIFY firstNameChanged)
+    Q_PROPERTY(QString firstName READ firstName NOTIFY firstNameChanged)
     /*!
      * \brief Middle name of the payer.
      *
      * \ppApiName{middle_name}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>middleName() const</TD></TR><TR><TD>void</TD><TD>setMiddleName(const QString &nMiddleName)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>middleName() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>middleNameChanged(const QString &middleName)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString middleName READ middleName WRITE setMiddleName NOTIFY middleNameChanged)
+    Q_PROPERTY(QString middleName READ middleName NOTIFY middleNameChanged)
     /*!
      * \brief Last name of the payer.
      *
      * \ppApiName{last_name}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>lastName() const</TD></TR><TR><TD>void</TD><TD>setLastName(const QString &nLastName)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>lastName() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>lastNameChanged(const QString &lastName)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString lastName READ lastName WRITE setLastName NOTIFY lastNameChanged)
+    Q_PROPERTY(QString lastName READ lastName NOTIFY lastNameChanged)
     /*!
      * \brief Suffix of the payer.
      *
      * \ppApiName{suffix}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>suffix() const</TD></TR><TR><TD>void</TD><TD>setSuffix(const QString &nSuffix)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>suffix() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>suffixChanged(const QString &suffix)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString suffix READ suffix WRITE setSuffix NOTIFY suffixChanged)
+    Q_PROPERTY(QString suffix READ suffix NOTIFY suffixChanged)
     /*!
      * \brief PayPal assigned encrypted Payer ID.
      *
      * \ppApiName{payer_id}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>payerId() const</TD></TR><TR><TD>void</TD><TD>setPayerId(const QString &nPayerId)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>payerId() const</TD></TR</TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>payerIdChanged(const QString &payerId)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString payerId READ payerId WRITE setPayerId NOTIFY payerIdChanged)
+    Q_PROPERTY(QString payerId READ payerId NOTIFY payerIdChanged)
     /*!
      * \brief Phone number representing the payer.
      *
@@ -185,7 +180,9 @@ class GELTANSHARED_EXPORT PayerInfo : public QObject
      */
     Q_PROPERTY(QDate birthDate READ birthDate WRITE setBirthDate NOTIFY birthDateChanged)
     /*!
-     * \brief Payer’s tax ID. Only supported when the payment_method is set to paypal.
+     * \brief Payer’s tax ID.
+     *
+     * Only supported when the paymentMethod is set to PayPal::PayPalWallet.
      *
      * \ppApiName{tax_id}
      *
@@ -218,7 +215,10 @@ class GELTANSHARED_EXPORT PayerInfo : public QObject
      */
     Q_PROPERTY(QString countryCode READ countryCode WRITE setCountryCode NOTIFY countryCodeChanged)
     /*!
-     * \brief Base Address object used as billing address in a payment or extended for Shipping Address.
+     * \brief Billing address of the Payer.
+     *
+     * Contains a pointer to a BillingAddress object, if any, otherwise contains a nullptr. If created internally, the BillingAddress object will be a child
+     * of the Payer object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{billing_address}
      *
@@ -228,17 +228,6 @@ class GELTANSHARED_EXPORT PayerInfo : public QObject
      * <TABLE><TR><TD>void</TD><TD>billingAddressChanged(Address *billingAddress)</TD></TR></TABLE>
      */
     Q_PROPERTY(Geltan::PP::Address *billingAddress READ billingAddress WRITE setBillingAddress NOTIFY billingAddressChanged)
-    /*!
-     * \brief Extended Address object used as shipping address in a payment.
-     *
-     * \ppApiName{shipping_address}
-     *
-     * \par Access functions:
-     * <TABLE><TR><TD>ShippingAddress*</TD><TD>shippingAddress() const</TD></TR><TR><TD>void</TD><TD>setShippingAddress(ShippingAddress *nShippingAddress)</TD></TR></TABLE>
-     * \par Notifier signal:
-     * <TABLE><TR><TD>void</TD><TD>shippingAddressChanged(ShippingAddress *shippingAddress)</TD></TR></TABLE>
-     */
-    Q_PROPERTY(Geltan::PP::ShippingAddress *shippingAddress READ shippingAddress WRITE setShippingAddress NOTIFY shippingAddressChanged)
 public:
     /*!
      * \brief Constructs a new empty PayerInfo object.
@@ -307,17 +296,34 @@ public:
     TaxIdType taxIdType() const;
     QString countryCode() const;
     Address *billingAddress() const;
-    ShippingAddress *shippingAddress() const;
 
 
     void setEmail(const QString &nEmail);
     void setExternalRememberMeId(const QString &nExternalRememberMeId);
     void setBuyerAccountNumber(const QString &nBuyerAccountNumber);
+    /*!
+     * \brief Sets the salutation of the payer.
+     */
     void setSalutation(const QString &nSalutation);
+    /*!
+     * \brief Sets the first name of the payer.
+     */
     void setFirstName(const QString &nFirstName);
+    /*!
+     * \brief Sets the middle name of the payer.
+     */
     void setMiddleName(const QString &nMiddleName);
+    /*!
+     * \brief Sets the last name of the payer.
+     */
     void setLastName(const QString &nLastName);
+    /*!
+     * \brief Sets the suffix of the payer.
+     */
     void setSuffix(const QString &nSuffix);
+    /*!
+     * \brief Sets the PayPal assigned encrypted Payer ID.
+     */
     void setPayerId(const QString &nPayerId);
     void setPhone(const QString &nPhone);
     void setPhoneType(PhoneType nPhoneType);
@@ -326,20 +332,19 @@ public:
     void setTaxIdType(TaxIdType nTaxIdType);
     void setCountryCode(const QString &nCountryCode);
     void setBillingAddress(Address *nBillingAddress);
-    void setShippingAddress(ShippingAddress *nShippingAddress);
 
 
     /*!
      * \brief Returns a QVariantMap containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QVariantMap toVariant();
 
     /*!
      * \brief Returns a QJsonObject containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QJsonObject toJsonObject();
 
@@ -371,13 +376,10 @@ Q_SIGNALS:
     void taxIdTypeChanged(TaxIdType taxId);
     void countryCodeChanged(const QString &countryCode);
     void billingAddressChanged(Address *billingAddress);
-    void shippingAddressChanged(const Address &shippingAddress);
-    void shippingAddressChanged(ShippingAddress *shippingAddress);
 
 
 protected:
-    PayerInfoPrivate * const d_ptr;
-
+    const QScopedPointer<PayerInfoPrivate> d_ptr;
 
 private:
     Q_DISABLE_COPY(PayerInfo)

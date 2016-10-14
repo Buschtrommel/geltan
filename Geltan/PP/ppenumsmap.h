@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * ppenumsmap.h
+ * Geltan/PP/ppenumsmap.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,11 +32,6 @@ namespace PP {
  * \brief Helper class to convert JSON token strings into enumerations and vice versa.
 
  * \headerfile "" <Geltan/PP/ppenumsmap.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-22
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class PPEnumsMap
 {

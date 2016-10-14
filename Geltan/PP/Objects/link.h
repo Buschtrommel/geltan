@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * link.h
+ * Geltan/PP/Objects/link.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,31 +34,26 @@ namespace PP {
 class LinkPrivate;
 
 /*!
- * \brief Containes information about a PayPal API link
+ * \brief Contains information about a PayPal <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> API link.
  *
  * \ppPaymentsApi{link}
  *
  * \headerfile "" <Geltan/PP/Objects/link.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Link : public QObject
 {
     Q_OBJECT
     /*!
-     * \brief URL of the related HATEOAS link you can use for subsequent calls
+     * \brief URL of the related <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> link you can use for subsequent calls
      *
      * \ppApiName{href}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QUrl</TD><TD>href() const</TD></TR><TR><TD>void</TD><TD>setHref(const QUrl &href)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QUrl</TD><TD>href() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>hrefChanged(const QUrl &href)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QUrl href READ href WRITE setHref NOTIFY hrefChanged)
+    Q_PROPERTY(QUrl href READ href NOTIFY hrefChanged)
     /*!
      * \brief Link relation that describes how this link relates to the previous call.
      *
@@ -68,22 +63,22 @@ class GELTANSHARED_EXPORT Link : public QObject
      * \ppApiName{rel}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>rel() const</TD></TR><TR><TD>void</TD><TD>setRel(const QString &rel)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>rel() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>relChanged(const QString &rel)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString rel READ rel WRITE setRel NOTIFY relChanged)
+    Q_PROPERTY(QString rel READ rel NOTIFY relChanged)
     /*!
      * \brief The HTTP method required for the related call.
      *
      * \ppApiName{method}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QNetworkAccessManager::Operation</TD><TD>method() const</TD></TR><TR><TD>void</TD><TD>setMethod(QNetworkAccessManager::Operation method)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QNetworkAccessManager::Operation</TD><TD>method() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>methodChanged(QNetworkAccessManager::Operation method)</TD></TR></TABLE>
      */
-    Q_PROPERTY(Geltan::PP::Link::MethodType method READ method WRITE setMethod NOTIFY methodChanged)
+    Q_PROPERTY(Geltan::PP::Link::MethodType method READ method NOTIFY methodChanged)
 public:
     /*!
      * \brief Constructs a new empty Link object.
@@ -109,10 +104,10 @@ public:
      * \brief HTTP method required for the link.
      */
     enum MethodType {
-        Undefined   = 0,
-        Get         = 1,
-        Redirect    = 2,
-        Post        = 3
+        Undefined   = 0,    /**< The method is undefined. Should not happen. */
+        Get         = 1,    /**< A GET has to be used to request the information. */
+        Redirect    = 2,    /**< Redirect links lead the user to another website. */
+        Post        = 3     /**< A POST has to be used to set/update the information. */
     };
 #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
     Q_ENUM(MethodType)
@@ -125,25 +120,6 @@ public:
     QString rel() const;
     MethodType method() const;
 
-
-    void setHref(const QUrl &nHref);
-    void setRel(const QString &nRel);
-    void setMethod(MethodType nMethod);
-
-
-    /*!
-     * \brief Returns a QVariantMap containing the object's data members.
-     *
-     * The names of the keys will be the name used by the PayPal API.
-     */
-    QVariantMap toVariant();
-
-    /*!
-     * \brief Returns a QJsonObject containing the object's data members.
-     *
-     * The names of the keys will be the name used by the PayPal API.
-     */
-    QJsonObject toJsonObject();
 
     /*!
      * \brief Loads data from a QJsonDocument into the Link object.

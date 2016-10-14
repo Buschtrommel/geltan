@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * shippingaddress.cpp
+ * Geltan/PP/Objects/shippingaddress.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,20 +30,20 @@ using namespace PP;
 
 
 ShippingAddress::ShippingAddress(QObject *parent) :
-    Address(parent), d_ptr(new ShippingAddressPrivate)
+    Address(parent), d_ptr(new ShippingAddressPrivate(this))
 {
 }
 
 
 ShippingAddress::ShippingAddress(const QJsonDocument &json, QObject *parent) :
-    Address(parent), d_ptr(new ShippingAddressPrivate)
+    Address(parent), d_ptr(new ShippingAddressPrivate(this))
 {
     loadFromJson(json);
 }
 
 
 ShippingAddress::ShippingAddress(const QJsonObject &json, QObject *parent) :
-    Address(parent), d_ptr(new ShippingAddressPrivate)
+    Address(parent), d_ptr(new ShippingAddressPrivate(this))
 {
     loadFromJson(json);
 }
@@ -90,10 +90,10 @@ QVariantMap ShippingAddress::toVariant()
 
     QString st; // status
     switch (status()) {
-    case Confirmed:
+    case CONFIRMED:
         st = QStringLiteral("CONFIRMED");
         break;
-    case Unconfirmed:
+    case UNCONFIRMED:
         st = QStringLiteral("UNCONFIRMED");
         break;
     default:
@@ -128,6 +128,8 @@ void ShippingAddress::loadFromJson(const QJsonObject &json)
         return;
     }
 
+    Q_D(ShippingAddress);
+
     setLine1(json.value(QStringLiteral("line1")).toString());
 
     setLine2(json.value(QStringLiteral("line2")).toString());
@@ -149,22 +151,22 @@ void ShippingAddress::loadFromJson(const QJsonObject &json)
 
     const QString ns = json.value(QStringLiteral("normalization_status")).toString();
     if (ns == QLatin1String("UNNORMALIZED_USER_PREFERRED")) {
-        setNormalizationStatus(UnnormalizedUserPreferred);
+        d->setNormalizationStatus(UNNORMALIZED_USER_PREFERRED);
     } else if (ns == QLatin1String("NORMALIZED")) {
-        setNormalizationStatus(Normalized);
+        d->setNormalizationStatus(NORMALIZED);
     } else if (ns == QLatin1String("UNNORMALIZED")) {
-        setNormalizationStatus(Unnormalized);
+        d->setNormalizationStatus(UNNORMALIZED);
     } else {
-        setNormalizationStatus(Unknown);
+        d->setNormalizationStatus(UNKNOWN);
     }
 
     const QString ss = json.value(QStringLiteral("status")).toString();
     if (ss == QLatin1String("CONFIRMED")) {
-        setStatus(Confirmed);
+        setStatus(CONFIRMED);
     } else if (ss == QLatin1String("UNCONFIRMED")) {
-        setStatus(Unconfirmed);
+        setStatus(UNCONFIRMED);
     } else {
-        setStatus(NoStatus);
+        setStatus(NO_STATUS);
     }
 
     setType(json.value(QStringLiteral("type")).toString());

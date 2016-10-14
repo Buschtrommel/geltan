@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * tokenizedcreditcard.cpp
+ * Geltan/PP/Objects/tokenizedcreditcard.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,20 +31,20 @@ using namespace PP;
 
 
 TokenizedCreditCard::TokenizedCreditCard(QObject *parent) :
-    QObject(parent), d_ptr(new TokenizedCreditCardPrivate)
+    QObject(parent), d_ptr(new TokenizedCreditCardPrivate(this))
 {
 }
 
 
 TokenizedCreditCard::TokenizedCreditCard(const QJsonDocument &json, QObject *parent) :
-    QObject(parent), d_ptr(new TokenizedCreditCardPrivate)
+    QObject(parent), d_ptr(new TokenizedCreditCardPrivate(this))
 {
     loadFromJson(json);
 }
 
 
 TokenizedCreditCard::TokenizedCreditCard(const QJsonObject &json, QObject *parent) :
-    QObject(parent), d_ptr(new TokenizedCreditCardPrivate)
+    QObject(parent), d_ptr(new TokenizedCreditCardPrivate(this))
 {
     loadFromJson(json);
 }
@@ -52,7 +52,7 @@ TokenizedCreditCard::TokenizedCreditCard(const QJsonObject &json, QObject *paren
 
 TokenizedCreditCard::~TokenizedCreditCard()
 {
-    delete d_ptr;
+
 }
 
 
@@ -92,68 +92,28 @@ void TokenizedCreditCard::setPayerId(const QString &nPayerId)
 
 QString TokenizedCreditCard::last4() const { Q_D(const TokenizedCreditCard); return d->last4; }
 
-void TokenizedCreditCard::setLast4(const QString &nLast4)
-{
-    Q_D(TokenizedCreditCard); 
-    if (nLast4 != d->last4) {
-        d->last4 = nLast4;
-#ifdef QT_DEBUG
-        qDebug() << "Changed last4 to" << d->last4;
-#endif
-        Q_EMIT last4Changed(last4());
-    }
-}
+
 
 
 
 
 PayPal::CreditCardType TokenizedCreditCard::type() const { Q_D(const TokenizedCreditCard); return d->type; }
 
-void TokenizedCreditCard::setType(PayPal::CreditCardType nType)
-{
-    Q_D(TokenizedCreditCard); 
-    if (nType != d->type) {
-        d->type = nType;
-#ifdef QT_DEBUG
-        qDebug() << "Changed type to" << d->type;
-#endif
-        Q_EMIT typeChanged(type());
-    }
-}
+
 
 
 
 
 quint8 TokenizedCreditCard::expireMonth() const { Q_D(const TokenizedCreditCard); return d->expireMonth; }
 
-void TokenizedCreditCard::setExpireMonth(quint8 nExpireMonth)
-{
-    Q_D(TokenizedCreditCard); 
-    if (nExpireMonth != d->expireMonth) {
-        d->expireMonth = nExpireMonth;
-#ifdef QT_DEBUG
-        qDebug() << "Changed expireMonth to" << d->expireMonth;
-#endif
-        Q_EMIT expireMonthChanged(expireMonth());
-    }
-}
+
 
 
 
 
 quint16 TokenizedCreditCard::expireYear() const { Q_D(const TokenizedCreditCard); return d->expireYear; }
 
-void TokenizedCreditCard::setExpireYear(quint16 nExpireYear)
-{
-    Q_D(TokenizedCreditCard); 
-    if (nExpireYear != d->expireYear) {
-        d->expireYear = nExpireYear;
-#ifdef QT_DEBUG
-        qDebug() << "Changed expireYear to" << d->expireYear;
-#endif
-        Q_EMIT expireYearChanged(expireYear());
-    }
-}
+
 
 
 
@@ -192,17 +152,19 @@ void TokenizedCreditCard::loadFromJson(const QJsonObject &json)
         return;
     }
 
+    Q_D(TokenizedCreditCard);
+
     QScopedPointer<const PPEnumsMap> em(new PPEnumsMap);
 
     setCreditCardId(json.value(QStringLiteral("credit_card_id")).toString());
 
     setPayerId(json.value(QStringLiteral("payer_id")).toString());
 
-    setLast4(json.value(QStringLiteral("last4")).toString());
+    d->setLast4(json.value(QStringLiteral("last4")).toString());
 
-    setType(em->creditCardTypeTokenToEnum(json.value(QStringLiteral("type")).toString()));
+    d->setType(em->creditCardTypeTokenToEnum(json.value(QStringLiteral("type")).toString()));
 
-    setExpireMonth(json.value(QStringLiteral("expire_month")).toString().toUInt());
+    d->setExpireMonth(json.value(QStringLiteral("expire_month")).toString().toUInt());
 
-    setExpireYear(json.value(QStringLiteral("expire_year")).toString().toUInt());
+    d->setExpireYear(json.value(QStringLiteral("expire_year")).toString().toUInt());
 }

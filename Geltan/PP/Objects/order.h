@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * order.h
+ * Geltan/PP/Objects/order.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -44,11 +44,6 @@ class Link;
  * \ppPaymentsApi{order}
  *
  * \headerfile "" <Geltan/PP/Objects/order.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Order : public QObject
 {
@@ -77,6 +72,9 @@ class GELTANSHARED_EXPORT Order : public QObject
     Q_PROPERTY(QString referenceId READ referenceId NOTIFY referenceIdChanged)
     /*!
      * \brief Amount being collected.
+     *
+     * Contains a pointer to a PaymentAmount object, if any, otherwise contains a nullptr. If created internally, the PaymentAmount object will be
+     * a child of the Order object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{amount}
      *
@@ -137,8 +135,8 @@ class GELTANSHARED_EXPORT Order : public QObject
      *
      * This property is returned only when the protection_eligibility property is set to ELIGIBLEor PARTIALLY_ELIGIBLE.
      * Only supported when the payment_method is set to paypal. Allowed values:
-     * ITEM_NOT_RECEIVED_ELIGIBLE- Sellers are protected against claims for items not received.
-     * UNAUTHORIZED_PAYMENT_ELIGIBLE- Sellers are protected against claims for unauthorized payments.
+     * ItemNotReceivedEligible - Sellers are protected against claims for items not received.
+     * UnauthorizedPaymentEligible - Sellers are protected against claims for unauthorized payments.
      * One or both of the allowed values can be returned.
      *
      * \ppApiName{protection_eligibility_type}
@@ -162,6 +160,9 @@ class GELTANSHARED_EXPORT Order : public QObject
     Q_PROPERTY(QString parentPayment READ parentPayment NOTIFY parentPaymentChanged)
     /*!
      * \brief Details of Fraud Management Filter (FMF).
+     *
+     * Contains a pointer to a FMFDetails object, if any, otherwise contains a nullptr. If created internally, the FMFDetails object will be
+     * a child of the Order object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{fmf_details}
      *
@@ -194,9 +195,11 @@ class GELTANSHARED_EXPORT Order : public QObject
      */
     Q_PROPERTY(QDateTime updateTime READ updateTime NOTIFY updateTimeChanged)
     /*!
-     * \brief HATEOAS links related to this call.
+     * \brief List of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> Link objects related to this call.
      *
      * \ppApiName{links}
+     *
+     * \sa getLink(), getLinkURL()
      *
      * \par Access functions:
      * <TABLE><TR><TD>QList<Link*></TD><TD>links() const</TD></TR><TR><TD>void</TD><TD>setLinks(const QList<Link*> &nLinks)</TD></TR></TABLE>
@@ -239,70 +242,19 @@ public:
     QDateTime updateTime() const;
     QList<Link*> links() const;
 
-    /*!
-     * \brief Sets the identifier of the order transaction.
-     */
-    void setId(const QString &nId);
-    /*!
-     * \brief Sets the reference id of the order transaction.
-     */
-    void setReferenceId(const QString &nReferenceId);
-    /*!
-     * \brief Sets the amount object.
-     */
+
     void setAmount(PaymentAmount *nAmount);
-    /*!
-     * \brief Sets the payment mode of the transaction.
-     */
-    void setPaymentMode(PayPal::PaymentModeType nPaymentMode);
-    /*!
-     * \brief Sets the state of the transaction.
-     */
-    void setState(PayPal::StateType nState);
-    /*!
-     * \brief Sets the reason code of the transaction.
-     *
-     * Only supported when the \a payment_mehtod is set to \c paypal.
-     */
-    void setReasonCode(PayPal::ReasonCode nReasonCode);
-    /*!
-     * \brief Sets the level of seller protection in force.
-     */
-    void setProtectionEligibility(PayPal::ProtectionEligibility nProtectionEligibility);
-    /*!
-     * \brief Sets the kind of seller protection in force.
-     */
-    void setProtectionEligibilityType(const QList<PayPal::ProtectionEligibilityType> &nProtectionEligibilityType);
-    /*!
-     * \brief Sets the ID of the payment resource that this transaction is based on.
-     */
-    void setParentPayment(const QString &nParentPayment);
-    /*!
-     * \brief Sets the details of Fraud Management Filter.
-     */
-    void setFmfDetails(FMFDetails *nFmfDetails);
-    /*!
-     * \brief Sets the time the resource was created.
-     */
-    void setCreateTime(const QDateTime &nCreateTime);
-    /*!
-     * \brief Sets the time the resource was last updated.
-     */
-    void setUpdateTime(const QDateTime &nUpdateTime);
-    /*!
-     * \brief Sets the HATEOAS links related to this call.
-     */
-    void setLinks(const QList<Link*> &nLinks);
+
 
     /*!
-     * \brief Returns the URL of the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the URL of the Link in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, the returned URL will be invalid.
      */
     Q_INVOKABLE QUrl getLinkURL(const QString &rel) const;
 
     /*!
-     * \brief Returns the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the Link in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, a \c nullptr will be returned.
      */

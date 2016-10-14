@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * payee.h
+ * Geltan/PP/Objects/payee.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,13 +34,22 @@ namespace PP {
 class PayeePrivate;
 
 /*!
- * \brief The Payee class.
+ * \brief Contains information about the payee.
+ *
+ * \ppPaymentsApi{payee}
+ *
+ * \headerfile "" <Geltan\PP\Objects\payee.h>
  */
 class GELTANSHARED_EXPORT Payee : public QObject
 {
     Q_OBJECT
     /*!
      * \brief Email address associated with the payee's PayPal account.
+     *
+     * If the provided email address is not associated with any PayPal Account, the payee can only receive
+     * PayPal Wallet Payments. Direct Credit Card Payments will be denied due to card compliance requirements.
+     *
+     * \ppApiName{email}
      *
      * \par Access functions:
      * <TABLE><TR><TD>QString</TD><TD>email() const</TD></TR><TR><TD>void</TD><TD>setEmail(const QString &nEmail)</TD></TR></TABLE>
@@ -50,6 +59,8 @@ class GELTANSHARED_EXPORT Payee : public QObject
     Q_PROPERTY(QString email READ email WRITE setEmail NOTIFY emailChanged)
     /*!
      * \brief Encrypted PayPal account identfier for the payee.
+     *
+     * \ppApiName{merchant_id}
      *
      * \par Access functions:
      * <TABLE><TR><TD>QString</TD><TD>merchantId() const</TD></TR><TR><TD>void</TD><TD>setMerchantId(const QString &nMerchantId)</TD></TR></TABLE>
@@ -62,6 +73,11 @@ public:
      * \brief Constructs a new Payee object.
      */
     explicit Payee(QObject *parent = nullptr);
+
+    /*!
+     * \brief Constructs a new Payee object form \c email and \c merchantId.
+     */
+    Payee(const QString &email, const QString &merchantId, QObject *parent = nullptr);
 
     /*!
      * \brief Constructs a new Payee object from JSON data.

@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * fmfdetails.h
+ * Geltan/PP/Objects/fmfdetails.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -36,12 +36,7 @@ class FMFDetailsPrivate;
  *
  * \ppPaymentsApi{fmf_details}
  *
- * \headerfile "fmfdetails.h" <Geltan/PP/Objects/fmfdetails.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
+ * \headerfile "" <Geltan/PP/Objects/fmfdetails.h>
  */
 class GELTANSHARED_EXPORT FMFDetails : public QObject
 {
@@ -85,11 +80,11 @@ class GELTANSHARED_EXPORT FMFDetails : public QObject
      * \ppApiName{description}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QString</TD><TD>description() const</TD></TR><TR><TD>void</TD><TD>setDescription(const QString &nDescription)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QString</TD><TD>description() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>descriptionChanged(const QString &description)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(QString description READ description NOTIFY descriptionChanged)
 public:
     /*!
      * \brief Constructs a new empty FMFDetails object.
@@ -115,11 +110,11 @@ public:
      * \brief Type of filter.
      */
     enum FilterType {
-        NoFilterType    = 0,
-        Accept          = 1,
-        Pending         = 2,
-        Deny            = 3,
-        Report          = 4
+        NO_FILTER_TYP   = 0,
+        ACCEPT          = 1,
+        PENDING         = 2,
+        DENY            = 3,
+        REPORT          = 4
     };
 #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
     Q_ENUM(FilterType)
@@ -132,24 +127,24 @@ public:
      * \brief Identifier of filter.
      */
     enum FilterIdentifier {
-        NoFilterIdentifier                  = 0,
-        AvsNoMatch                          = 1,
-        AvsParitalMatch                     = 2,
-        AvsUnavailableOrUnsupported         = 3,
-        CardSecurityCodeMismatch            = 4,
-        MaximumTransactionAmount            = 5,
-        UnconfirmedAddress                  = 6,
-        CountryMonitor                      = 7,
-        LargeOrderNumber                    = 8,
-        BillingOrShippingAddressMismatch    = 9,
-        RiskyZipCode                        = 10,
-        SuspectedFreightForwardedCheck      = 11,
-        TotalPurchasePriceMinimum           = 12,
-        IpAddressVelocity                   = 13,
-        RiskyEmailAddressDomainCheck        = 14,
-        RiskyBankIdentificationNumberCheck  = 15,
-        RiskyIpAddressRange                 = 16,
-        PaypalFraudModel                    = 17
+        NO_FILTER_IDENTIFIER                    = 0,
+        AVS_NO_MATCH                            = 1,
+        AVS_PARTIAL_MATCH                       = 2,
+        AVS_UNAVAILABLE_OR_UNSUPPORTED          = 3,
+        CARD_SECURITY_CODE_MISMATCH             = 4,
+        MAXIMUM_TRANSACTION_AMOUNT              = 5,
+        UNCONFIRMED_ADDRESS                     = 6,
+        COUNTRY_MONITOR                         = 7,
+        LARGE_ORDER_NUMBER                      = 8,
+        BILLING_OR_SHIPPING_ADDRESS_MISMATCH    = 9,
+        RISKY_ZIP_CODE                          = 10,
+        SUSPECTED_FREIGHT_FORWARDER_CHECK       = 11,
+        TOTAL_PURCHASE_PRICE_MINIMUM            = 12,
+        IP_ADDRESS_VELOCITY                     = 13,
+        RISKY_EMAIL_ADDRESS_DOMAIN_CHECK        = 14,
+        RISKY_BANK_IDENTIFICATION_NUMBER_CHECK  = 15,
+        RISKY_IP_ADDRESS_RANGE                  = 16,
+        PAYPAL_FRAUD_MODEL                      = 17
     };
 #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
     Q_ENUM(FilterIdentifier)
@@ -161,23 +156,6 @@ public:
     FilterIdentifier filterId() const;
     QString name() const;
     QString description() const;
-
-    /*!
-     * \brief Sets the type of filter.
-     */
-    void setFilterType(FilterType nFilterType);
-    /*!
-     * \brief Sets the filter identifier.
-     */
-    void setFilterId(FilterIdentifier nFilterId);
-    /*!
-     * \brief Sets the name of the filter.
-     */
-    void setName(const QString &nName);
-    /*!
-     * \brief Sets the description of the filter.
-     */
-    void setDescription(const QString &nDescription);
 
     /*!
      * \brief Loads data from a QJsonDocument into the FMFDetails object.

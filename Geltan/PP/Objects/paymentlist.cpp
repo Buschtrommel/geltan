@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * Geltan/PP/Objects/paymentlist.cpp
+ * Geltan/PP/Objects/Geltan/PP/Objects/paymentlist.cpp
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -207,6 +207,8 @@ void PaymentList::loadFromJson(const QJsonObject &json, bool append)
     const QJsonArray ps = json.value(QStringLiteral("payments")).toArray();
 
     if (!ps.isEmpty()) {
+
+        d->payments.reserve(ps.size());
 
         beginInsertRows(QModelIndex(), rowCount(), ps.count() - 1);
 

@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * transaction.h
+ * Geltan/PP/Objects/transaction.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -49,11 +49,6 @@ class Payee;
  * \ppPaymentsApi{transaction}
  *
  * \headerfile "" <Geltan/PP/Objects/transaction.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Transaction : public QAbstractListModel
 {
@@ -188,11 +183,11 @@ class GELTANSHARED_EXPORT Transaction : public QAbstractListModel
      * \ppApiName{related_resources}
      *
      * \par Access functions:
-     * <TABLE><TR><TD>QList<Related*></TD><TD>relatedResources() const</TD></TR><TR><TD>void</TD><TD>setRelatedResources(const QList<Related*> &nRelatedResources)</TD></TR></TABLE>
+     * <TABLE><TR><TD>QList<Related*></TD><TD>relatedResources() const</TD></TR></TABLE>
      * \par Notifier signal:
      * <TABLE><TR><TD>void</TD><TD>relatedResourcesChanged(const QList<Related*> &relatedResources)</TD></TR></TABLE>
      */
-    Q_PROPERTY(QList<Geltan::PP::Related*> relatedResources READ relatedResources WRITE setRelatedResources NOTIFY relatedResourcesChanged)
+    Q_PROPERTY(QList<Geltan::PP::Related*> relatedResources READ relatedResources NOTIFY relatedResourcesChanged)
     /*!
      * \brief Information about the payee.
      *
@@ -280,7 +275,6 @@ public:
     void setItemList(ItemList *nItemList);
     void setNotifyUrl(const QUrl &nNotifyUrl);
     void setOrderUrl(const QUrl &nOrderUrl);
-    void setRelatedResources(const QList<Related*> &nRelatedResources);
     void setPayee(Payee *nPayee);
 
     /*!
@@ -305,43 +299,6 @@ public:
      * of the Transaction object.
      */
     Q_INVOKABLE Geltan::PP::Item *addNewItem();
-
-    /*!
-     * \brief Adds a new Related resource to the model.
-     *
-     * If the resource to add is living in a different thread it will be moved
-     * to the model's thread. Also the model will be set as parent of the Related resource.
-     *
-     * Returns true if the Related resource has been added to the model.
-     */
-    bool addRelatedResource(Related *resource);
-
-    /*!
-     * \brief Removes the Related resource at index position \a idx from the model and destroys it.
-     */
-    void removeRelatedResource(int idx);
-
-    /*!
-     * \brief Removes the Related resource identified by the pointer from the model and destroys it.
-     * \overload
-     */
-    void removeRelatedResource(Related *resource);
-
-    /*!
-     * \brief Removes the Related resource at index position \a idx from the model and returns a pointer to it.
-     *
-     * The resource will not be deleted, it's parent object will be set to \c nullptr. If the resource can not be
-     * found, a \c nullptr will be returned.
-     */
-    Related *takeRelatedResource(int idx);
-
-    /*!
-     * \brief Removes the Related resource at identified by the pointer from the model and returns the pointer to it.
-     *
-     * The resource will not be delete, it's parent object will be set to \c nullptr. If the resource can not be
-     * found, a \c nullptr will be returned.
-     */
-    Related *takeRelatedResource(Related *resource);
 
 
     /*!

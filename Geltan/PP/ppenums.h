@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * ppenums.h
+ * Geltan/PP/ppenums.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,11 +33,6 @@ namespace PP {
  * \brief Provides global used PayPal enumerations.
  *
  * \headerfile "" <Geltan/PP/ppenums.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT PayPal {
     Q_GADGET
@@ -186,9 +181,9 @@ public:
      * \brief Kind of seller protection in force for the transaction.
      */
     enum ProtectionEligibilityType {
-        NoProtectionEligibilityType = 0,
-        ItemNotReceivedEligible     = 1,
-        UnauthorizedPaymentEligible = 2
+        NoProtectionEligibilityType = 0,    /**< No valid protection eligibility type. */
+        ItemNotReceivedEligible     = 1,    /**< Sellers are protected against claims for items not received. */
+        UnauthorizedPaymentEligible = 2     /**< Sellers are protected against claims for unauthorized payments. */
     };
 #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
     Q_ENUM(ProtectionEligibilityType)

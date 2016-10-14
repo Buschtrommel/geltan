@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * capture.h
+ * Geltan/PP/Objects/capture.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -44,11 +44,6 @@ class Link;
  * \ppPaymentsApi{capture}
  *
  * \headerfile "capture.h" <Geltan/PP/Objects/capture.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-08
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Capture : public QObject
 {
@@ -68,6 +63,9 @@ class GELTANSHARED_EXPORT Capture : public QObject
     Q_PROPERTY(QString id READ id NOTIFY idChanged)
     /*!
      * \brief Amount being captured.
+     *
+     * Contains a pointer to a PaymentAmount object, if any, otherwise contains a nullptr. If created internally, the PaymentAmount object
+     * will be a child of the Capture object and will be destroyed on the parent's destruction.
      *
      * \ppApiName{amount}
      *
@@ -149,6 +147,9 @@ class GELTANSHARED_EXPORT Capture : public QObject
     /*!
      * \brief Transaction fee applicable for this payment.
      *
+     * Contains a pointer to a Currency object, if any, otherwise contains a nullptr. If created internally, the Currency object will be a child
+     * of the Capture object and will be destroyed on the parent's destruction.
+     *
      * \ppApiName{transaction_fee}
      *
      * \par Access functions:
@@ -173,7 +174,7 @@ class GELTANSHARED_EXPORT Capture : public QObject
      */
     Q_PROPERTY(QDateTime createTime READ createTime NOTIFY createTimeChanged)
     /*!
-     * \brief The date and time when the resource was last updated.
+     * \brief The date and time when the capture was last updated.
      *
      * \ppApiName{update_time}
      *
@@ -186,7 +187,7 @@ class GELTANSHARED_EXPORT Capture : public QObject
      */
     Q_PROPERTY(QDateTime updateTime READ updateTime NOTIFY updateTimeChanged)
     /*!
-     * \brief HATEOAS links related to this call.
+     * \brief List of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> Link related to this call.
      *
      * \ppApiName{links}
      *
@@ -231,49 +232,21 @@ public:
     QDateTime updateTime() const;
     QList<Link*> links() const;
 
-
-    /*!
-     * \brief Sets the ID of the capture transaction.
-     */
-    void setId(const QString &nId);
     void setAmount(PaymentAmount *nAmount);
     void setIsFinalCapture(bool nIsFinalCapture);
-    /*!
-     * \brief Sets the state of the capture transaction.
-     */
-    void setState(PayPal::StateType nState);
-    /*!
-     * \brief Sets the reason code if state is \c pending or \c reversed.
-     */
-    void setReasonCode(PayPal::ReasonCode nReasonCode);
-    /*!
-     * \brief Set the ID of the payment on which this transaction is based.
-     */
-    void setParentPayment(const QString &nParentPayment);
     void setInvoiceNumber(const QString &nInvoiceNumber);
     void setTransactionFee(Currency *nTransactionFee);
-    /*!
-     * \brief Sets the date and time of capture.
-     */
-    void setCreateTime(const QDateTime &nCreateTime);
-    /*!
-     * \brief Sets the date and time when the resource was last updated.
-     */
-    void setUpdateTime(const QDateTime &nUpdateTime);
-    /*!
-     * \brief Sets the HATEOAS links of the capture for related calls.
-     */
-    void setLinks(const QList<Link*> &nLinks);
+
 
     /*!
-     * \brief Returns the URL of the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the URL of the Link in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, the returned URL will be invalid.
      */
     Q_INVOKABLE QUrl getLinkURL(const QString &rel) const;
 
     /*!
-     * \brief Returns the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the Link in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, a \c nullptr will be returned.
      */
@@ -283,14 +256,14 @@ public:
     /*!
      * \brief Returns a QVariantMap containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QVariantMap toVariant();
 
     /*!
      * \brief Returns a QJsonObject containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QJsonObject toJsonObject();
 

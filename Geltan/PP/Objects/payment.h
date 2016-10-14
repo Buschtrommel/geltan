@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * address.h
+ * Geltan/PP/Objects/address.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -46,11 +46,6 @@ class Link;
  * \ppPaymentsApi{payment}
  *
  * \headerfile "" <Geltan/PP/Objects/payment.h>
- * \since 0.0.1
- * \version 0.0.1
- * \date 2016-09-12
- * \author Buschmann
- * \copyright GNU LESSER GENERAL PUBLIC LICENSE Version 3
  */
 class GELTANSHARED_EXPORT Payment : public QAbstractListModel
 {
@@ -179,9 +174,11 @@ class GELTANSHARED_EXPORT Payment : public QAbstractListModel
      */
     Q_PROPERTY(QDateTime updateTime READ updateTime NOTIFY updateTimeChanged)
     /*!
-     * \brief HATEOAS links related to this call.
+     * \brief List of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> Link objects related to this call.
      *
      * \ppApiName{links}
+     *
+     * \sa getLink(), getLinkURL()
      *
      * \par Access functions:
      * <TABLE><TR><TD>QList<Link*></TD><TD>links() const</TD></TR></TABLE>
@@ -402,14 +399,14 @@ public:
     Q_INVOKABLE Transaction* takeTransaction(Transaction *transaction);
 
     /*!
-     * \brief Returns the URL of the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the URL of the Link in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, the returned URL will be invalid.
      */
     Q_INVOKABLE QUrl getLinkURL(const QString &rel) const;
 
     /*!
-     * \brief Returns the Link in the list of HATEOAS links defined by \a rel.
+     * \brief Returns the Link object in the list of <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> links defined by \a rel.
      *
      * If no Link can be found, a \c nullptr will be returned.
      */
@@ -434,23 +431,16 @@ public:
     /*!
      * \brief Returns a QJsonObject containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QJsonObject toJsonObject();
 
     /*!
      * \brief Returns a QJsonDocument containing the object's data members.
      *
-     * The names of the keys will be the name used by the PayPal API.
+     * The names of the keys will be the name used by the PayPal API. Will only contain properties that are not read only.
      */
     QJsonDocument toJsonDocument();
-
-    /*!
-     * \brief Returns a binary representation of the Payment in JSON format.
-     *
-     * \sa QJsonDocument::toBinaryData()
-     */
-    QByteArray toBinaryData();
 
     /*!
      * \brief Converts the Payment object data to a UTF-8 encoded JSON document.

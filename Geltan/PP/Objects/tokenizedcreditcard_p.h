@@ -2,7 +2,7 @@
  * Copyright (C) 2016 Buschtrommel / Matthias Fehring
  * Contact: https://www.buschmann23.de
  *
- * tokenizedcreditcard_p.h
+ * Geltan/PP/Objects/tokenizedcreditcard_p.h
  *
  * This library is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,9 @@
 
 #include "tokenizedcreditcard.h"
 #include "ppobjectsbase_p.h"
+#ifdef QT_DEBUG
+#include <QtDebug>
+#endif
 
 namespace Geltan {
 namespace PP {
@@ -31,7 +34,8 @@ namespace PP {
 class TokenizedCreditCardPrivate : public PPObjectsBasePrivate
 {
 public:
-    TokenizedCreditCardPrivate() :
+    TokenizedCreditCardPrivate(TokenizedCreditCard *parent) :
+        q_ptr(parent),
         type(PayPal::NoCreditCardType),
         expireMonth(0),
         expireYear(0)
@@ -39,6 +43,61 @@ public:
 
     ~TokenizedCreditCardPrivate() {}
 
+
+    void setLast4(const QString &nLast4)
+    {
+        if (nLast4 != last4) {
+            Q_Q(TokenizedCreditCard);
+            last4 = nLast4;
+    #ifdef QT_DEBUG
+            qDebug() << "Changed last4 to" << last4;
+    #endif
+            Q_EMIT q->last4Changed(last4);
+        }
+    }
+
+
+    void setType(PayPal::CreditCardType nType)
+    {
+        if (nType != type) {
+            Q_Q(TokenizedCreditCard);
+            type = nType;
+    #ifdef QT_DEBUG
+            qDebug() << "Changed type to" << type;
+    #endif
+            Q_EMIT q->typeChanged(type);
+        }
+    }
+
+
+    void setExpireMonth(quint8 nExpireMonth)
+    {
+        if (nExpireMonth != expireMonth) {
+            Q_Q(TokenizedCreditCard);
+            expireMonth = nExpireMonth;
+    #ifdef QT_DEBUG
+            qDebug() << "Changed expireMonth to" << expireMonth;
+    #endif
+            Q_EMIT q->expireMonthChanged(expireMonth);
+        }
+    }
+
+
+    void setExpireYear(quint16 nExpireYear)
+    {
+        if (nExpireYear != expireYear) {
+            Q_Q(TokenizedCreditCard);
+            expireYear = nExpireYear;
+    #ifdef QT_DEBUG
+            qDebug() << "Changed expireYear to" << expireYear;
+    #endif
+            Q_EMIT q->expireYearChanged(expireYear);
+        }
+    }
+
+
+    TokenizedCreditCard * const q_ptr;
+    Q_DECLARE_PUBLIC(TokenizedCreditCard)
     QString creditCardId;
     QString payerId;
     QString last4;
