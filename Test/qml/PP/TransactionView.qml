@@ -25,7 +25,7 @@ import Buschtrommel.Geltan.PayPal 1.0
 import "../common"
 
 Item {
-    property PPTransaction t: null
+    property Transaction t: null
     height: col.height
 
     ColumnLayout {

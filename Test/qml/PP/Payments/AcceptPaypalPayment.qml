@@ -52,7 +52,7 @@ ScrollView {
             onClicked: {
                 ppCreatePayment.newPayment()
                 if (ppCreatePayment.payment) {
-                    ppCreatePayment.payment.intent = PPPayment.Sale
+                    ppCreatePayment.payment.intent = Payment.Sale
                     ppCreatePayment.payment.payer.paymentMethod = PayPal.PayPalWallet
                     ppCreatePayment.payment.addRedirectUrls(config.paypalReturnUrl, config.paypalCancelUrl)
                     compLoader.setSource("../Payment.qml", {"p": ppCreatePayment.payment})
@@ -65,7 +65,7 @@ ScrollView {
             id: compLoader
             anchors { left: parent.left; right: parent.right; top: parent.top; margins: margin }
 
-            PPCreatePayment {
+            CreatePayment {
                 id: ppCreatePayment
                 token: config.payPalToken
                 tokenType: config.payPalTokenType
@@ -77,7 +77,7 @@ ScrollView {
                 }
             }
 
-            PPExecutePayment {
+            ExecutePayment {
                 id: execPayment
                 token: config.payPalToken
                 tokenType: config.payPalTokenType

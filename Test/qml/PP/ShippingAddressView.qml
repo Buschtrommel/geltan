@@ -25,7 +25,7 @@ import Buschtrommel.Geltan.PayPal 1.0
 import "../common"
 
 Item {
-    property PPShippingAddress a: null
+    property ShippingAddress a: null
 
     height: grid.height
 

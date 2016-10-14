@@ -27,7 +27,7 @@ import "../common"
 ColumnLayout {
     anchors { left: parent.left; right: parent.right }
 
-    property PPPayment py: null
+    property Payment py: null
 
     LabeledText { label: "ID"; text: py.id }
     LabeledText { label: "State"; text: py.state }

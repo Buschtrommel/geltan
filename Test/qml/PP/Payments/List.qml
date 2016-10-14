@@ -38,7 +38,7 @@ ScrollView {
         anchors.fill: parent
         contentHeight: col.visible ? col.height + margin : height
 
-        PPListPayments {
+        ListPayments {
             id: ppListPayments
             token: config.payPalToken
             tokenType: config.payPalTokenType
@@ -103,8 +103,8 @@ ScrollView {
                 textRole: "text"
                 model: ListModel {
                     id: sortByModel
-                    ListElement { text: "Update Time"; value: PPListPayments.UpdateTime }
-                    ListElement { text: "Create Time"; value: PPListPayments.CreateTime }
+                    ListElement { text: "Update Time"; value: ListPayments.UpdateTime }
+                    ListElement { text: "Create Time"; value: ListPayments.CreateTime }
                 }
                 onCurrentIndexChanged: ppListPayments.sortBy = sortByModel.get(currentIndex).value
                 visible: !ppListPayments.paymentList
@@ -155,10 +155,10 @@ ScrollView {
 
                         RowLayout {
                             Text {
-                                text: model.item.state === PPPayment.Created ? "Created" : model.item.state === PPPayment.Approved ? "Approved" : "Failed"
+                                text: model.item.state === Payment.Created ? "Created" : model.item.state === Payment.Approved ? "Approved" : "Failed"
                             }
                             Text {
-                                text: model.item.intent === PPPayment.Sale ? "Sale" : model.item.intent === PPPayment.Authorize ? "Authorization" : "Order"
+                                text: model.item.intent === Payment.Sale ? "Sale" : model.item.intent === Payment.Authorize ? "Authorization" : "Order"
                             }
                             Text {
                                 Layout.fillWidth: true

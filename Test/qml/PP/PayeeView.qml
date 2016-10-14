@@ -25,7 +25,7 @@ import Buschtrommel.Geltan.PayPal 1.0
 import "../common"
 
 Item {
-    property PPPayee payee: null
+    property Payee payee: null
     height: col.height
 
     visible: payee

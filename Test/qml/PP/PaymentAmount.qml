@@ -27,7 +27,7 @@ import "../common"
 GroupBox {
     id: root
 
-    property PPPaymentAmount pa: null
+    property PaymentAmount pa: null
 
     ColumnLayout {
         anchors.fill: parent

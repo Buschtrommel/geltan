@@ -45,7 +45,7 @@ class GetPrivate;
 class GELTANSHARED_EXPORT Get : public PPBase
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(Show)
+    Q_DECLARE_PRIVATE(Get)
     /*!
      * \brief Will contain the requested Payment object.
      *

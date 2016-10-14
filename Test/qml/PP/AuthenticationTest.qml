@@ -49,7 +49,7 @@ ScrollView {
         anchors.fill: parent
         contentHeight: mainGrid.height
 
-        PPAuthenticationTest {
+        AuthenticationTest {
             id: ppAuthTest
             configuration: config
         }

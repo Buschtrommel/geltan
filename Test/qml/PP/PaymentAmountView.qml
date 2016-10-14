@@ -25,7 +25,7 @@ import Buschtrommel.Geltan.PayPal 1.0
 import "../common"
 
 Item {
-    property PPPaymentAmount a: null
+    property PaymentAmount a: null
     height: grid.height
 
     visible: a

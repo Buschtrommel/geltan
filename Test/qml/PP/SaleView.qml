@@ -25,7 +25,7 @@ import Buschtrommel.Geltan.PayPal 1.0
 import "../common"
 
 Item {
-    property PPSale s: null
+    property Sale s: null
     property alias label: l.text
 
     height: col.height

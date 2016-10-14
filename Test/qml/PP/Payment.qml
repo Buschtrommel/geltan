@@ -29,7 +29,7 @@ ColumnLayout {
 
     objectName: "paymentData"
 
-    property PPPayment p: null
+    property Payment p: null
 
     GroupBox {
         title: "Redirect URLs (required)"

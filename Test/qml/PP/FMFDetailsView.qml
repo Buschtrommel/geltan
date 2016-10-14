@@ -27,7 +27,7 @@ import "../common"
 ColumnLayout {
     anchors { left: parent.left; right: parent.right }
 
-    property PPFMFDetails fmf: null
+    property FMFDetails fmf: null
 
     visible: fmf
 

@@ -31,7 +31,7 @@ ScrollView {
     width: mainCol.implicitWidth + 2 * margin
     height: mainCol.implicitHeight + 2 * margin
 
-    property PPTransaction transaction: null
+    property Transaction transaction: null
     property string pageTitle: "Edit Transaction"
 
     Flickable {

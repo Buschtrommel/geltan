@@ -27,7 +27,7 @@ import "../common"
 RowLayout {
 
     property real labelMinWidth: 90
-    property PPCurrency c: null
+    property Currency c: null
     property alias label: l.text
 
     visible: c && c.value > 0.0

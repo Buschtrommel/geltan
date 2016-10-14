@@ -26,7 +26,7 @@ import "../common"
 
 Item {
     property string curr
-    property PPDetails d: null
+    property Details d: null
 
     visible: d
 
