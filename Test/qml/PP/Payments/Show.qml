@@ -45,7 +45,7 @@ ScrollView {
             tokenType: config.payPalTokenType
             onSucceeded: {
                 if (payment) {
-                    compLoader.setSource("PaymentView.qml", {"py": payment})
+                    compLoader.setSource("../PaymentView.qml", {"py": payment})
                 }
             }
         }

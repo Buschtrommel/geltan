@@ -49,7 +49,7 @@ ApplicationWindow {
 
             Label {
                 id: pt
-                text: stack.currentItem.pageTitle
+                text: stack.currentItem ? stack.currentItem.pageTitle : "Geltan Test"
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -58,9 +58,8 @@ ApplicationWindow {
             ToolButton {
                 tooltip: "Configuration"
                 iconName: "configure"
-                enabled: stack.currentItem.objectName !== "settingsView"
+                enabled: stack.currentItem ? stack.currentItem.objectName !== "settingsView" : true
                 onClicked: stack.push({item: Qt.resolvedUrl("Settings.qml")})
-//                Layout.alignment: Qt.AlignRight
             }
         }
     }

@@ -29,7 +29,7 @@ ScrollView {
     width: parent.width
     height: parent.height
 
-    property string pageTitle: ""
+    property string pageTitle: "Geltan Test"
 
     Flickable {
         anchors.fill: parent
@@ -41,7 +41,7 @@ ScrollView {
 
             Button {
                 text: "Request Token"
-                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
                 Layout.topMargin: 10
                 enabled: config.payPalClientID !== "" && config.payPalSecret
                 onClicked: stack.push(Qt.resolvedUrl("PP/AuthenticationTest.qml"))
@@ -57,7 +57,7 @@ ScrollView {
 
             Button {
                 text: "Show PayPal Payment"
-                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
                 Layout.topMargin: 10
                 enabled: config.payPalTokenValid
                 onClicked: stack.push(Qt.resolvedUrl("PP/Payments/Show.qml"))
@@ -65,7 +65,7 @@ ScrollView {
 
             Button {
                 text: "List PayPal Payments"
-                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
                 Layout.topMargin: 10
                 enabled: config.payPalTokenValid
                 onClicked: stack.push(Qt.resolvedUrl("PP/Payments/List.qml"))
